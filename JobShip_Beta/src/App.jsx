@@ -10,8 +10,19 @@ function App() {
         <img src = {JobShip_Logo}/>
       </header>
       <main>
-        
+        <div className='Signup_Step_Wrapper'>
+          <div>hello world</div>
+        </div>
+        <div className='Profile_Input_Wrapper'>
+          <div>hello world</div>
+        </div>
+        <div className='Button_Nextstep_Wrapper'>
+          <button className='Button_Nextstep'>次へ</button>
+        </div>
       </main>
+      <footer>
+        © 2023 Hakuchumu, Inc. 
+      </footer>
     </div>
   )
 }
