@@ -1,17 +1,17 @@
 import './App.css'
 import { useState } from 'react';
-import Todolist from './Todolist'
 
 function App() {
-  const [todos, setTodos] = useState(["Todo1", "Todo2"]);
+  const JobShip_Logo = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png"
 
   return (
     <div className="App">
-      <Todolist todos = {todos}/>
-      <input type={"text"}/>
-      <button>add task</button>
-      <button>delete task</button>
-      <div>0 tasks is here</div>
+      <header>
+        <img src = {JobShip_Logo}/>
+      </header>
+      <main>
+        
+      </main>
     </div>
   )
 }

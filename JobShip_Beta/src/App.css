@@ -1,0 +1,10 @@
+header{
+    
+    height: 94px;
+    text-align: center;
+    border-bottom: 1px solid;
+    border-image-slice:49%;
+    border-image-source: radial-gradient(#c0c0c0,#FFF);
+    border-image-width:0 0 5px;
+   
+}
