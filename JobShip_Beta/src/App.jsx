@@ -1,14 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
-import setProfile from './setProfile';
+import { useState } from 'react';
+import Todolist from './Todolist'
 
 function App() {
+  const [todos, setTodos] = useState(["Todo1", "Todo2"]);
 
   return (
     <div className="App">
-      aaa   
-      <setProfile />
+      <Todolist todos = {todos}/>
+      <input type={"text"}/>
+      <button>add task</button>
+      <button>delete task</button>
+      <div>0 tasks is here</div>
     </div>
   )
 }
