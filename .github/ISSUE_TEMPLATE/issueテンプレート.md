@@ -16,14 +16,16 @@ assignees: samachi-hcm
 # 開始日
 # 期日
 # 期間
-# 関連issue
+# 親issue
+# 子issue
 
 
 <!-- 要望のテンプレート -->
 # 概要
 # 目的
 # 提案内容
-# 関連issue
+# 親issue
+# 子issue
 
 
 <!-- 不具合のテンプレート -->
@@ -32,4 +34,5 @@ assignees: samachi-hcm
 # 修正しないとどう困るか
 # 原因
 # 修正案
-# 関連issue
+# 親issue
+# 子issue
