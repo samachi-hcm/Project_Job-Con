@@ -2,7 +2,9 @@ import React from 'react'
 
 const SuggestButton = () => {
   return (
-    <div>SuggestButton</div>
+    <div className='SuggestButton'>
+      SuggestButton
+    </div>
   )
 }
 

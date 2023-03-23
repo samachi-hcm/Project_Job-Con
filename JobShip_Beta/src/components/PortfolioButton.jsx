@@ -2,7 +2,9 @@ import React from 'react'
 
 const PortfolioButton = () => {
   return (
-    <div>PortfolioButton</div>
+    <div className='PortfolioButton'>
+      PortfolioButton
+    </div>
   )
 }
 
