@@ -1,14 +1,14 @@
-.HomePage{
+.HomePage {
     background-color: #f9f9f9;
     position: relative;
 }
 
-.Header1{
-    color: red;
+.Header1 {
     font-size: large;
+    background-color: white;
 }
 
-.MainWrapper{
+.MainWrapper {
     margin-top: 65px;
     margin-bottom: 100px;
     margin-left: auto;
@@ -17,13 +17,13 @@
     max-width: 960px;
 }
 
-.News{
+.News {
     color: black;
     margin: auto;
-    width: 100%;
+    
 }
 
-.P_SWrapper{
+.P_SWrapper {
     margin-top: 55px;
     max-width: 960px;
     height: 200px;
@@ -31,41 +31,37 @@
 }
 
 
-.PortfolioButton{
+.PortfolioButton {
     position: absolute;
     left: 0;
     display: inline-block;
     width: 45%;
+    background-color: white;
 }
 
-.SuggestButton{
+.SuggestButton {
     position: absolute;
     right: 0;
     display: inline-block;
     width: 45%;
+    background-color: white;
 }
 
-.Contest{
-    
-    Padding-bottom: 100px;
+.Contest {
+    margin-top: 90px;
+    margin-bottom: 100px;
+    background-color: white;
+    text-align: left;
 }
 
-.FooterWrapper{
-   
-    position: absolute;
+.FooterWrapper {
+    margin-top: 90px;
     width: 100%;
     bottom: 0;
 }
 
-.Footer{
+.Footer {
     color: black;
     text-align: center;
     
 }
-
-
-
-
-
-
-

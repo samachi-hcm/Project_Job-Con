@@ -9,13 +9,15 @@
     background-color: white;
 }
 
-.Title{
+.SuggestButton .Title{
     font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
     font-weight: bold;
     padding-top: 34px;
     padding-bottom: 0px;
+    opacity: 20%;
 }
 
-p{
+.SuggestButton p{
     font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    opacity: 20%;
 }

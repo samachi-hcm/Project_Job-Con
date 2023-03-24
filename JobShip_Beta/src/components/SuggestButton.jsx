@@ -14,7 +14,7 @@ const SuggestButton = () => {
         提案を受け取る
       </div>
       <img src={Suggest_Logo.imgAddess}></img>
-      <p>情報を入力して周囲の人に共有</p>
+      <p>あなただけの提案を受け取る</p>
     </div>
   )
 }
