@@ -1,0 +1,31 @@
+.Contest{
+    -webkit-box-shadow: 0 0 4px #c7c7c7;
+	box-shadow: 0 0 4px #c7c7c7;
+	border: 1px solid #c7c7c7;
+    
+}
+
+.Contest *{
+    background-color: white;
+}
+
+.Title{
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    font-weight: bold;
+    padding-top: 25px;
+    padding-bottom: 0px;
+}
+
+.Contents{
+    padding: 20px 50px;
+}
+
+li{
+    list-style: none;
+}
+
+li p{
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    text-align: left;
+    border-bottom: 1px solid #c7c7c7;
+}

@@ -1,35 +1,11 @@
-*{
+.HomePage{
     background-color: #f9f9f9;
+    position: relative;
 }
 
 .Header1{
     color: red;
     font-size: large;
-}
-
-.News{
-    color: black;
-    margin: auto;
-}
-
-.PortfolioButton{
-    color: green;
-    display: inline-block;
-}
-
-.SuggestButton{
-    color: aqua;
-    display: inline-block;
-}
-
-.Contest{
-    color: yellow;
-}
-
-.Footer{
-    color: black;
-    text-align: center;
-    
 }
 
 .MainWrapper{
@@ -40,6 +16,55 @@
     text-align: center;
     max-width: 960px;
 }
+
+.News{
+    color: black;
+    margin: auto;
+    width: 100%;
+}
+
+.P_SWrapper{
+    margin-top: 55px;
+    max-width: 960px;
+    height: 200px;
+    position: relative;
+}
+
+
+.PortfolioButton{
+    position: absolute;
+    left: 0;
+    display: inline-block;
+    width: 45%;
+}
+
+.SuggestButton{
+    position: absolute;
+    right: 0;
+    display: inline-block;
+    width: 45%;
+}
+
+.Contest{
+    
+    Padding-bottom: 100px;
+}
+
+.FooterWrapper{
+   
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+.Footer{
+    color: black;
+    text-align: center;
+    
+}
+
+
+
 
 
 

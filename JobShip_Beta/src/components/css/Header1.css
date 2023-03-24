@@ -1,5 +1,6 @@
 .Header1{
 
+    position: relative;
     width: 100%;
     height: 94px;
     text-align: center;
@@ -10,3 +11,8 @@
     border-image-width:0 0 3px;
    
 }
+
+.Header1 *{
+    background-color: white;
+}
+

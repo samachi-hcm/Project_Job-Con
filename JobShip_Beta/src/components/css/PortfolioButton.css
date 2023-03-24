@@ -1,0 +1,21 @@
+.PortfolioButton{
+    -webkit-box-shadow: 0 0 4px #c7c7c7;
+	box-shadow: 0 0 4px #c7c7c7;
+	border: 1px solid #c7c7c7;
+    height: 200px;
+}
+
+.PortfolioButton *{
+    background-color: white;
+}
+
+.Title{
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    font-weight: bold;
+    padding-top: 34px;
+    padding-bottom: 0px;
+}
+
+p{
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+}

@@ -16,7 +16,7 @@ import './css/HomePage.css'
 
 const HomePage = () => {
   return (
-    <>
+    <div className='HomePage'>
 
       <div className='HeaderWrapper'>
         <Header1 />
@@ -35,7 +35,7 @@ const HomePage = () => {
         <Footer />
       </div>
       
-    </>
+    </div>
 
 
   )
