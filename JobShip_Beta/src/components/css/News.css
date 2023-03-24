@@ -9,15 +9,20 @@
     background-color: white;
 }
 
-.Title{
+.News .Title{
     font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    font-size: 20px;
     font-weight: bold;
     padding-top: 25px;
     padding-bottom: 0px;
 }
 
-.Contents{
-    padding: 20px 50px;
+.News .Contents{
+    padding: 20px 50px 35px 50px; 
+}
+
+.News .Contents li{
+    list-style: none;
 }
 
 .News .Contents li p{

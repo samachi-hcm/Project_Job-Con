@@ -14,7 +14,8 @@ const SuggestButton = () => {
         提案を受け取る
       </div>
       <img src={Suggest_Logo.imgAddess}></img>
-      <p>あなただけの提案を受け取る</p>
+      <p className='SuggestButtonMessage'>あなただけの提案を受け取る</p>
+      <p className='ComingSoonMessage'>※Comming Soon... 現在はDMでおすすめのコンテストをお送りしています。</p>
     </div>
   )
 }

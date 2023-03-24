@@ -14,6 +14,7 @@ const Contest = () => {
         <ContestContents/>
         <ContestContents/>
         <ContestContents/>
+        <p className='ContestReqruitment'>ジョブコンでコンテストを主催をしたい方はこちら</p>
       </div>
     </div>
   )

@@ -12,7 +12,7 @@
 
 .Contest .Title{
     font-weight: bold;
-    padding-top: 25px;
+    padding-top: 30px;
     padding-bottom: 0px;
     font-size: 20px;
     text-align: center;
@@ -20,11 +20,18 @@
 
 
 .Contest .Contents{
-    padding: 30px 35px 16px 35px;
+    padding: 30px 35px 48px 35px;
 }
 
-li{
+.Contest li{
     list-style: none;
+}
+
+.ContestReqruitment{
+    color: #1592E6;
+    font-size: 12px;
+    text-align: right;
+    margin-top: -14px;
 }
 
 

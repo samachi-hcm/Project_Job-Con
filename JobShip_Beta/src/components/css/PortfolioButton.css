@@ -9,13 +9,23 @@
     background-color: white;
 }
 
-.Title{
+.PortfolioButton .Title{
     font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    font-size: 20px;
     font-weight: bold;
     padding-top: 34px;
-    padding-bottom: 0px;
+    padding-bottom: 15px;
+    line-height: 26px;
 }
 
-p{
+.PortfolioButton img{
+    vertical-align: top;
+}
+
+.PortfolioButton p{
     font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    font-size: 12px;
+    padding-top: 0;
+    margin-top: 15px;
+    line-height: 16px;
 }
