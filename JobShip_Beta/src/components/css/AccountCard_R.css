@@ -1,0 +1,45 @@
+.AccountCard_R{
+    -webkit-box-shadow: 0 0 4px #c7c7c7;
+	box-shadow: 0 0 4px #c7c7c7;
+	border: 1px solid #c7c7c7;
+    height: 716px;
+    background-color: #000000;
+    color: white;
+}
+
+.AccountCard_R .Title{
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 34px;
+    padding-bottom: 15px;
+    line-height: 26px;
+}
+
+.AccountCard_R p{
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    font-size: 12px;
+    padding-top: 0;
+    margin-top: 15px;
+    line-height: 16px;
+}
+
+.AccountCard_R .ContentsWrapper{
+    margin-left: auto;
+    margin-right: auto;
+    width: 65%;
+    padding-top: 259px;
+}
+
+.AccountCard_R .ContentsWrapper .ContentsTitle p{
+    text-align: left;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.AccountCard_R .ContentsWrapper .ContentsDescription p{
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
+    overflow-wrap: break-word;
+}

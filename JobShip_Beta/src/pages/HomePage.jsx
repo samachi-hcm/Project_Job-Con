@@ -1,5 +1,4 @@
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
 
 //components
 import Header1 from '../components/Header1'
@@ -11,6 +10,7 @@ import Footer from '../components/Footer'
 
 //linked pages
 import NewCarrerPage from './NewCareerPage'
+import NewProfilePage from './NewProfilePage'
 
 //styles
 import './css/HomePage.css'
@@ -26,7 +26,10 @@ const HomePage = () => {
       <div className='MainWrapper'>
         <News />
         <div className='P_SWrapper'>
-          <PortfolioButton />
+          <a href='/NewProfilePage'>
+            <PortfolioButton />
+          </a>
+          
           <SuggestButton />
         </div>
         <Contest />

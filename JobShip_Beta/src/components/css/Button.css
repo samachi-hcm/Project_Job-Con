@@ -1,0 +1,23 @@
+.ButtonBlack {
+  color: #fff;
+  background-color: black;
+  text-decoration: none;
+  display: inline-block;
+  width: 354px;
+  height: 59px;
+}
+
+.ButtonBlack:hover {
+  color: #fff;
+  background: #1d1d1d;
+  text-decoration: none;
+  display: inline-block;
+  width: 354px;
+  height: 59px;
+}
+
+.ButtonBlack .ButtonDescription{
+    padding: auto;
+    font-size: 14px;
+}
+

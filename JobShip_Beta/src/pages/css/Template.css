@@ -1,0 +1,35 @@
+.Template {
+    background-color: #f9f9f9;
+    position: relative;
+    margin: 0;
+}
+
+.Template a{
+    color:inherit
+}
+
+.Template .Header1 {
+    font-size: large;
+    background-color: white;
+}
+
+.Template .MainWrapper {
+    margin-top: 65px;
+    margin-bottom: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    max-width: 960px;
+}
+
+.Template .FooterWrapper {
+    margin-top: 90px;
+    width: 100%;
+    bottom: 0;
+}
+
+.Template .Footer {
+    color: black;
+    text-align: center;
+
+}

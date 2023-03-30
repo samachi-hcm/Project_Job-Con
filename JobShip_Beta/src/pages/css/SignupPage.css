@@ -1,19 +1,15 @@
-.HomePage {
+.SignUpPage {
     background-color: #f9f9f9;
     position: relative;
     margin: 0;
 }
 
-.HomePage a{
-    color:inherit
-}
-
-.HomePage .Header1 {
+.SignUpPage .Header1 {
     font-size: large;
     background-color: white;
 }
 
-.HomePage .MainWrapper {
+.SignUpPage .MainWrapper {
     margin-top: 65px;
     margin-bottom: 100px;
     margin-left: auto;
@@ -22,50 +18,35 @@
     max-width: 960px;
 }
 
-.HomePage .News {
-    color: black;
-    margin: auto;
-    
-}
-
-.HomePage .P_SWrapper {
+.SignUpPage .AccountCardWrapper {
     margin-top: 54px;
     max-width: 960px;
-    height: 200px;
+    height: 716px;
     position: relative;
 }
 
-
-.HomePage .PortfolioButton {
+.SignUpPage .AccountCard_L {
     position: absolute;
     left: 0;
     display: inline-block;
-    width: 46%;
+    width: 50%;
     background-color: white;
 }
 
-.HomePage .SuggestButton {
+.SignUpPage .AccountCard_R {
     position: absolute;
     right: 0;
     display: inline-block;
-    width: 46%;
-    background-color: white;
+    width: 50%;
 }
 
-.HomePage .Contest {
-    margin-top: 90px;
-    margin-bottom: 100px;
-    background-color: white;
-    text-align: left;
-}
-
-.HomePage .FooterWrapper {
+.SignUpPage .FooterWrapper {
     margin-top: 90px;
     width: 100%;
     bottom: 0;
 }
 
-.HomePage .Footer {
+.SignUpPage .Footer {
     color: black;
     text-align: center;
 

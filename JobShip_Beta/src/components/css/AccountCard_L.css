@@ -1,0 +1,23 @@
+.AccountCard_L{
+    -webkit-box-shadow: 0 0 4px #c7c7c7;
+	box-shadow: 0 0 4px #c7c7c7;
+	border: 1px solid #c7c7c7;
+    height: 716px;
+}
+
+.AccountCard_L .Title{
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 34px;
+    padding-bottom: 15px;
+    line-height: 26px;
+}
+
+.AccountCard_L p{
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    font-size: 12px;
+    padding-top: 0;
+    margin-top: 15px;
+    line-height: 16px;
+}
