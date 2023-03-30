@@ -1,4 +1,5 @@
 import React from 'react'
+import { Routes, Route } from 'react-router-dom'
 
 //components
 import Header1 from '../components/Header1'
@@ -17,7 +18,7 @@ import './css/HomePage.css'
 const HomePage = () => {
   return (
     <div className='HomePage'>
-
+      
       <div className='HeaderWrapper'>
         <Header1 />
       </div>
