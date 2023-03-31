@@ -16,6 +16,7 @@
     margin-right: auto;
     text-align: center;
     max-width: 960px;
+    height: 100%;
 }
 
 .SignUpPage .AccountCardWrapper {
@@ -41,13 +42,13 @@
 }
 
 .SignUpPage .FooterWrapper {
-    margin-top: 90px;
+    margin-top: auto;
     width: 100%;
     bottom: 0;
+    
 }
 
 .SignUpPage .Footer {
     color: black;
     text-align: center;
-
 }

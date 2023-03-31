@@ -24,7 +24,7 @@ const AccountCard_L = () => {
         <div className='Attention'>
           <p>アカウントに登録することにより<a href='#'>利用規約</a>及び<a href='#'>プライバシーポリシー</a>に同意したとみなします。</p>
         </div>
-        <Button buttonRabel="SIGN UP"/>
+        <Button buttonRabel="SIGN UP" buttonAddress={"/NewProfilePage"}/>
         <div className='ToSignin'>
           <a href='#'>新規アカウント作成がお済みの方はこちら</a>
         </div>
