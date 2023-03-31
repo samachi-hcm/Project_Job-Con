@@ -5,19 +5,52 @@
     height: 716px;
 }
 
-.AccountCard_L .Title{
-    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
-    font-size: 20px;
-    font-weight: bold;
-    padding-top: 34px;
-    padding-bottom: 15px;
-    line-height: 26px;
+.AccountCard_L .ContentsWrapper{
+    position: relative;
+    max-width: 73%;
+    margin-top: 108px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.AccountCard_L p{
+.AccountCard_L .ContentsTitle p{
     font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
-    font-size: 12px;
-    padding-top: 0;
-    margin-top: 15px;
-    line-height: 16px;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 37px;
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.AccountCard_L .AccountPageInput{
+    padding-top: 53px;
+}
+
+.AccountCard_L .Attention {
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    font-size: 9px;
+    text-align: left;
+    line-height: 11px;
+    margin-top: 13px;
+}
+
+.AccountCard_L .Attention a{
+    text-decoration: none;
+    color: blue;
+}
+
+.AccountCard_L .Button{
+    padding-top: 58px;
+    width: 100%;
+}
+
+.AccountCard_L .ToSignin a{
+    margin-top: 47px;
+    display: block;
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    font-size: 9px;
+    text-align: left;
+    text-decoration: none;
+    color: blue;
 }

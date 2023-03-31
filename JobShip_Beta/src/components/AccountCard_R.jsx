@@ -6,8 +6,7 @@ const AccountCard_R = () => {
     <div className='AccountCard_R'>
       <div className='ContentsWrapper'>
         <div className='ContentsTitle'>
-          <p>全く新しい</p>
-          <p>ポートフォリオサイト</p>
+          <p>全く新しい<br/>ポートフォリオサイト</p>
         </div>
         <div className='ContentsDescription'>
           <p>ビジネススキル専用のポートフォリオサイトで、周囲の人に簡単に共有、相談、話題の種に。コンペティションの紹介もされるから、どんどんポートフォリオを増やすことができる。</p>

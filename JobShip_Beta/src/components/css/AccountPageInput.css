@@ -1,0 +1,18 @@
+.AccountPageInput .textbox{
+    vertical-align: top;
+    border: none;
+    border-bottom: solid 1px #9D9D9D;
+    width: 100%;
+    padding-bottom: 15px;
+}
+
+.AccountPageInput .textbox:focus{
+    outline: none;
+    border-bottom: solid 1px black;
+    width: 100%;
+}
+
+.AccountPageInput .textbox::placeholder{
+    font-size: 11px;
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;    ;
+}

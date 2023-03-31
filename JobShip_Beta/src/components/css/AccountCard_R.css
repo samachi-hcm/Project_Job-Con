@@ -35,6 +35,7 @@
     text-align: left;
     font-size: 26px;
     font-weight: bold;
+    line-height: 40px;
 }
 
 .AccountCard_R .ContentsWrapper .ContentsDescription p{
@@ -42,4 +43,5 @@
     font-size: 14px;
     font-weight: bold;
     overflow-wrap: break-word;
+    line-height: 25px;
 }

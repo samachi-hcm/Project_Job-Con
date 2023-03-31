@@ -1,8 +1,12 @@
 import React from 'react'
 
-const AccountPageInput = () => {
+import './css/AccountPageInput.css'
+
+const AccountPageInput = ({type,placeHolder}) => {
   return (
-    <div>AccountPageInput</div>
+    <div className='AccountPageInput'>
+      <input type={type} className='textbox' placeholder={placeHolder}></input>
+    </div>
   )
 }
 
