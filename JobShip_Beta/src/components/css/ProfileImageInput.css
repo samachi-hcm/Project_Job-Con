@@ -1,0 +1,19 @@
+.ProfileImageInput a{
+    text-decoration: none;
+    display: inline-block;
+    -webkit-box-shadow: 0 0 4px #c7c7c7;
+	box-shadow: 0 0 4px #c7c7c7;
+	border: 1px solid #c7c7c7;
+    background-color: white;
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    font-size: 12px;
+    width: 117px;
+    height: 156px;
+    text-align: center;
+}
+
+.ProfileImageInput a p{
+    margin-top: 50%;
+    margin-bottom: auto;
+    opacity: 20%;
+}

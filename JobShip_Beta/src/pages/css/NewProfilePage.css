@@ -13,13 +13,34 @@
     background-color: white;
 }
 
+.NewProfilePage .Header2Wrapper{
+    width: 100%;
+}
+
+.NewProfilePage .Header2Wrapper .Header2{
+    width: 478px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .NewProfilePage .MainWrapper {
     margin-top: 65px;
     margin-bottom: 100px;
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
     max-width: 960px;
+}
+
+.NewProfilePage .ImageUploadWrapper{
+    display: inline-block;
+}
+
+.NewProfilePage .ProfileInputWrapper{
+    display: inline-block;
+}
+
+.NewProfilePage .AccountInputWrapper{
+    display: inline-block;
 }
 
 .NewProfilePage .FooterWrapper {

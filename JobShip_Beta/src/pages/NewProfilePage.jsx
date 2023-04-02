@@ -2,7 +2,10 @@ import React from 'react'
 
 //components
 import Header1 from '../components/Header1'
+import Header2 from '../components/Header2'
 import Footer from '../components/Footer'
+import ProfileInput from '../components/ProfileInput'
+import Button from '../components/Button'
 
 //linked page
 
@@ -15,8 +18,11 @@ const NewProfilePage = () => {
       <div className='HeaderWrapper'>
         <Header1 />
       </div>
-
+      <div className='Header2Wrapper'>
+        <Header2 />
+      </div>
       <div className='MainWrapper'>
+        <ProfileInput />
       </div>
 
       <div className='FooterWrapper'>

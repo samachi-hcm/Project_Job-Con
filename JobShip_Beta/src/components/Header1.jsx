@@ -2,7 +2,7 @@ import React from 'react'
 import './css/Header1.css'
 
 const JobShips_Logo = {
-  imgAddess: "../../public/JobShips_Logo.png",
+  imgAddess: "../../public/JobShips_Logo.svg",
   pageAddress:"#"
 }
 

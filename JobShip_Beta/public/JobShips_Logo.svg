@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_レイヤー_1" data-name="レイヤー 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1035.07 246.82">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 209.52px;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5 {
+        font-family: DNPShueiAntiStd-B-90ms-RKSJ-H, 'DNP ShueiAntiStd';
+      }
+
+      .cls-2 {
+        font-size: 138.34px;
+      }
+
+      .cls-3, .cls-4 {
+        font-size: 253.01px;
+      }
+
+      .cls-4 {
+        fill: lime;
+      }
+
+      .cls-5 {
+        fill: aqua;
+        font-size: 209.27px;
+      }
+
+      .cls-6 {
+        fill: #ed1e79;
+      }
+    </style>
+  </defs>
+  <text class="cls-2" transform="translate(345.8 182.44) scale(1.17 1)"><tspan x="0" y="0">JOBSHIP</tspan></text>
+  <text class="cls-4" transform="translate(75.4 121.82) rotate(90) scale(.93 1)"><tspan x="0" y="0">J</tspan></text>
+  <text class="cls-5" transform="translate(138.52 184.16) scale(.97 1)"><tspan x="0" y="0">P</tspan></text>
+  <text class="cls-3" transform="translate(94.49 121.85) rotate(90) scale(.93 1)"><tspan x="0" y="0">J</tspan></text>
+  <circle class="cls-6" cx="225.13" cy="75.61" r="45"/>
+  <text class="cls-1" transform="translate(157.52 184.38) scale(.97 1)"><tspan x="0" y="0">P</tspan></text>
+</svg>

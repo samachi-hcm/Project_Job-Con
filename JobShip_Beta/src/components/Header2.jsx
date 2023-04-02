@@ -1,8 +1,10 @@
 import React from 'react'
 
+import './css/Header2.css'
+
 const Header2 = () => {
   return (
-    <div>Header2</div>
+    <div className='Header2'>Header2</div>
   )
 }
 
