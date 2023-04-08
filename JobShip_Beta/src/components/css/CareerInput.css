@@ -1,0 +1,46 @@
+.CareerInput{
+    position: relative;
+    max-width: 960px;
+}
+
+.CareerInput .InputWrapper{
+    width: 100%;
+    height: 130px;
+    display: inline-block;
+    -webkit-box-shadow: 0 0 4px #c7c7c7;
+	box-shadow: 0 0 4px #c7c7c7;
+	border: 1px solid #c7c7c7;
+    background-color: white;
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    font-size: 12px;
+}
+
+.CareerInput .EraInput{
+    width: 104px;
+    height: 40px;
+    margin-left: 40px;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+.CareerInput p{
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 11px;
+    transform: translateY(50%)
+}
+
+.CareerInput .MonthInput{
+    width: 72px;
+    height: 40px;
+    margin-left: 40px;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+.CareerInput .DescriptionInput{
+    margin-left: 40px;
+    margin-top: 10px;
+    width: 92%;
+}

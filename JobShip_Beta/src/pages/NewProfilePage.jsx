@@ -5,8 +5,6 @@ import Header1 from '../components/Header1'
 import Header2 from '../components/Header2'
 import Footer from '../components/Footer'
 import ProfileInput from '../components/ProfileInput'
-import Button from '../components/Button'
-
 //linked page
 
 //styles

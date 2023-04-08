@@ -85,7 +85,7 @@ const ProfileInput = () => {
         </div>
       </div>
 
-      <Button buttonRabel="次へ" buttonAddress="#" />
+      <Button buttonRabel="次へ" buttonAddress="/NewCareerPage" />
     </div>
   )
 }
