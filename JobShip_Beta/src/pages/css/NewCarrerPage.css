@@ -1,19 +1,19 @@
-.NewCarrerPage {
+.NewCareerPage {
     background-color: #f9f9f9;
     position: relative;
     margin: 0;
 }
 
-.NewCarrerPage a{
+.NewCareerPage a{
     color:inherit
 }
 
-.NewCarrerPage .Header1 {
+.NewCareerPage .Header1 {
     font-size: large;
     background-color: white;
 }
 
-.NewCarrerPage .Header2Wrapper{
+.NewCareerPage .Header2Wrapper{
     margin-top: 50px;
     width: 100%;
     padding-left: auto;
@@ -21,14 +21,14 @@
     text-align: center;
 }
 
-.NewCarrerPage .Header2Wrapper .Header2{
+.NewCareerPage .Header2Wrapper .Header2{
     width: 25%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
 
-.NewCarrerPage .MainWrapper {
+.NewCareerPage .MainWrapper {
     margin-top: 65px;
     margin-bottom: 100px;
     margin-left: auto;
@@ -36,7 +36,7 @@
     max-width: 960px;
 }
 
-.NewCarrerPage .Button{
+.NewCareerPage .Button{
     margin-top: 54px;
     text-align: center;
     color: white;
@@ -45,14 +45,23 @@
     
 }
 
-.NewCarrerPage .FooterWrapper {
+.NewCareerPage .FooterWrapper {
     margin-top: 90px;
     width: 100%;
     bottom: 0;
 }
 
-.NewCarrerPage .Footer {
+.NewCareerPage .Footer {
     color: black;
     text-align: center;
 
+}
+
+.NewCareerPage .AddButton{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.NewCareerPage .CareerInput{
+    margin-bottom: 15px;
 }

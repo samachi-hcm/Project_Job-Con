@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Button from './Button'
 
-const AddButton = () => {
+import './css/AddButton.css'
+
+
+
+const AddButton = ({onClick}) => {
+  
   return (
-    <div>AddButton</div>
+    <div className='AddButton'>
+      <button className="ButtonAdd" onClick={onClick}>
+        <p className='ButtonDescription'>+</p>
+      </button>
+    </div>
   )
 }
 

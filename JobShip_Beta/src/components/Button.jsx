@@ -2,12 +2,12 @@ import React from 'react'
 
 import './css/Button.css'
 
-const Button = ({buttonRabel,buttonAddress}) => {
+const Button = ({buttonRabel,onClick}) => {
   return (
     <div className='Button'>
-      <a href={buttonAddress} class="ButtonBlack">
+      <button type='submit' className="ButtonBlack" onClick={onClick}>
         <p className='ButtonDescription'>{buttonRabel}</p>
-      </a>
+      </button>
     </div>
   )
 }
