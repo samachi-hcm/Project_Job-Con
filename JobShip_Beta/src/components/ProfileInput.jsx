@@ -27,52 +27,41 @@ const ProfileInput = () => {
           </div>
           <div className='CheckboxWrapper'>
             <div className='Checkboxes'>
-              <ProfileCheckboxInput />
-              <p>営業</p>
+              <ProfileCheckboxInput label="営業"/>
             </div>
             <div className='Checkboxes'>
-              <ProfileCheckboxInput />
-              <p>企画</p>
+              <ProfileCheckboxInput label = "企画" />
             </div>
             <div className='Checkboxes'>
-              <ProfileCheckboxInput />
-              <p>人事</p>
+              <ProfileCheckboxInput label = "人事" />
             </div>
             <div className='Checkboxes'>
-              <ProfileCheckboxInput />
-              <p>広報</p>
+              <ProfileCheckboxInput label = "広報" />
             </div>
             <div className='Checkboxes'>
-              <ProfileCheckboxInput />
-              <p>コンサル</p>
+              <ProfileCheckboxInput label = "コンサル" />
             </div>
             <div className='Checkboxes'>
-              <ProfileCheckboxInput />
-              <p>財務</p>
+              <ProfileCheckboxInput label = "財務" />
             </div>
             <div className='Checkboxes'>
-              <ProfileCheckboxInput />
-              <p>法務</p>
+              <ProfileCheckboxInput label = "法務" />
             </div>
             <div className='Checkboxes'>
-              <ProfileCheckboxInput />
-              <p>エンジニア</p>
+              <ProfileCheckboxInput label = "エンジニア" />
             </div>
             <div className='Checkboxes'>
-              <ProfileCheckboxInput />
-              <p>デザイナー</p>
+              <ProfileCheckboxInput label = "デザイナー" />
             </div>
             <div className='Checkboxes'>
-              <ProfileCheckboxInput />
-              <p>タレント</p>
+              <ProfileCheckboxInput label = "タレント" />
             </div>
             <div className='Checkboxes'>
-              <ProfileCheckboxInput />
-              <p>クリエイター</p>
+              <ProfileCheckboxInput label = "クリエイター" />
+
             </div>
             <div className='Checkboxes'>
-              <ProfileCheckboxInput />
-              <p>その他</p>
+              <ProfileCheckboxInput label = "その他" />
             </div>
 
           </div>

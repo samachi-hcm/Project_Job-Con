@@ -2,10 +2,14 @@ import React from 'react'
 
 import './css/ProfileCheckboxInput.css'
 
-const ProfileCheckboxInput = ({type,placeHolder}) => {
+const ProfileCheckboxInput = ({label}) => {
   return (
     <div className='ProfileCheckboxInput'>
-      <input type="checkbox" className='checkbox' placeholder={placeHolder}></input>
+      <label>
+        <input type="checkbox" className='checkbox' id={label}></input>
+        <p>{label}</p>
+      </label>
+
     </div>
   )
 }

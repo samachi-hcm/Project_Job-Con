@@ -16,11 +16,26 @@ import './css/NewCarrerPage.css'
 
 const NewCareerPage = () => {
 
-  const [addCareerInput, setaddCareerInput] = useState([<CareerInput />, <CareerInput />])
+  const [handleId, sethandleId] = useState(0)
+  const addId = () => {
+    sethandleId(handleId+1)
+  }
 
-  const handleAddCareerInput = () => {
-    setaddCareerInput((prevs) => {
-      return [...prevs, (<CareerInput />)]
+  const [careerInputs, setCareerInputs] = useState([
+    {id:handleId,value:<CareerInput id={handleId}/>},
+    //オブジェクトではなく配列にすると動作する
+])
+
+  const addCareerInputs = () => {
+    addId()
+    setCareerInputs((prevs) => {
+      return [...prevs, {id:handleId,value:(<CareerInput id={handleId}/>)}]
+    })
+  }
+
+  const deleteCaeeerInputs = () => {
+    setCareerInputs((prevs) => {
+      return [...prevs,]
     })
   }
 
@@ -33,8 +48,9 @@ const NewCareerPage = () => {
         <Header2 />
       </div>
       <div className='MainWrapper'>
-        {addCareerInput}
-        <AddButton buttonRabel="次へ" onClick={handleAddCareerInput}/>
+        {careerInputs.value}
+        <AddButton onClick={addCareerInputs}/>
+        <Button buttonRabel="次へ" />
       </div>
 
       <div className='FooterWrapper'>

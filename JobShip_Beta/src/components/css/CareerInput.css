@@ -6,6 +6,7 @@
 .CareerInput .InputWrapper{
     width: 100%;
     height: 130px;
+    position: relative;
     display: inline-block;
     -webkit-box-shadow: 0 0 4px #c7c7c7;
 	box-shadow: 0 0 4px #c7c7c7;
@@ -43,4 +44,16 @@
     margin-left: 40px;
     margin-top: 10px;
     width: 92%;
+}
+
+.CareerInput .DeleteButton{
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.CareerInput .test{
+    display: inline-block;
 }

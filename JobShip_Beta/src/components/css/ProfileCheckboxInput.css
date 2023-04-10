@@ -1,9 +1,14 @@
 
 
-.checkbox{
+.ProfileCheckboxInput .checkbox{
     outline: none;
     border: solid 1px #c7c7c7;
     -webkit-box-shadow: 0 0 4px #c7c7c7;
 	box-shadow: 0 0 4px #c7c7c7;
 }
+
+.ProfileCheckboxInput p{
+    font-size: 14px;
+}
+
 
