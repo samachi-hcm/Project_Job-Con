@@ -17,25 +17,43 @@ import './css/NewCarrerPage.css'
 const NewCareerPage = () => {
 
   const [handleId, sethandleId] = useState(0)
+
   const addId = () => {
     sethandleId(handleId+1)
   }
 
-  const [careerInputs, setCareerInputs] = useState([
-    {id:handleId,value:<CareerInput id={handleId}/>},
-    //オブジェクトではなく配列にすると動作する
-])
+
+  {/*
+    1 変数careerInputをオブジェクトにして、.bodyにコンポーネント、.flagにdeleteFlagを代入する
+    2 ステートcareerInputsにcareerInputを配列として格納
+    3 .flagがtrueであるとき、そのcareerInputをfilterで取り除く
+    4 careerInputsにmapをかけ、careerInputを取り出して.bodyを表示
+  */}
+
+  const deleteCareerInput = () => {
+    careerInput.flag = true
+    let newCareerInputs = careerInputs
+    let receivevalue = []
+    receivevalue =  newCareerInputs.filter(careerInput => careerInput.flag == false)
+    setCareerInputs(receivevalue)
+  }
+
+
+  const careerInput = {
+    body:(<CareerInput 
+      id = {handleId} 
+      onClick = {deleteCareerInput} />),
+    flag:false
+  }
+
+  const [careerInputs, setCareerInputs] = useState([])
+  
+  const display = careerInputs.map((careerInput)=>careerInput.body)
 
   const addCareerInputs = () => {
     addId()
     setCareerInputs((prevs) => {
-      return [...prevs, {id:handleId,value:(<CareerInput id={handleId}/>)}]
-    })
-  }
-
-  const deleteCaeeerInputs = () => {
-    setCareerInputs((prevs) => {
-      return [...prevs,]
+      return [...prevs, careerInput]
     })
   }
 
@@ -48,7 +66,7 @@ const NewCareerPage = () => {
         <Header2 />
       </div>
       <div className='MainWrapper'>
-        {careerInputs.value}
+        {display}
         <AddButton onClick={addCareerInputs}/>
         <Button buttonRabel="次へ" />
       </div>
@@ -56,6 +74,7 @@ const NewCareerPage = () => {
       <div className='FooterWrapper'>
         <Footer />
       </div>
+      {console.log(careerInputs)}
     </div>
   )
 }

@@ -14,21 +14,14 @@ const AccountCard_L = ({
   nextAddress,
   toOtherPage1,
   toOtherPage2 }) => 
-  
   {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm();
-
+ 
   const onSubmit = () => {
     console.log(test)
   }
 
   const [test, setTest] = useState([])
   
-
   return (
     <div className='AccountCard_L'>
       <div className='ContentsWrapper'>
