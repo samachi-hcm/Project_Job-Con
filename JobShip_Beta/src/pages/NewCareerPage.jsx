@@ -16,17 +16,11 @@ import './css/NewCarrerPage.css'
 
 const NewCareerPage = () => {
 
-  const [handleId, sethandleId] = useState(0)
-
-  const addId = () => {
-    sethandleId(handleId+1)
-  }
-
-
   {/*
     1 変数careerInputをオブジェクトにして、.bodyにコンポーネント、.flagにdeleteFlagを代入する
     2 ステートcareerInputsにcareerInputを配列として格納
     3 .flagがtrueであるとき、そのcareerInputをfilterで取り除く
+     *バグ：削除ボタンを押したとき、該当のCareerInput以降のインデックス番号のCareerInputが一緒に消える
     4 careerInputsにmapをかけ、careerInputを取り出して.bodyを表示
   */}
 
@@ -41,7 +35,6 @@ const NewCareerPage = () => {
 
   const careerInput = {
     body:(<CareerInput 
-      id = {handleId} 
       onClick = {deleteCareerInput} />),
     flag:false
   }
@@ -51,7 +44,6 @@ const NewCareerPage = () => {
   const display = careerInputs.map((careerInput)=>careerInput.body)
 
   const addCareerInputs = () => {
-    addId()
     setCareerInputs((prevs) => {
       return [...prevs, careerInput]
     })
