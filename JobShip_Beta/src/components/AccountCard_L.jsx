@@ -16,8 +16,12 @@ const AccountCard_L = ({
   toOtherPage2 }) => 
   {
  
-  const onSubmit = () => {
-    console.log(test)
+  
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+    console.log(errors);
   }
 
   const [test, setTest] = useState([])
@@ -25,18 +29,19 @@ const AccountCard_L = ({
   return (
     <div className='AccountCard_L'>
       <div className='ContentsWrapper'>
-        <form action={nextAddress} onSubmit={onSubmit}>
+        {/* <form action={nextAddress} onSubmit={onSubmit}>*/}
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className='ContentsTitle'>
             <p>{contentsDescription1}<br />{contentsDescription2}</p>
           </div>
           <div className='MailAddressInput'>
-            <AccountPageInput placeHolder="メールアドレス" test = {test} setTest={setTest}/>
+            <AccountPageInput placeHolder="メールアドレス" action={register("メールアドレス", {required: true})}/>
           </div>
           <div className='NameInput'>
-            <AccountPageInput placeHolder="氏名" test = {test} setTest={setTest}/>
+            <AccountPageInput placeHolder="氏名" action={register("氏名")}/>
           </div>
           <div className='PasswordInput'>
-            <AccountPageInput placeHolder="パスワード" setTest={setTest}/>
+            <AccountPageInput placeHolder="パスワード" action={register("パスワード")}/>
           </div>
 
 

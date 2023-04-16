@@ -7,19 +7,19 @@ import './css/AccountPageInput.css'
 
 
 
-const AccountPageInput = ({ placeHolder, test, setTest }) => {
+const AccountPageInput = ({ placeHolder, action }) => {
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   return (
     <div className='AccountPageInput'>
 
       <input
+        {...action}
         type="text"
         className='textbox'
         placeholder={placeHolder}
         id={placeHolder}
-        onChange={(Event) => setTest(
-          [...test, Event.target.value]
-        )}
       />
     </div>
   )

@@ -25,18 +25,20 @@ const NewCareerPage = () => {
   */}
 
   const deleteCareerInput = () => {
-    careerInput.flag = true
+    careerInputs[index].flag = true
+    console.log(careerInputs)
     let newCareerInputs = careerInputs
     let receivevalue = []
     receivevalue =  newCareerInputs.filter(careerInput => careerInput.flag == false)
     setCareerInputs(receivevalue)
   }
 
+  const [deleteFlag, setDeleteFlag] = useState(false)
 
   const careerInput = {
     body:(<CareerInput 
       onClick = {deleteCareerInput} />),
-    flag:false
+    flag:deleteFlag
   }
 
   const [careerInputs, setCareerInputs] = useState([])
