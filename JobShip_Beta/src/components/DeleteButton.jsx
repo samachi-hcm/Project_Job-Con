@@ -4,7 +4,7 @@ import CareerInput from './CareerInput'
 
 import './css/DeleteButton.css'
 
-const DeleteButton = ({onClick}) => {
+const DeleteButton = ({onClick, setTestFlag}) => {
 
     return (
         <div className='DeleteButton'>

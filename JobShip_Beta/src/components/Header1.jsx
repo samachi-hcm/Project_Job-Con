@@ -11,7 +11,7 @@ const Header1 = () => {
     <>
       <div className='Header1'>
         <a href={JobShips_Logo.pageAddress}>
-          <img src={JobShips_Logo.imgAddess} />
+          {/*<img src={JobShips_Logo.imgAddess} /> */}
         </a>
          
       </div>

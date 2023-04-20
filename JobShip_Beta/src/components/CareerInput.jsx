@@ -28,6 +28,7 @@ const CareerInput = ({ onClick }) => {
         </div>
       </div>
     </div>
+
   )
 }
 

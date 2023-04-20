@@ -21,16 +21,18 @@ const NewCareerPage = () => {
     2 ステートcareerInputsにcareerInputを配列として格納
     3 .flagがtrueであるとき、そのcareerInputをfilterで取り除く
      *バグ：削除ボタンを押したとき、該当のCareerInput以降のインデックス番号のCareerInputが一緒に消える
+        *原因：コンポーネントで関数を呼び出した時、取得する配列はそのコンポーネントが含まれる要素までになる
     4 careerInputsにmapをかけ、careerInputを取り出して.bodyを表示
   */}
 
   const deleteCareerInput = () => {
-    careerInputs[index].flag = true
     console.log(careerInputs)
-    let newCareerInputs = careerInputs
-    let receivevalue = []
-    receivevalue =  newCareerInputs.filter(careerInput => careerInput.flag == false)
-    setCareerInputs(receivevalue)
+    //let receivevalue = []
+    //receivevalue =  newCareerInputs.filter(careerInput => careerInput.flag == false)
+    //setCareerInputs(receivevalue)
+    careerInputs.map((value, index) => {
+      console.log(index + '番目' );
+    })
   }
 
   const [deleteFlag, setDeleteFlag] = useState(false)
@@ -38,10 +40,12 @@ const NewCareerPage = () => {
   const careerInput = {
     body:(<CareerInput 
       onClick = {deleteCareerInput} />),
-    flag:deleteFlag
+    flag:false
   }
 
   const [careerInputs, setCareerInputs] = useState([])
+
+  let newCareerInputs = careerInputs
   
   const display = careerInputs.map((careerInput)=>careerInput.body)
 
@@ -49,6 +53,7 @@ const NewCareerPage = () => {
     setCareerInputs((prevs) => {
       return [...prevs, careerInput]
     })
+    newCareerInputs = careerInputs
   }
 
   return (
@@ -68,7 +73,6 @@ const NewCareerPage = () => {
       <div className='FooterWrapper'>
         <Footer />
       </div>
-      {console.log(careerInputs)}
     </div>
   )
 }
