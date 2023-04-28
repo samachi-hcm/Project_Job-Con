@@ -22,7 +22,6 @@ const CareerInput = ({ onClick }) => {
           <ProfileTextInput placeHolder="12" />
         </div>
         <p>月</p>
-        <DeleteButton onClick = {onClick}/>
         <div className='DescriptionInput'>
           <ProfileTextInput placeHolder="経歴を入力" />
         </div>

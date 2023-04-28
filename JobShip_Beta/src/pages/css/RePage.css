@@ -1,0 +1,33 @@
+.RePage {
+  background-color: #f9f9f9;
+  position: relative;
+  margin: 0;
+}
+
+.RePage .Header1 {
+  font-size: large;
+  background-color: #570530;
+}
+
+.RePage .MainWrapper {
+  margin-top: 65px;
+  margin-bottom: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  max-width: 960px;
+}
+
+.RePage .FooterWrapper {
+  margin-top: 90px;
+  width: 100%;
+  bottom: 0;
+  min-height: 1vh;
+  padding-bottom: 16px;
+}
+
+.RePage .Footer {
+  color: black;
+  text-align: center;
+
+}

@@ -4,6 +4,10 @@ import { useForm } from 'react-hook-form';
 import Button from './Button'
 import AccountPageInput from './AccountPageInput'
 
+import { db } from '../Firebase';
+import { collection, getFirestore, addDoc } from 'firebase/firestore';
+
+
 import './css/AccountCard_L.css'
 
 const AccountCard_L = ({
@@ -16,12 +20,13 @@ const AccountCard_L = ({
   toOtherPage2 }) => 
   {
  
-  
-
+  const [userData, setUserData] = useState()
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    setUserData(data)
+    console.log(userData["mailAddress"])
     console.log(errors);
+    addDoc(collection(db,"test"),userData)
   }
 
   const [test, setTest] = useState([])
@@ -35,16 +40,14 @@ const AccountCard_L = ({
             <p>{contentsDescription1}<br />{contentsDescription2}</p>
           </div>
           <div className='MailAddressInput'>
-            <AccountPageInput placeHolder="メールアドレス" action={register("メールアドレス", {required: true})}/>
+            <AccountPageInput placeHolder="メールアドレス" action={register("mailAddress", {required: true})}/>
           </div>
           <div className='NameInput'>
-            <AccountPageInput placeHolder="氏名" action={register("氏名")}/>
+            <AccountPageInput placeHolder="氏名" action={register("name")}/>
           </div>
           <div className='PasswordInput'>
-            <AccountPageInput placeHolder="パスワード" action={register("パスワード")}/>
+            <AccountPageInput placeHolder="パスワード" action={register("password")}/>
           </div>
-
-
           <div className='Attention'>
             {attention}
           </div>
