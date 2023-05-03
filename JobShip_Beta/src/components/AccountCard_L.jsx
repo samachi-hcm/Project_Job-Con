@@ -34,7 +34,6 @@ const AccountCard_L = ({
   return (
     <div className='AccountCard_L'>
       <div className='ContentsWrapper'>
-        {/* <form action={nextAddress} onSubmit={onSubmit}>*/}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='ContentsTitle'>
             <p>{contentsDescription1}<br />{contentsDescription2}</p>

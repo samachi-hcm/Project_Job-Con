@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form'
+import { v4 as uuidv4 } from 'uuid';
 
 //components
 import Header1 from '../components/Header1'
@@ -14,45 +15,67 @@ import DeleteButton from '../components/DeleteButton'
 //styles
 import './css/NewCarrerPage.css'
 
-
-
 const NewCareerPage = () => {
+
+  const [count, setCount] = useState(-1)
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const deleteCareerInput = (input) => {
-    const newCareerInputs = careerInputs.slice();
-    const index = newCareerInputs.indexOf(input);
-    newCareerInputs[index].flag = true;
-    setCareerInputs(newCareerInputs);
+  const onSubmit = (data) => {
+    console.log(data)
   }
 
-  const careerInput = {
-    body: (<div className='CareerField'>
-      <CareerInput />
-      <DeleteButton onClick={deleteCareerInput}/>
-    </div>),
-    flag:false
-  }
+  const deleteCareerInput = (input) => {
+    const newCareerInputs = careerInputs.map((item) =>
+      item.id === input.id ? { ...item, flag: true } : item
+    );
+    setCareerInputs(newCareerInputs);
+  };
+
+  const createCareerInput = (currentCount) => {
+    const id = uuidv4();
+    const careerInput = {
+      id: id,
+      index: currentCount,
+      body: (
+        <div className="CareerField" key={id}>
+          <CareerInput
+            year={register(`year[${currentCount}]`)}
+            month={register(`month[${currentCount}]`)}
+            career={register(`career[${currentCount}]`)}
+          />
+          <DeleteButton onClick={() => deleteCareerInput({ id })} />
+        </div>
+      ),
+      flag: false,
+    };
+    return careerInput;
+  };
 
   const [careerInputs, setCareerInputs] = useState([])
   
-  const display = careerInputs.map((careerInput) => {
+  const display = careerInputs.map((careerInput, index) => {
     if (careerInput.flag) {
-      return null; 
+      return null;
     }
     return (
-      <div className='CareerField'>
-        <CareerInput />
+      <div className="CareerField" key={careerInput.id}>
+        <CareerInput
+          year={register(`year[${careerInput.index}]`)}
+          month={register(`month[${careerInput.index}]`)}
+          career={register(`career[${careerInput.index}]`)}
+        />
         <DeleteButton onClick={() => deleteCareerInput(careerInput)} />
       </div>
     );
   });
-
   const addCareerInputs = () => {
-    const newCareerInputs = [...careerInputs,careerInput]
-    setCareerInputs(newCareerInputs)
-  }
+    const newCount = count + 1;
+    const newCareerInput = createCareerInput(newCount);
+    const newCareerInputs = [...careerInputs, newCareerInput];
+    setCareerInputs(newCareerInputs);
+    setCount(newCount);
+  };
 
   return (
     <div className='NewCareerPage'>
@@ -63,7 +86,7 @@ const NewCareerPage = () => {
         <Header2 />
       </div>
       <div className='MainWrapper'>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           {display}
         <AddButton onClick={addCareerInputs}/>
         <Button buttonRabel="次へ" />
