@@ -1,7 +1,7 @@
 import React, { useState,useEffect,useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { v4 as uuidv4 } from 'uuid';
-import { collection, getFirestore, addDoc, setDoc, doc } from 'firebase/firestore'
+import { collection, getFirestore, addDoc, setDoc, doc,getDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../Firebase';
 import { db } from '../Firebase';
@@ -21,7 +21,6 @@ import './css/NewCarrerPage.css'
 
 const NewCareerPage = () => {
 
-  //const [user] = useAuthState(auth)
   const [user, loading] = useAuthState(auth)
 
   const [userData, setUserData] = useState({})
@@ -30,26 +29,60 @@ const NewCareerPage = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
+  const [savedCareerData, setSavedCareerData] = useState()
+
   const userDataRef = useRef({});
 
 useEffect(() => {
   if (user) {
     const { photoURL, displayName } = auth.currentUser;
-    console.log(displayName);
     userDataRef.current = { ...userDataRef.current, photoURL, displayName };
   }
 }, [user]);
 
+useEffect(() => {
+  const fetchData = async () => {
+    if (user) {
+      const docRef = doc(db, userDataRef.current.displayName, 'Data');
+      const docSnap = await getDoc(docRef);
+      
+      if (docSnap.exists()) {
+        const saveShot = docSnap.data().careerData;
+        setSavedCareerData(saveShot)
+      }
+    }
+  };
 
-const onSubmit = async (careerData) => {
-  userDataRef.current = { ...userDataRef.current, careerData };
-  console.log(userDataRef.current);
+  fetchData();
+}, [user]);
 
-  // Firebaseへのデータ送信をここに移動
+useEffect(() => {
+  if (savedCareerData) {
+    const newCareerInputs = savedCareerData.map((_, index) =>
+      createCareerInput(index)
+    );
+    setCareerInputs(newCareerInputs);
+    setCount(savedCareerData.length - 1);
+  }
+}, [savedCareerData]);
+
+
+
+
+
+const onSubmit = async (data) => {
+  const careerData = data.year.map((year, index) => ({
+    year: year,
+    month: data.month[index],
+    career: data.career[index],
+  }));
+
+  userDataRef.current = { ...userDataRef.current, careerData }
   await setDoc(doc(db, userDataRef.current.displayName, "Data"), {
-    careerData
+    careerData,
   });
 };
+
   
 
   const deleteCareerInput = (input) => {
@@ -78,6 +111,7 @@ const onSubmit = async (careerData) => {
     };
     return careerInput;
   };
+  
 
   const [careerInputs, setCareerInputs] = useState([])
   
@@ -88,6 +122,7 @@ const onSubmit = async (careerData) => {
     return (
       <div className="CareerField" key={careerInput.id}>
         <CareerInput
+          savedCareer={savedCareerData?.[careerInput.index]}
           year={register(`year[${careerInput.index}]`)}
           month={register(`month[${careerInput.index}]`)}
           career={register(`career[${careerInput.index}]`)}
@@ -96,6 +131,7 @@ const onSubmit = async (careerData) => {
       </div>
     );
   });
+  
   const addCareerInputs = () => {
     const newCount = count + 1;
     const newCareerInput = createCareerInput(newCount);

@@ -2,7 +2,7 @@ import firebase from "firebase/compat/app"
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth,signOut } from "firebase/auth"
+import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth,signInWithPopup,signOut } from "firebase/auth"
 
 const firebaseConfig = {
   apiKey: "AIzaSyA3JTiS5EnFusUxnSSEUu-37lbMjNgd4g4",
@@ -22,7 +22,13 @@ const googleProvider = new GoogleAuthProvider()
 const facebookProvider = new FacebookAuthProvider()
 const twitterProvider = new TwitterAuthProvider()
 
+const signInwithGoogle = () => {
+  signInWithPopup(auth, googleProvider)
+}
 
+const googleButton = (
+  <button onClick={signInwithGoogle}>Google</button>
+)
 
 
 //firestore
@@ -34,5 +40,6 @@ export {
   facebookProvider,
   twitterProvider,
   db,
-  signOut
+  signOut,
+  googleButton
 }

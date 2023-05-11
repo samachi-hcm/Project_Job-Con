@@ -7,20 +7,21 @@ import CareerInput from './CareerInput';
 
 import './css/ProfileTextInput.css'
 
-const ProfileTextInput = ({type,placeHolder,action}) => {
-
+const ProfileTextInput = ({ type, placeHolder, action, defaultvalue }) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   return (
     <div className='ProfileTextInput'>
-      <input 
-      {...action}
-      type={type} 
-      className='textbox' 
-      placeholder={placeHolder}>
-      </input>
+      <input
+        defaultValue={defaultvalue}
+        {...action}
+        type={type}
+        className='textbox'
+        placeholder={placeHolder}
+      ></input>
     </div>
   )
 }
+
 
 export default ProfileTextInput
