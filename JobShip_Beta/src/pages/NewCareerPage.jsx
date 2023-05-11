@@ -1,6 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect,useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { v4 as uuidv4 } from 'uuid';
+import { collection, getFirestore, addDoc, setDoc, doc } from 'firebase/firestore'
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../Firebase';
+import { db } from '../Firebase';
 
 //components
 import Header1 from '../components/Header1'
@@ -17,13 +21,36 @@ import './css/NewCarrerPage.css'
 
 const NewCareerPage = () => {
 
+  //const [user] = useAuthState(auth)
+  const [user, loading] = useAuthState(auth)
+
+  const [userData, setUserData] = useState({})
+
   const [count, setCount] = useState(-1)
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const userDataRef = useRef({});
+
+useEffect(() => {
+  if (user) {
+    const { photoURL, displayName } = auth.currentUser;
+    console.log(displayName);
+    userDataRef.current = { ...userDataRef.current, photoURL, displayName };
   }
+}, [user]);
+
+
+const onSubmit = async (careerData) => {
+  userDataRef.current = { ...userDataRef.current, careerData };
+  console.log(userDataRef.current);
+
+  // Firebaseへのデータ送信をここに移動
+  await setDoc(doc(db, userDataRef.current.displayName, "Data"), {
+    careerData
+  });
+};
+  
 
   const deleteCareerInput = (input) => {
     const newCareerInputs = careerInputs.map((item) =>
@@ -54,7 +81,7 @@ const NewCareerPage = () => {
 
   const [careerInputs, setCareerInputs] = useState([])
   
-  const display = careerInputs.map((careerInput, index) => {
+  const display = careerInputs.map((careerInput) => {
     if (careerInput.flag) {
       return null;
     }

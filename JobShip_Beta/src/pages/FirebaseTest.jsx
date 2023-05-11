@@ -1,5 +1,5 @@
 import React from 'react'
-import { auth, googleProvider,facebookProvider,twitterProvider,db } from '../Firebase'
+import { auth, googleProvider,facebookProvider,twitterProvider,db,signOut } from '../Firebase'
 import { signInWithPopup } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { doc, setDoc, getDoc, collection, getDocs } from "firebase/firestore";
@@ -10,6 +10,10 @@ import Button from '../components/Button';
 const FirebaseTest = () => {
   const signInwithGoogle = () => {
     signInWithPopup(auth, googleProvider)
+  }
+
+  const handleSignOut = () => {
+    signOut(auth);
   }
 
   const signInwithFacebook = () =>{
@@ -34,7 +38,9 @@ const FirebaseTest = () => {
       <button onClick={signInwithTwitter}>Twitter</button>
   )
 
-  const [contents, setContents] = useState([])
+  const signOutButton = (
+    <button onClick={handleSignOut}>Sign Out</button>
+  )
 
   useEffect(() => {
     const  testData = collection(db,"test")
@@ -49,18 +55,14 @@ const FirebaseTest = () => {
 
       {
         user ? (
-          <form onSubmit={handleSubmit(onSubmit)}>
-          <div className='ContentsTitle'>
-            <p>{contentsDescription1}<br />{contentsDescription2}</p>
-          </div>
-          <Button buttonRabel={buttonRabel} />
-        </form>
+          <>
+            <p>こにちは</p>
+            {signOutButton}
+          </>   
         )
         : (
            <>
-            {google}
-            {facebook}
-            {twitter}
+            {google}           
           </>
         )
       }

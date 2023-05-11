@@ -2,7 +2,7 @@ import firebase from "firebase/compat/app"
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth } from "firebase/auth"
+import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth,signOut } from "firebase/auth"
 
 const firebaseConfig = {
   apiKey: "AIzaSyA3JTiS5EnFusUxnSSEUu-37lbMjNgd4g4",
@@ -22,6 +22,9 @@ const googleProvider = new GoogleAuthProvider()
 const facebookProvider = new FacebookAuthProvider()
 const twitterProvider = new TwitterAuthProvider()
 
+
+
+
 //firestore
 const db = getFirestore(app)
 
@@ -30,5 +33,6 @@ export {
   googleProvider,
   facebookProvider,
   twitterProvider,
-  db 
+  db,
+  signOut
 }
