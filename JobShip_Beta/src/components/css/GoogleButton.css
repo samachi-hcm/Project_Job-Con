@@ -1,0 +1,51 @@
+.GoogleButton {
+  position: relative;
+  width: 100%;
+  padding-top: 15%;
+}
+
+.GoogleButton button {
+  background-color: #F9F9F9;
+  text-decoration: none;
+  display: flex; /* 修正: flexを使用してアイコンとテキストを整列させる */
+  align-items: center; /* 修正: アイコンとテキストを縦方向に中央揃えにする */
+  justify-content: flex-start; /* 修正: アイコンとテキストを左側に寄せる */
+  padding-left: 10px; /* 追加: ボタンの左側にパディングを追加 */
+  width: 100%;
+  border-radius: 30px;
+  font-family: 'Yu Gothic UI';
+  -webkit-box-shadow: 0 0 2px #c7c7c7;
+  box-shadow: 0 0 2px #c7c7c7;
+  border: 1px solid #c7c7c7;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+.GoogleButton button:hover {
+  background: #f3f3f3;
+  text-decoration: none;
+  display: flex; /* 修正: flexを使用してアイコンとテキストを整列させる */
+  align-items: center; /* 修正: アイコンとテキストを縦方向に中央揃えにする */
+  justify-content: flex-start; /* 修正: アイコンとテキストを左側に寄せる */
+  padding-left: 10px; /* 追加: ボタンの左側にパディングを追加 */
+}
+
+.GoogleButton .icon {
+  display: inline-block;
+  height: 60%;
+  flex-shrink: 0; /* 追加: アイコンのサイズを固定する */
+  margin-right: 33%; /* 追加: テキストとの間にスペースを追加する */
+}
+
+.GoogleButton .icon img {
+  height: 100%;
+  width: auto; /* 追加: アスペクト比を維持する */
+}
+
+.GoogleButton .text {
+  display: inline-block;
+}

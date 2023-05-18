@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 
-import ProfileTextInput from './ProfileTextInput'
+import TextInput from './TextInput'
 import DeleteButton from './DeleteButton'
 import TextareaInput from './TextareaInput'
 import NewPortfolioPage from '../pages/NewPortfolioPage'
@@ -16,16 +16,16 @@ const PortfolioInput = ({ onClick }) => {
         <div className='test'>
         </div>
         <div className='EraInput'>
-          <ProfileTextInput placeHolder="2022" />
+          <TextInput placeHolder="2022" />
         </div>
         <p>年</p>
         <div className='MonthInput'>
-          <ProfileTextInput placeHolder="12" />
+          <TextInput placeHolder="12" />
         </div>
         <p>月</p>
         <DeleteButton onClick = {onClick}/>
         <div className='DescriptionInput'>
-          <ProfileTextInput placeHolder="経歴を入力" />
+          <TextInput placeHolder="経歴を入力" />
         </div>
         <div className='DetailInput'>
           <TextareaInput />

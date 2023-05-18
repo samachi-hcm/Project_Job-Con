@@ -1,4 +1,5 @@
 import React from 'react'
+import { auth,db,signOut,googleButton } from '../Firebase'
 
 //components
 import Header1 from '../components/Header1'
@@ -29,7 +30,7 @@ const SignupPage = () => {
             attention={attention}
             buttonRabel="Sign Up"
             buttonAddress="#"
-            toOtherPage1="新規アカウント作成がお済みの方はこちら"
+            toOtherPage1={null}
             toOtherPage2={null}
           />
           <AccountCard_R />

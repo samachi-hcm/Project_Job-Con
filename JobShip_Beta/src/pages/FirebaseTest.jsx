@@ -4,8 +4,7 @@ import { signInWithPopup } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { doc, setDoc, getDoc, collection, getDocs } from "firebase/firestore";
 import { useState, useEffect } from 'react';
-import Button from '../components/Button';
-
+import Button from '../components/RedirectButton';
 
 const FirebaseTest = () => {
 

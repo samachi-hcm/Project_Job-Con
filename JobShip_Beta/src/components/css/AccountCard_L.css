@@ -2,15 +2,20 @@
     -webkit-box-shadow: 0 0 4px #c7c7c7;
 	box-shadow: 0 0 4px #c7c7c7;
 	border: 1px solid #c7c7c7;
-    height: 716px;
+    height: 550px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    position: relative;
 }
 
 .AccountCard_L .ContentsWrapper{
     position: relative;
+    height: 70%;
     max-width: 73%;
-    margin-top: 108px;
+    margin-top: 66px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 66px;
 }
 
 .AccountCard_L .ContentsTitle p{
@@ -18,14 +23,12 @@
     font-size: 24px;
     font-weight: bold;
     line-height: 37px;
-    text-align: left;
+    text-align: center;
     margin-top: 0;
     margin-bottom: 12px;
 }
 
-.AccountCard_L .AccountPageInput{
-    padding-top: 53px;
-}
+
 
 .AccountCard_L .Attention {
     font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
@@ -33,6 +36,8 @@
     text-align: left;
     line-height: 11px;
     margin-top: 13px;
+    position: absolute;
+    bottom: 0;
 }
 
 .AccountCard_L .Attention a{
@@ -40,17 +45,11 @@
     color: blue;
 }
 
-.AccountCard_L .Button{
-    padding-top: 58px;
-    width: 100%;
+
+.AccountCard_L .GoogleButton{
+    margin-top: 35%;
+    margin-bottom:35%;
+    position: absolute;
 }
 
-.AccountCard_L .ToSignin a{
-    margin-top: 47px;
-    display: block;
-    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
-    font-size: 9px;
-    text-align: left;
-    text-decoration: none;
-    color: blue;
-}
+

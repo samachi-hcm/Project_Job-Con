@@ -1,4 +1,4 @@
-.ProfileTextInput .textbox{
+.TextInput .textbox{
     vertical-align: top;
     border: solid 1px #c7c7c7;
     -webkit-box-shadow: 0 0 4px #c7c7c7;
@@ -10,12 +10,12 @@
     width: 100%;
 }
 
-.ProfileTextInput .textbox:focus{
+.TextInput .textbox:focus{
     outline: none;
     border: solid 1px #9d9d9d;
 }
 
-.ProfileTextInput .textbox::placeholder{
+.TextInput .textbox::placeholder{
     font-size: 11px;
     font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;    ;
     opacity: 30%;

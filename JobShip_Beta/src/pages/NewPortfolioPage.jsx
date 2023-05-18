@@ -5,7 +5,7 @@ import Header1 from '../components/Header1'
 import Header2 from '../components/Header2'
 import Footer from '../components/Footer'
 import PortfolioInput from '../components/PortfolioInput'
-import Button from '../components/Button'
+import Button from '../components/RedirectButton'
 import AddButton from '../components/AddButton'
 //linked page
 

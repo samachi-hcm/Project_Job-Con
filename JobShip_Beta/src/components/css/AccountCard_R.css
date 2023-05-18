@@ -2,8 +2,8 @@
     -webkit-box-shadow: 0 0 4px #c7c7c7;
 	box-shadow: 0 0 4px #c7c7c7;
 	border: 1px solid #c7c7c7;
-    height: 716px;
-    background-color: #000000;
+    height: 550px;
+    background-color: #7233B4;
     color: white;
 }
 
@@ -25,10 +25,10 @@
 }
 
 .AccountCard_R .ContentsWrapper{
+    margin-top: 66px;
     margin-left: auto;
     margin-right: auto;
     width: 65%;
-    padding-top: 259px;
 }
 
 .AccountCard_R .ContentsWrapper .ContentsTitle p{
@@ -39,6 +39,7 @@
 }
 
 .AccountCard_R .ContentsWrapper .ContentsDescription p{
+    margin-top: 100px;
     text-align: left;
     font-size: 14px;
     font-weight: bold;

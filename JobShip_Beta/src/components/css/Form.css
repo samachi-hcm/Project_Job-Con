@@ -1,9 +1,9 @@
-.CareerInput{
+.Form{
     position: relative;
     max-width: 960px;
 }
 
-.CareerInput .InputWrapper{
+.Form .InputWrapper{
     width: 100%;
     height: 130px;
     position: relative;
@@ -16,7 +16,7 @@
     font-size: 12px;
 }
 
-.CareerInput .EraInput{
+.Form .EraInput{
     width: 104px;
     height: 40px;
     margin-left: 40px;
@@ -24,7 +24,7 @@
     display: inline-block;
 }
 
-.CareerInput p{
+.Form p{
     display: inline-block;
     font-size: 12px;
     font-weight: bold;
@@ -32,7 +32,7 @@
     transform: translateY(50%)
 }
 
-.CareerInput .MonthInput{
+.Form .MonthInput{
     width: 72px;
     height: 40px;
     margin-left: 40px;
@@ -40,13 +40,13 @@
     display: inline-block;
 }
 
-.CareerInput .DescriptionInput{
+.Form .DescriptionInput{
     margin-left: 40px;
     margin-top: 10px;
     width: 92%;
 }
 
-.CareerInput .DeleteButton{
+.Form .DeleteButton{
     display: inline-block;
     position: absolute;
     right: 0;
@@ -54,6 +54,6 @@
     margin-right: 10px;
 }
 
-.CareerInput .test{
+.Form .test{
     display: inline-block;
 }

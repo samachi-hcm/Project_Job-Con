@@ -3,8 +3,8 @@ import React from 'react'
 
 import ProfileCheckboxInput from './ProfileCheckboxInput'
 import ProfileImageInput from './ProfileImageInput'
-import ProfileTextInput from './ProfileTextInput'
-import Button from './Button'
+import TextInput from './TextInput'
+import Button from './RedirectButton'
 
 
 import './css/ProfileInput.css'
@@ -18,12 +18,12 @@ const ProfileInput = () => {
         </div>
         <div className='NameInputWrapper'>
           <div className='NameInputL'>
-            <ProfileTextInput placeHolder="姓" />
-            <ProfileTextInput placeHolder="Family Name" />
+            <TextInput placeHolder="姓" />
+            <TextInput placeHolder="Family Name" />
           </div>
           <div className='NameInputR'>
-            <ProfileTextInput placeHolder="名" />
-            <ProfileTextInput placeHolder="First Name" />
+            <TextInput placeHolder="名" />
+            <TextInput placeHolder="First Name" />
           </div>
           <div className='CheckboxWrapper'>
             <div className='Checkboxes'>
@@ -67,14 +67,12 @@ const ProfileInput = () => {
           </div>
         </div>
         <div className='AddressInputWrapper'>
-          <ProfileTextInput placeHolder="Gmail URL(任意)" />
-          <ProfileTextInput placeHolder="Twitter URL(任意)" />
-          <ProfileTextInput placeHolder="Facebook URL(任意)" />
-          <ProfileTextInput placeHolder="Instagram URL(任意)" />
+          <TextInput placeHolder="Gmail URL(任意)" />
+          <TextInput placeHolder="Twitter URL(任意)" />
+          <TextInput placeHolder="Facebook URL(任意)" />
+          <TextInput placeHolder="Instagram URL(任意)" />
         </div>
       </div>
-
-      <Button buttonRabel="次へ" buttonAddress="/NewCareerPage" />
     </div>
   )
 }

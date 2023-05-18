@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import CareerInput from './CareerInput'
+import CareerInput from './Form'
 
 import './css/DeleteButton.css'
 

@@ -3,15 +3,15 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 
-import CareerInput from './CareerInput';
+import CareerInput from './Form';
 
-import './css/ProfileTextInput.css'
+import './css/TextInput.css'
 
-const ProfileTextInput = ({ type, placeHolder, action, defaultvalue }) => {
+const TextInput = ({ type, placeHolder, action, defaultvalue }) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   return (
-    <div className='ProfileTextInput'>
+    <div className='TextInput'>
       <input
         defaultValue={defaultvalue}
         {...action}
@@ -24,4 +24,4 @@ const ProfileTextInput = ({ type, placeHolder, action, defaultvalue }) => {
 }
 
 
-export default ProfileTextInput
+export default TextInput
