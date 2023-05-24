@@ -7,43 +7,37 @@ import Footer from '../components/Footer'
 import PortfolioInput from '../components/PortfolioInput'
 import Button from '../components/RedirectButton'
 import AddButton from '../components/AddButton'
+import Forms from '../components/Forms'
+import Stepper from '../components/Stepper'
 //linked page
 
 //styles
 import './css/NewPortfolioPage.css'
-
-
+import { Col, Container, Row } from 'react-bootstrap'
 
 const NewPortfolioPage = () => {
-
-  const portfolioInput = {
-    body:(<PortfolioInput />),
-    flag:false
-  }
-
-  const [portfolioInputs, setPortfolioInputs] = useState([portfolioInput])
-  
-  const display = portfolioInputs.map((portfolioInput)=>portfolioInput.body)
-
-  const addPortfolioInputs = () => {
-    setPortfolioInputs((prevs) => {
-      return [...prevs, portfolioInput]
-    })
-  }  
 
   return (
     <div className='NewPortfolioPage'>
       <div className='HeaderWrapper'>
         <Header1 />
       </div>
-      <div className='Header2Wrapper'>
-        <Header2 />
-      </div>
-      <div className='MainWrapper'>
-        {display}
-        <AddButton onClick={addPortfolioInputs}/>
-        <Button buttonRabel="次へ" />
-      </div>
+
+      <Container style={{marginTop:"30px"}}>
+        <Row >
+          <Col xs={{ span: 4, offset: 4 }}>
+            <Stepper nowStep={3} />
+          </Col>
+        </Row>
+      </Container>
+
+      <Container fluid style={{marginTop:"30px"}}>
+        <Row>
+          <Col lg={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }} xs={12}>
+            <Forms mode="record" />
+          </Col>
+        </Row>
+      </Container>
 
       <div className='FooterWrapper'>
         <Footer />

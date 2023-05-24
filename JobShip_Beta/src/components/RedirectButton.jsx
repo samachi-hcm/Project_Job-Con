@@ -7,7 +7,7 @@ const RedirectButton = ({buttonRabel,onClick}) => {
   return (
     <div className='RedirectButton'>
       <Button onClick={onClick} type='submit'>
-        <p className='ButtonDescription'>{buttonRabel}</p>
+        {buttonRabel}
       </Button>
     </div>
   )

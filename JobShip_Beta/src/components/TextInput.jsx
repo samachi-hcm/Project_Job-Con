@@ -1,24 +1,27 @@
 import React from 'react'
+import { FormControl } from 'react-bootstrap';
+
 
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 
-import CareerInput from './Form';
+import Form from './Form';
 
 import './css/TextInput.css'
 
-const TextInput = ({ type, placeHolder, action, defaultvalue }) => {
+const TextInput = ({ type, placeHolder, action, defaultvalue, style }) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   return (
     <div className='TextInput'>
-      <input
+      <FormControl
         defaultValue={defaultvalue}
         {...action}
-        type={type}
         className='textbox'
         placeholder={placeHolder}
-      ></input>
+        style={style}
+      ></FormControl>
+      
     </div>
   )
 }

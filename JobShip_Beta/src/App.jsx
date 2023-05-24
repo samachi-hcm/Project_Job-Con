@@ -8,6 +8,9 @@ import NewCareerPage from './pages/NewCareerPage';
 import NewPortfolioPage from './pages/NewPortfolioPage'
 import FirebaseTest from './pages/FirebaseTest';
 import RePage from './pages/RePage';
+import ReProfile from './pages/ReProfile';
+import ReCareerPage from './pages/ReCareerPage';
+import RePortfolioPage from './pages/RePortfolioPage'
 import Template from './pages/Template'
 import NoMatchPage from './pages/NoMatchPage'
 
@@ -29,6 +32,9 @@ function App() {
         <Route path='NewCareerPage' element={<NewCareerPage />} />
         <Route path='NewPortfolioPage' element={<NewPortfolioPage />} />
         <Route path='RePage' element={<RePage />} />
+        <Route path='ReProfile' element={<ReProfile />} />
+        <Route path='ReCareer' element={<ReCareerPage />} />
+        <Route path='ReRecord' element={<RePortfolioPage />} />
         <Route path='FirebaseTest' element={<FirebaseTest />} />
         <Route path='*' element={<NoMatchPage />} />
       </Routes>

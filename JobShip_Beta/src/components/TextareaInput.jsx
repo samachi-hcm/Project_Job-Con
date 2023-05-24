@@ -1,11 +1,13 @@
 import React from 'react'
+import Form from 'react-bootstrap/Form';
 
 import './css/TextareaInput.css'
 
-const TextareaInput = ({type,placeHolder}) => {
+const TextareaInput = ({type,placeHolder,defaultValue,action}) => {
   return (
     <div className='TextareaInput'>
-      <textarea wrap='soft' type="text" className='textbox' placeholder={placeHolder}></textarea>
+      <Form.Control as="textarea"  className='textbox' placeholder={placeHolder} defaultValue={defaultValue} {...action}/>
+      
     </div>
   )
 }

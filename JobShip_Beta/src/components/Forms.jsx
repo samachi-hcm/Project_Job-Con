@@ -5,6 +5,7 @@ import { collection, getFirestore, addDoc, setDoc, doc, getDoc } from 'firebase/
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../Firebase';
 import { db } from '../Firebase';
+import { Container, Row, Col } from 'react-bootstrap';
 
 //components
 import Header1 from './Header1'
@@ -19,7 +20,7 @@ import DeleteButton from './DeleteButton'
 //styles
 import './css/Forms.css'
 
-const Forms = ({mode}) => {
+const Forms = ({ mode }) => {
 
   const [user, loading] = useAuthState(auth)
 
@@ -33,15 +34,15 @@ const Forms = ({mode}) => {
 
   useEffect(() => {
     if (user) {
-      const { photoURL, displayName,email } = auth.currentUser;
-      userDataRef.current = { ...userDataRef.current, photoURL, displayName,email };
+      const { photoURL, displayName, email } = auth.currentUser;
+      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email };
     }
   }, [user]);
 
   useEffect(() => {
     const fetchData = async () => {
       if (user) {
-        const docRef = doc(db,"UserData", userDataRef.current.email, 'Data',`${mode}Data`);
+        const docRef = doc(db, "UserData", userDataRef.current.email, 'Data', `${mode}Data`);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const saveShot = docSnap.data().formData;
@@ -64,17 +65,26 @@ const Forms = ({mode}) => {
   }, [savedData]);
 
   const onSubmit = async (data) => {
-    const formData = data.year.map((year, index) => ({
-      year: year,
-      month: data.month[index],
-      description: data.description[index],
-    }));
-    
+    const formData = data.year.map((year, index) => {
+      const formEntry = {
+        year: year,
+        month: data.month[index],
+        description: data.description[index],
+      };
+      if (mode === 'record') {
+        formEntry.detail = data.detail[index];
+      }
+      console.log(formEntry);
+      return formEntry;
+    });
+
     userDataRef.current = { ...userDataRef.current, formData }
-    await setDoc(doc(db, "UserData",userDataRef.current.email, "Data",`${mode}Data`), {
+    console.log(formData);
+    await setDoc(doc(db, "UserData", userDataRef.current.email, "Data", `${mode}Data`), {
       formData,
     });
   };
+
 
 
   const deleteForm = (input) => {
@@ -90,14 +100,17 @@ const Forms = ({mode}) => {
       id: id,
       index: currentCount,
       body: (
-        <div className="CareerField" key={id}>
+        <div className="CareerField" key={id} style={{ position: "relative" }}>
           <Form
             year={register(`year[${currentCount}]`)}
             month={register(`month[${currentCount}]`)}
             description={register(`description[${currentCount}]`)}
+            detail={register(`detail[${currentCount}]`)}
+            mode={mode}
           />
           <DeleteButton onClick={() => deleteForm({ id })} />
         </div>
+
       ),
       flag: false,
     };
@@ -112,17 +125,21 @@ const Forms = ({mode}) => {
       return null;
     }
     return (
-      <div className="CareerField" key={form.id}>
+      <div className="CareerField" key={form.id} style={{marginBottom:"20px"}}>
         <Form
           savedData={savedData?.[form.index]}
           year={register(`year[${form.index}]`)}
           month={register(`month[${form.index}]`)}
+          mode={mode}
           description={register(`description[${form.index}]`)}
+          detail={register(`detail[${form.index}]`)}
+          deleteForm={deleteForm}
+          form={form}
         />
-        <DeleteButton onClick={() => deleteForm(form)} />
       </div>
     );
   });
+
 
   const addForms = () => {
     const newCount = count + 1;
@@ -135,14 +152,29 @@ const Forms = ({mode}) => {
   return (
     <div className='Forms'>
       <div className='MainWrapper'>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {display}
-          <AddButton onClick={addForms} />
-          <RedirectButton buttonRabel="次へ" />
-        </form>
+        <Container fluid>
+          <form onSubmit={handleSubmit(onSubmit)}>
+
+            <Row>
+              {display}
+            </Row>
+
+            <Row>
+              <Col  style={{marginTop:"30px"}}>
+                <AddButton onClick={addForms} />
+              </Col>
+            </Row>
+
+            <Row>
+              <Col xs={{ span: 4, offset: 8 }} style={{textAlign:"right"}}>
+              <RedirectButton buttonRabel="次へ" />
+              </Col>
+            </Row>
+            
+          </form>
+        </Container>
+
       </div>
-
-
     </div>
   )
 }

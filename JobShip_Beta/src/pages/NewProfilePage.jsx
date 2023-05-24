@@ -24,6 +24,8 @@ const NewProfilePage = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
+  const [savedData, setSavedData] = useState()
+
   const userDataRef = useRef({});
 
   useEffect(() => {
@@ -48,12 +50,8 @@ const NewProfilePage = () => {
     fetchData();
   }, [user]);
 
-  const onSubmit = async (data) => {
-    const formData = data.year.map((family, index) => ({
-      family:family,
-      name:data.name[index]
-    }));
-    
+  const onSubmit = async (formData) => {
+    console.log(formData)
     userDataRef.current = { ...userDataRef.current, formData }
     await setDoc(doc(db, "UserData",userDataRef.current.email, "Data",`profileData`), {
       formData,
@@ -72,7 +70,12 @@ const NewProfilePage = () => {
       <div className='MainWrapper'>
         
         <form onSubmit={handleSubmit(onSubmit)}>
-          <ProfileInput />
+          <ProfileInput 
+            familyName={register(`familyName`)}
+            firstName={register(`firstName`)}
+            familyNameE={register(`familyNameE`)}
+            firstNameE={register(`firstNameE`)}
+          />
           <RedirectButton buttonRabel="次へ" />
         </form>
       </div>

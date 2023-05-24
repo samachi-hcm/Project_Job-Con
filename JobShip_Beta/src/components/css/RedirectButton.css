@@ -1,21 +1,10 @@
-.ButtonBlack {
-  color: #fff;
-  background-color: black;
-  text-decoration: none;
-  display: inline-block;
-  height: 100%;
-  width: 100%;
+.RedirectButton Button {
+  background-color: #7233B4;
+  border-color: #7233B4;
+  color: white;
 }
 
-.ButtonBlack:hover {
-  color: #fff;
-  background: #1d1d1d;
-  text-decoration: none;
-  display: inline-block;
+.RedirectButton Button:hover {
+  background-color: #602aa5;
+  border-color: #602aa5;
 }
-
-.ButtonBlack .ButtonDescription{
-    margin: auto;
-    font-size: 14px;
-}
-
