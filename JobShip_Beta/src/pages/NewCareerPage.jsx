@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 //components
 import Header1 from '../components/Header1'
@@ -7,6 +8,7 @@ import Button from '../components/RedirectButton'
 import AddButton from '../components/AddButton'
 import Forms from '../components/Forms'
 import Stepper from '../components/Stepper'
+import RedirectButton from '../components/RedirectButton'
 //linked page
 
 //styles
@@ -14,13 +16,23 @@ import { Col, Container, Row } from 'react-bootstrap'
 
 const NewCareerPage = () => {
 
+  const navigate = useNavigate();
+
+  const toNewRecord = () => {
+    navigate('/NewPortfolioPage')
+  }
+
+  const toNewProfile = () => {
+    navigate('/NewProfilePage')   
+  }
+
   return (
-    <div className='NewCareerPage'>
+    <div className='NewCareerPage' style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className='HeaderWrapper'>
         <Header1 />
       </div>
 
-      <Container style={{marginTop:"30px"}}>
+      <Container style={{ marginTop: "30px" }}>
         <Row >
           <Col xs={{ span: 4, offset: 4 }}>
             <Stepper nowStep={2} />
@@ -28,12 +40,21 @@ const NewCareerPage = () => {
         </Row>
       </Container>
 
-      <Container fluid style={{marginTop:"30px"}}>
+      <Container fluid style={{ marginTop: "30px", flexGrow: 1 }} >
         <Row>
           <Col lg={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }} xs={12}>
             <Forms mode="career" />
-          </Col>
+            <Row>
+              <Col xs="4" style={{ textAlign: 'left' }}>
+                <RedirectButton buttonRabel="戻る" onClick={() => toNewProfile()}/>
+              </Col>
+              <Col xs={{ span: 4, offset: 4 }} style={{ textAlign: "right" }}>
+                <RedirectButton buttonRabel="次へ" onClick={() => toNewRecord()} />
+              </Col>
+            </Row>
+           </Col>
         </Row>
+
       </Container>
 
       <div className='FooterWrapper'>

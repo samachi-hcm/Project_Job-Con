@@ -37,13 +37,13 @@ const Form = ({ year, month, description, detail, savedData, mode, deleteForm, f
           <Row>
             <Col xs="3" style={{display:"flex"}}>
               <div style={{ width: "70%" }} >
-                <TextInput placeHolder={year.name} action={year} defaultvalue={savedData?.year} />
+                <TextInput placeHolder={year.name} action={year} defaultValue={savedData?.year} />
               </div>
               <p style={{ margin:"5px"}}>年</p>
             </Col>
             <Col xs="3" style={{display:"flex"}}>
               <div style={{ width: "70%" }} >
-                <TextInput placeHolder="12" action={month} defaultvalue={savedData?.month} />
+                <TextInput placeHolder="12" action={month} defaultValue={savedData?.month} />
               </div>
               <p style={{ margin:"5px"}}>月</p>
             </Col>
@@ -53,7 +53,7 @@ const Form = ({ year, month, description, detail, savedData, mode, deleteForm, f
 
       <Row style={{marginTop:"10px"}}>
         <Col className='DescriptionInput'>
-          <TextInput placeHolder="経歴を入力" action={description} defaultvalue={savedData?.description} />
+          <TextInput placeHolder="経歴を入力" action={description} defaultValue={savedData?.description} />
         </Col>
       </Row>
 

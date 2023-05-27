@@ -74,12 +74,10 @@ const Forms = ({ mode }) => {
       if (mode === 'record') {
         formEntry.detail = data.detail[index];
       }
-      console.log(formEntry);
       return formEntry;
     });
 
     userDataRef.current = { ...userDataRef.current, formData }
-    console.log(formData);
     await setDoc(doc(db, "UserData", userDataRef.current.email, "Data", `${mode}Data`), {
       formData,
     });
@@ -149,6 +147,9 @@ const Forms = ({ mode }) => {
     setCount(newCount);
   };
 
+  if (!savedData) {
+    return <div>Loading...</div>; // Or any other loading indication
+  }
   return (
     <div className='Forms'>
       <div className='MainWrapper'>
@@ -162,12 +163,6 @@ const Forms = ({ mode }) => {
             <Row>
               <Col  style={{marginTop:"30px"}}>
                 <AddButton onClick={addForms} />
-              </Col>
-            </Row>
-
-            <Row>
-              <Col xs={{ span: 4, offset: 8 }} style={{textAlign:"right"}}>
-              <RedirectButton buttonRabel="次へ" />
               </Col>
             </Row>
             

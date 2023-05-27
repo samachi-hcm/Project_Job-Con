@@ -7,7 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../Firebase';
 import { getUserData } from '../Firebase';
 import { db } from '../Firebase';
-import { Container, Row, Col, Accordion, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Accordion, Badge } from 'react-bootstrap';
 
 //components
 import Header1 from '../components/Header1'
@@ -40,7 +40,7 @@ const HomePage = () => {
     navigate('/ReCareer')
   }
 
-  const toRerecord = () => {
+  const toReRecord = () => {
     navigate('./ReRecord')
   }
 
@@ -56,16 +56,16 @@ const HomePage = () => {
       <Container fluid>
         <Row>
           <Col lg={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }} xs={12}>
-            <Row className='ProfileW'>
+            <Row className='ProfileW' style={{ marginTop: "50px", paddingRight: "20px" }}>
               {profileData && (
                 <>
                   <Container>
                     <Row>
-                    <Col className='ImgW' xs={2}>
+                      <Col className='ImgW' xs={2}>
                         <img src={profileImg} alt="Profile" className="profile-image" style={{ width: '100%', height: 'auto' }} />
                       </Col>
                       <Col className='NameSocialW' xs={6}>
-                      <Row className='Name' style={{ fontSize: 'xx-large' }}>
+                        <Row className='Name' style={{ fontSize: 'xx-large' }}>
                           <Col xs="auto" >
                             {profileData.familyName}
                           </Col>
@@ -79,10 +79,26 @@ const HomePage = () => {
                           </Col>
                           <Col xs="auto" style={{ padding: 0 }}>
                             {profileData.firstNameE}
+                            {console.log(profileData.job)}
                           </Col>
                         </Row>
                         <Row className='Social'>
+                          {profileData.job.map((job, index) => (
+                            <Col xs="auto">
+                              <Badge key={index} variant="success" >
+                                {job}
+                              </Badge>
+                            </Col>
+                          ))}
                         </Row>
+
+                      </Col>
+                    </Row>
+                    <Row style={{ paddingTop: "10px" }}>
+                      <Col xs="9">
+                      </Col>
+                      <Col xs="3" style={{ textAlign: 'right' }}>
+                        <RedirectButton buttonRabel="編集する" onClick={() => toReCareer()} />
                       </Col>
                     </Row>
                   </Container>
@@ -90,10 +106,10 @@ const HomePage = () => {
               )}
             </Row>
 
-            <Row className='CareerW'>
+            <Row className='CareerW' style={{ border: "solid 1px #c7c7c7", backgroundColor: "white", borderRadius: "4px", marginTop: "50px", padding: "20px" }}>
               <Container>
                 <Row>
-                  <p>
+                  <p style={{ fontSize: "x-large", fontWeight: "bold" }}>
                     経歴
                   </p>
                 </Row>
@@ -105,43 +121,43 @@ const HomePage = () => {
                     </Row>
                   ))}
                 </Row>
-                <Row style={{paddingTop: "10px" }}>
+                <Row style={{ paddingTop: "10px" }}>
                   <Col xs="9">
                   </Col>
                   <Col xs="3" style={{ textAlign: 'right' }}>
-                    <RedirectButton buttonRabel="編集する" onClick={()=>toReCareer()} />
+                    <RedirectButton buttonRabel="編集する" onClick={() => toReCareer()} />
                   </Col>
                 </Row>
               </Container>
             </Row>
 
-            <Row className='RecordW'>
+            <Row className='RecordW' style={{ border: "solid 1px #c7c7c7", backgroundColor: "white", borderRadius: "4px", marginTop: "50px", padding: "20px" }}>
               <Container>
-              <Row>
-                  <p>
+                <Row>
+                  <p style={{ fontSize: "x-large", fontWeight: "bold" }}>
                     レコード
                   </p>
                 </Row>
                 <Row>
-                {recordData && recordData.map((data, index) => (
-                  <Accordion>
-                    <Accordion.Item eventKey={index.toString()} key={index}>
-                      <Accordion.Header>
-                        <Col xs={3}>{data.year}年 {data.month}月</Col>
-                        <Col xs="auto">{data.description}</Col>
-                      </Accordion.Header>
-                      <Accordion.Body>
-                        {data.detail}
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  </Accordion>
-                ))}
+                  {recordData && recordData.map((data, index) => (
+                    <Accordion>
+                      <Accordion.Item eventKey={index.toString()} key={index}>
+                        <Accordion.Header>
+                          <Col xs={3}>{data.year}年 {data.month}月</Col>
+                          <Col xs="auto">{data.description}</Col>
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          {data.detail}
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    </Accordion>
+                  ))}
                 </Row>
-                <Row style={{paddingTop: "10px" }}>
+                <Row style={{ paddingTop: "10px" }}>
                   <Col xs="9">
                   </Col>
                   <Col xs="3" style={{ textAlign: 'right' }}>
-                    <RedirectButton buttonRabel="編集する" />
+                    <RedirectButton buttonRabel="編集する" onClick={() => toReRecord()} />
                   </Col>
                 </Row>
               </Container>

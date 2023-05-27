@@ -23,7 +23,7 @@ const Stepper = ({ nowStep }) => {
                 navigate('/NewCareerPage');
                 break;
             case 3:
-                navigate('/NewProfilePage');
+                navigate('/NewPortfolioPage');
                 break;
             default:
                 break;
