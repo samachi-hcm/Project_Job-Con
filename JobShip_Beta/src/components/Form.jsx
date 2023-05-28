@@ -12,7 +12,7 @@ import './css/Form.css'
 
 const Form = ({ year, month, description, detail, savedData, mode, deleteForm, form }) => {
  
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, unregister } = useForm();
 
   const recordCheck = (mode) => {
     

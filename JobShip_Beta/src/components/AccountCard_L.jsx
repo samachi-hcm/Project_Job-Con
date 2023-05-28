@@ -34,7 +34,6 @@ const AccountCard_L = ({
 
             <GoogleButton />
           
-          
           <div className='Attention'>
             {attention}
           </div>

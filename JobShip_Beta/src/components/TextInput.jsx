@@ -9,7 +9,7 @@ import Form from './Form';
 
 import './css/TextInput.css'
 
-const TextInput = ({ type, placeHolder, action, defaultValue, style }) => {
+const TextInput = ({ type, placeHolder, action, defaultValue, style, error }) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   return (
@@ -21,6 +21,7 @@ const TextInput = ({ type, placeHolder, action, defaultValue, style }) => {
         placeholder={placeHolder}
         style={style}
       ></FormControl>
+      {error && <p style={{color: 'red',fontSize:"12px",margin:"0"}}>{error.message}</p>}
       
     </div>
   )

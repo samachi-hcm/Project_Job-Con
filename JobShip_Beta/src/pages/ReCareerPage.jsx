@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 //components
 import Header1 from '../components/Header1'
@@ -13,12 +12,6 @@ import { Col, Container, Row } from 'react-bootstrap'
 
 const ReCareerPage = () => {
 
-  const navigate = useNavigate();
-
-  const toHome = () => {
-    navigate('/')
-  }
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className='HeaderWrapper'>
@@ -28,14 +21,8 @@ const ReCareerPage = () => {
       <Container fluid style={{ marginTop: "30px", flexGrow: 1 }} >
         <Row>
           <Col lg={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }} xs={12}>
-            <Forms mode="career" />
-            <Row>
-              
-              <Col xs={{ span: 4, offset: 8 }} style={{ textAlign: "right" }}>
-                <RedirectButton buttonRabel="変更を適用する" onClick={() => toHome()} />
-              </Col>
-            </Row>
-           </Col>
+            <Forms mode="career" RPageLabel="変更を適用する" RPageAdd='/' LPageLabel='ホームに戻る' LPageAdd='/' />
+          </Col>
         </Row>
 
       </Container>

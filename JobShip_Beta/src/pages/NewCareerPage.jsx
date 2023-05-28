@@ -43,16 +43,8 @@ const NewCareerPage = () => {
       <Container fluid style={{ marginTop: "30px", flexGrow: 1 }} >
         <Row>
           <Col lg={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }} xs={12}>
-            <Forms mode="career" />
-            <Row>
-              <Col xs="4" style={{ textAlign: 'left' }}>
-                <RedirectButton buttonRabel="戻る" onClick={() => toNewProfile()}/>
-              </Col>
-              <Col xs={{ span: 4, offset: 4 }} style={{ textAlign: "right" }}>
-                <RedirectButton buttonRabel="次へ" onClick={() => toNewRecord()} />
-              </Col>
-            </Row>
-           </Col>
+            <Forms mode="career" RPageAdd='/NewPortfolioPage' RPageLabel='次へ' LPageAdd='/NewProfilePage' LPageLabel='戻る'/>
+          </Col>
         </Row>
 
       </Container>

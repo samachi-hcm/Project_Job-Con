@@ -6,6 +6,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../Firebase';
 import { db } from '../Firebase';
 import { Container, Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'
 
 //components
 import Header1 from './Header1'
@@ -20,17 +21,19 @@ import DeleteButton from './DeleteButton'
 //styles
 import './css/Forms.css'
 
-const Forms = ({ mode }) => {
+const Forms = ({ mode, RPageLabel, LPageLabel, RPageAdd, LPageAdd }) => {
 
   const [user, loading] = useAuthState(auth)
 
   const [count, setCount] = useState(-1)
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, unregister } = useForm();
 
   const [savedData, setSavedData] = useState()
 
   const userDataRef = useRef({});
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (user) {
@@ -79,8 +82,10 @@ const Forms = ({ mode }) => {
 
     userDataRef.current = { ...userDataRef.current, formData }
     await setDoc(doc(db, "UserData", userDataRef.current.email, "Data", `${mode}Data`), {
-      formData,
+      formData
     });
+    console.log(formData)
+    navigate(RPageAdd)
   };
 
 
@@ -90,7 +95,13 @@ const Forms = ({ mode }) => {
       item.id === input.id ? { ...item, flag: true } : item
     );
     setForms(newForms);
+    // Unregister form fields
+    unregister(`year[${input.index}]`);
+    unregister(`month[${input.index}]`);
+    unregister(`description[${input.index}]`);
+    unregister(`detail[${input.index}]`);
   };
+  
 
   const createForm = (currentCount) => {
     const id = uuidv4();
@@ -147,9 +158,7 @@ const Forms = ({ mode }) => {
     setCount(newCount);
   };
 
-  if (!savedData) {
-    return <div>Loading...</div>; // Or any other loading indication
-  }
+ 
   return (
     <div className='Forms'>
       <div className='MainWrapper'>
@@ -161,10 +170,19 @@ const Forms = ({ mode }) => {
             </Row>
 
             <Row>
-              <Col  style={{marginTop:"30px"}}>
+              <Col  style={{marginTop:"20px"}}>
                 <AddButton onClick={addForms} />
               </Col>
             </Row>
+            <Row>
+              <Col xs= "4">
+                <RedirectButton buttonRabel={LPageLabel} type='button' onClick={() => navigate(LPageAdd)}/>
+              </Col>
+              <Col xs={{offset:"4", span:"4"}} style={{textAlign:"right"}}>
+                <RedirectButton buttonRabel={RPageLabel} type='submit'/>
+              </Col>
+            </Row>
+            
             
           </form>
         </Container>

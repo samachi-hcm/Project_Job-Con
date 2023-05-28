@@ -19,7 +19,6 @@ import Stepper from '../components/Stepper';
 //linked page
 
 //styles
-import './css/NewProfilePage.css'
 
 const NewProfilePage = () => {
 
@@ -30,6 +29,8 @@ const NewProfilePage = () => {
   const [savedData, setSavedData] = useState()
 
   const userDataRef = useRef({});
+
+  const [isUser, setIsUser] = useState(null)
 
   useEffect(() => {
     if (user) {
@@ -46,7 +47,9 @@ const NewProfilePage = () => {
         if (docSnap.exists()) {
           const saveShot = docSnap.data().formData;
           setSavedData(saveShot)
-          console.log(savedData)
+          setIsUser(true)
+        }else{
+          setIsUser(false)
         }
       }
     };
@@ -66,7 +69,16 @@ const NewProfilePage = () => {
     await setDoc(doc(db, "UserData", userDataRef.current.email, "Data", `profileData`), {
       formData,
     });
+    toNewCareer()
   };
+
+  useEffect(() => {
+    console.log(isUser)
+    if(isUser === true){
+      navigate('/ReProfile')
+    }
+  }, [isUser])
+  
 
 
   return (
@@ -90,20 +102,22 @@ const NewProfilePage = () => {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Row style={{marginBottom:"30px"}}>
                   <ProfileInput
-                    familyName={register(`familyName`)}
-                    firstName={register(`firstName`)}
+                    familyName={register(`familyName`, { required: '姓の入力は必須です' })}
+                    firstName={register(`firstName`, { required: '名の入力は必須です' })}
                     familyNameE={register(`familyNameE`)}
                     firstNameE={register(`firstNameE`)}
                     gender={register(`gender`)}
-                    birthDay={register(`birthDay`)}
-                    job={register(`job`)}
+                    birthDay={register(`birthDay`, { required: '生年月日の入力は必須です' })}
+                    job={register(`job`)} 
                     savedData={savedData}
                     control={control}
+                    isUser={isUser}
+                    errors={errors}
                   />
                 </Row>
                 <Row>
                   <Col xs={{ span: 4, offset: 8 }} style={{ textAlign: "right" }}>
-                    <RedirectButton buttonRabel="次へ" onClick={()=>toNewCareer()} />
+                    <RedirectButton buttonRabel="次へ" />
                   </Col>
                 </Row>
               </form>

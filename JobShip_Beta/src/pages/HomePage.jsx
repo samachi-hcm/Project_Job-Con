@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,redirect } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { collection, getFirestore, addDoc, setDoc, doc, getDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -28,11 +28,14 @@ import './css/HomePage.css'
 
 const HomePage = () => {
 
-  const careerData = getUserData("career")
   const profileData = getUserData("profile")
+  const careerData = getUserData("career")
   const recordData = getUserData("record")
-  const accountData = getUserData()
-  const profileImg = accountData?.photoURL
+  const accountData = getUserData("account")
+  const googleData = getUserData()
+  const profileImg = googleData?.photoURL
+
+  const [user, loading] = useAuthState(auth);
 
   const navigate = useNavigate();
 
@@ -44,11 +47,23 @@ const HomePage = () => {
     navigate('./ReRecord')
   }
 
-  console.log(recordData)
+  const toReProfile = () =>{
+    navigate('./ReProfile')
+  }
+
+  useEffect(() => {
+    if (user === null){
+      navigate("/SignupPage")
+    }
+  }, [user])
+  
+
+  if (!profileData) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div className='HomePage'>
-
       <div className='HeaderWrapper'>
         <Header1 />
       </div>
@@ -79,7 +94,6 @@ const HomePage = () => {
                           </Col>
                           <Col xs="auto" style={{ padding: 0 }}>
                             {profileData.firstNameE}
-                            {console.log(profileData.job)}
                           </Col>
                         </Row>
                         <Row className='Social'>
@@ -98,7 +112,7 @@ const HomePage = () => {
                       <Col xs="9">
                       </Col>
                       <Col xs="3" style={{ textAlign: 'right' }}>
-                        <RedirectButton buttonRabel="編集する" onClick={() => toReCareer()} />
+                        <RedirectButton buttonRabel="編集する" onClick={() => toReProfile()} />
                       </Col>
                     </Row>
                   </Container>
@@ -140,7 +154,7 @@ const HomePage = () => {
                 </Row>
                 <Row>
                   {recordData && recordData.map((data, index) => (
-                    <Accordion>
+                    <Accordion key={index}>
                       <Accordion.Item eventKey={index.toString()} key={index}>
                         <Accordion.Header>
                           <Col xs={3}>{data.year}年 {data.month}月</Col>

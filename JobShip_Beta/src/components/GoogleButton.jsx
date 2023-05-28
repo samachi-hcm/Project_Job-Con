@@ -25,7 +25,7 @@ import './css/GoogleButton.css';
 const GoogleButton = () => {
   const [user, loading] = useAuthState(auth);
 
-  const [isUser, setIsUser] = useState(false);
+  const [isUser, setIsUser] = useState(false)
 
   const googleProvider = new GoogleAuthProvider();
 
@@ -43,15 +43,16 @@ const GoogleButton = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (user) {
-        const docRef = doc(db, 'UserData', userDataRef.current.email, 'Data', 'AccountData');
+        const docRef = doc(db, 'UserData', userDataRef.current.email, 'Data', 'profileData');
         const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          const saveShot = docSnap.data();
-          setIsUser(true);
-          console.log(isUser);
+        const saveShot = docSnap.data();
+        if (saveShot) {
+          console.log(saveShot);
+          setIsUser(true)
+          
         } else {
-          setIsUser(false);
+          console.log("No Data")
+          setIsUser(false)
         }
       }
     };
@@ -61,22 +62,19 @@ const GoogleButton = () => {
 
   const signInwithGoogle = async () => {
     await signInWithPopup(auth, googleProvider);
-    if (isUser) {
-      navigate('/');
-    } else {
-      const userID = uuidv4();
-      await setDoc(doc(db, 'UserData', userDataRef.current.email, 'Data', 'AccountData'), {
-        userID,
-      });
-      navigate('/NewProfilePage');
+    if(isUser){
+      navigate('/')
+    }else{
+      navigate('/NewProfilePage')
     }
+    
   };
 
   return (
     <div className="GoogleButton">
-      <button onClick={signInwithGoogle}>
+      <button onClick={()=>signInwithGoogle()}>
         <div className="icon">
-          <img src="../public/Google-icon.png" alt="Google icon" />
+          <img src="/Google-icon.png" alt="Google icon" />
         </div>
         <div className="text">
           <div>Google</div>

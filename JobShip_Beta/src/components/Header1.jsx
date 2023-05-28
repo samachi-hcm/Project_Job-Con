@@ -2,12 +2,12 @@ import React from 'react'
 import './css/Header1.css'
 
 const JobRecord_Logo = {
-  imgAddess: "../../public/JobRecord_Logo.png",
+  imgAddess: "/JobRecord_Logo.png",
   pageAddress:"#"
 }
 
 const JobRecord_Icon ={
-  imgAddess:"../../public/JobRecord_Icon.png",
+  imgAddess:"/JobRecord_icon.png",
 }
 
 const Header1 = () => {

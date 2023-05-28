@@ -1,5 +1,11 @@
 {
   "projects": {
     "default": "jobrecord-8c52b"
+  },
+  "targets": {},
+  "etags": {
+    "jobrecord-8c52b": {
+      "extensionInstances": {}
+    }
   }
 }

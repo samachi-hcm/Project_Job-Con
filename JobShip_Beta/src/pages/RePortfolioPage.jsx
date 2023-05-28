@@ -31,11 +31,10 @@ const RePortfolioPage = () => {
       <Container fluid style={{ marginTop: "30px", flexGrow: 1 }} >
         <Row>
           <Col lg={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }} xs={12}>
-            <Forms mode="record" />
+            <Forms mode="record" RPageAdd='/' RPageLabel='変更を適用する' LPageAdd='/' LPageLabel='ホームに戻る' />
             <Row>
               
               <Col xs={{ span: 4, offset: 8 }} style={{ textAlign: "right" }}>
-                <RedirectButton buttonRabel="変更を適用する" onClick={() => toHome()} />
               </Col>
             </Row>
            </Col>

@@ -9,11 +9,7 @@ import CustomCheckBox from './CustomCheckBox'
 
 import './css/ProfileInput.css'
 
-const ProfileInput = ({ control, familyName, firstName, familyNameE, firstNameE, gender, job, savedData, birthDay }) => {
-
-  if (!savedData) {
-    return <div>Loading...</div>; // Or any other loading indication
-  }
+const ProfileInput = ({ control, familyName, firstName, familyNameE, firstNameE, gender, job, savedData, birthDay, errors }) => {
 
   const isJobChecked = (jobLabel) => {
     return savedData?.job?.includes(jobLabel);
@@ -27,12 +23,12 @@ const ProfileInput = ({ control, familyName, firstName, familyNameE, firstNameE,
             <Row>
               <p style={{ marginBottom: "5px" }}>名前/Name</p>
               <Col xs="6">
-                <TextInput placeHolder="姓" action={familyName} defaultValue={savedData?.familyName} />
+                <TextInput placeHolder="姓" action={familyName} defaultValue={savedData?.familyName} error={errors.familyName} />
                 <div style={{ paddingTop: "3px" }}></div>
                 <TextInput placeHolder="family name" action={familyNameE} defaultValue={savedData?.familyNameE} />
               </Col>
               <Col xs="6">
-                <TextInput placeHolder="名" action={firstName} defaultValue={savedData?.firstName} />
+                <TextInput placeHolder="名" action={firstName} defaultValue={savedData?.firstName} error={errors.firstName}/>
                 <div style={{ paddingTop: "3px" }}></div>
                 <TextInput placeHolder="first name" action={firstNameE} defaultValue={savedData?.firstNameE} />
               </Col>
@@ -52,7 +48,7 @@ const ProfileInput = ({ control, familyName, firstName, familyNameE, firstNameE,
             <Row>
               <p style={{ marginBottom: "5px", marginTop: "10px" }}>誕生日</p>
               <Col xs="8">
-                <TextInput placeHolder="2023/04/19" action={birthDay} defaultValue={savedData?.birthDay} />
+                <TextInput placeHolder="2023/04/19" action={birthDay} defaultValue={savedData?.birthDay} error={errors.birthDay}/>
               </Col>
             </Row>
           </Col>
