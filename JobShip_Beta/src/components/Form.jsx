@@ -10,9 +10,7 @@ import NewCareerPage from './Forms'
 
 import './css/Form.css'
 
-const Form = ({ year, month, description, detail, savedData, mode, deleteForm, form }) => {
- 
-  const { register, handleSubmit, formState: { errors }, unregister } = useForm();
+const Form = ({ year, month, description, detail, savedData, mode, deleteForm, form, errors }) => {
 
   const recordCheck = (mode) => {
     
@@ -53,7 +51,7 @@ const Form = ({ year, month, description, detail, savedData, mode, deleteForm, f
 
       <Row style={{marginTop:"10px"}}>
         <Col className='DescriptionInput'>
-          <TextInput placeHolder="経歴を入力" action={description} defaultValue={savedData?.description} />
+          <TextInput placeHolder="タイトルを入力" action={description} defaultValue={savedData?.description} error={errors.description}/>
         </Col>
       </Row>
 

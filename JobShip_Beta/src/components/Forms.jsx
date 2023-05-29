@@ -113,7 +113,7 @@ const Forms = ({ mode, RPageLabel, LPageLabel, RPageAdd, LPageAdd }) => {
           <Form
             year={register(`year[${currentCount}]`)}
             month={register(`month[${currentCount}]`)}
-            description={register(`description[${currentCount}]`)}
+            description={register(`description[${currentCount}]`,{ required: '生年月日の入力は必須です' })}
             detail={register(`detail[${currentCount}]`)}
             mode={mode}
           />
@@ -140,10 +140,13 @@ const Forms = ({ mode, RPageLabel, LPageLabel, RPageAdd, LPageAdd }) => {
           year={register(`year[${form.index}]`)}
           month={register(`month[${form.index}]`)}
           mode={mode}
-          description={register(`description[${form.index}]`)}
+          description={register(`description[${form.index}]`, {
+            maxLength: { value: 30, message: "文字数が30を超えています" },
+          })}
           detail={register(`detail[${form.index}]`)}
           deleteForm={deleteForm}
           form={form}
+          errors={errors}
         />
       </div>
     );

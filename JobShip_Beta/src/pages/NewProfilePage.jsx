@@ -102,6 +102,7 @@ const NewProfilePage = () => {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Row style={{marginBottom:"30px"}}>
                   <ProfileInput
+                  testAction="test"
                     familyName={register(`familyName`, { required: '姓の入力は必須です' })}
                     firstName={register(`firstName`, { required: '名の入力は必須です' })}
                     familyNameE={register(`familyNameE`)}
@@ -110,9 +111,9 @@ const NewProfilePage = () => {
                     birthDay={register(`birthDay`, { required: '生年月日の入力は必須です' })}
                     job={register(`job`)} 
                     savedData={savedData}
-                    control={control}
                     isUser={isUser}
                     errors={errors}
+                    
                   />
                 </Row>
                 <Row>

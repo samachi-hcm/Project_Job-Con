@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate,redirect } from 'react-router-dom';
+import { useNavigate, redirect } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { collection, getFirestore, addDoc, setDoc, doc, getDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -47,15 +47,15 @@ const HomePage = () => {
     navigate('./ReRecord')
   }
 
-  const toReProfile = () =>{
+  const toReProfile = () => {
     navigate('./ReProfile')
   }
 
   useEffect(() => {
-    if (user === null){
+    if (!loading && user === null) {
       navigate("/SignupPage")
     }
-  }, [user])
+  }, [user, loading])
   
 
   if (!profileData) {
@@ -97,14 +97,23 @@ const HomePage = () => {
                           </Col>
                         </Row>
                         <Row className='Social'>
-                          {profileData.job.map((job, index) => (
+                          {Array.isArray(profileData.job) ?
+                            profileData.job.map((job, index) => (
+                              <Col xs="auto" style={{paddingRight:"0"}}>
+                                <Badge key={index} variant="success" >
+                                  {job}
+                                </Badge>
+                              </Col>
+                            ))
+                            :
                             <Col xs="auto">
-                              <Badge key={index} variant="success" >
-                                {job}
+                              <Badge variant="success" >
+                                {profileData.job}
                               </Badge>
                             </Col>
-                          ))}
+                          }
                         </Row>
+
 
                       </Col>
                     </Row>

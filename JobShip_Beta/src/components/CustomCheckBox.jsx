@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { FormCheck, Form, FormControl, Container, Row, Col } from 'react-bootstrap';
+import { Controller } from 'react-hook-form';
 
-const CustomCheckBox = ({ action, checked, defaultValue }) => {
-  const [inputValue, setInputValue] = useState('')
+const CustomCheckBox = ({ control, name }) => {
+  const [isChecked, setIsChecked] = useState(false)
 
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value)
+  const handleCheckChange = (event) => {
+    setIsChecked(event.target.checked)
   }
 
   return (
@@ -14,24 +15,26 @@ const CustomCheckBox = ({ action, checked, defaultValue }) => {
         <Col xs="auto">
           <FormCheck
             type="checkbox"
-            value={inputValue}
-            {...action}
-            defaultChecked={checked}
-            defaultValue={defaultValue}
+            checked={isChecked}
+            onChange={handleCheckChange}
           />
         </Col>
         <Col xs="auto">
-          <FormControl
-            type="text"
-            value={inputValue}
-            onChange={handleInputChange}
-            placeholder="職種を入力"
+          <Controller
+            name={name}
+            control={control}
+            render={({ field }) => 
+              <FormControl
+                type="text"
+                {...field}
+                placeholder="職種を入力"
+                disabled={!isChecked}
+              />}
           />
         </Col>
       </Row>
-
     </Container>
   )
 }
 
-export default CustomCheckBox
+export default CustomCheckBox;

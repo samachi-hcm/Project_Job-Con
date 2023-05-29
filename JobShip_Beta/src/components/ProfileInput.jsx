@@ -9,11 +9,18 @@ import CustomCheckBox from './CustomCheckBox'
 
 import './css/ProfileInput.css'
 
-const ProfileInput = ({ control, familyName, firstName, familyNameE, firstNameE, gender, job, savedData, birthDay, errors }) => {
+const ProfileInput = ({ familyName, firstName, familyNameE, firstNameE,  gender, job,  savedData, birthDay, errors, }) => {
 
   const isJobChecked = (jobLabel) => {
+  if (Array.isArray(savedData?.job)) {
     return savedData?.job?.includes(jobLabel);
+  } else if (typeof savedData?.job === 'string') {
+    return savedData?.job === jobLabel;
+  } else {
+    return false;
   }
+}
+
 
   return (
     <div className='ProfileInput'>
@@ -77,9 +84,7 @@ const ProfileInput = ({ control, familyName, firstName, familyNameE, firstNameE,
                 <CheckBox label="クリエイター" action={job} checked={isJobChecked("クリエイター")} />
               </Col>
             </Row>
-            <Row>
-              <CustomCheckBox action={job} />
-            </Row>
+            
           </Col>
         </Row>
       </Container>
