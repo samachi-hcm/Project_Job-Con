@@ -107,6 +107,7 @@ const ReProfile = () => {const [user, loading] = useAuthState(auth)
                     gender={register(`gender`)}
                     birthDay={register(`birthDay`, { required: '生年月日の入力は必須です' })}
                     job={register(`job`)} 
+                    customJob={register(`customJob`)}
                     savedData={savedData}
                     control={control}
                     isUser={isUser}

@@ -11,6 +11,8 @@ import RePage from './pages/RePage';
 import ReProfile from './pages/ReProfile';
 import ReCareerPage from './pages/ReCareerPage';
 import RePortfolioPage from './pages/RePortfolioPage'
+import Chat from './components/Chat';
+import EditSheet from './pages/EditSheet';
 import Template from './pages/Template'
 import NoMatchPage from './pages/NoMatchPage'
 
@@ -34,6 +36,8 @@ function App() {
         <Route path='RePage' element={<RePage />} />
         <Route path='ReProfile' element={<ReProfile />} />
         <Route path='ReCareer' element={<ReCareerPage />} />
+        <Route path='Chat' element={<Chat />} />
+        <Route path='EditSheet' element={<EditSheet />} />
         <Route path='ReRecord' element={<RePortfolioPage />} />
         <Route path='FirebaseTest' element={<FirebaseTest />} />
         <Route path='*' element={<NoMatchPage />} />

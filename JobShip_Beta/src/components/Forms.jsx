@@ -84,7 +84,6 @@ const Forms = ({ mode, RPageLabel, LPageLabel, RPageAdd, LPageAdd }) => {
     await setDoc(doc(db, "UserData", userDataRef.current.email, "Data", `${mode}Data`), {
       formData
     });
-    console.log(formData)
     navigate(RPageAdd)
   };
 

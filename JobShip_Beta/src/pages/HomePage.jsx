@@ -24,7 +24,6 @@ import NewProfilePage from './NewProfilePage'
 import ReCareerPage from './ReCareerPage';
 
 //styles
-import './css/HomePage.css'
 
 const HomePage = () => {
 
@@ -56,7 +55,7 @@ const HomePage = () => {
       navigate("/SignupPage")
     }
   }, [user, loading])
-  
+
 
   if (!profileData) {
     return <div>Loading...</div>
@@ -99,7 +98,7 @@ const HomePage = () => {
                         <Row className='Social'>
                           {Array.isArray(profileData.job) ?
                             profileData.job.map((job, index) => (
-                              <Col xs="auto" style={{paddingRight:"0"}}>
+                              <Col xs="auto" style={{ paddingRight: "0" }} key={index}>
                                 <Badge key={index} variant="success" >
                                   {job}
                                 </Badge>
@@ -112,9 +111,13 @@ const HomePage = () => {
                               </Badge>
                             </Col>
                           }
+
+                          <Col xs="auto" style={{ paddingRight: "0" }}>
+                            <Badge variant="success" >
+                              {profileData.customJob}
+                            </Badge>
+                          </Col>
                         </Row>
-
-
                       </Col>
                     </Row>
                     <Row style={{ paddingTop: "10px" }}>
@@ -140,7 +143,7 @@ const HomePage = () => {
                   {careerData && careerData.map((data, index) => (
                     <Row key={index}>
                       <Col xs={3}>{data.year}年 {data.month}月</Col>
-                      <Col xs="auto">{data.description}</Col>
+                      <Col xs="auto" style={{overflowWrap:"break-word"}}>{data.description}</Col>
                     </Row>
                   ))}
                 </Row>

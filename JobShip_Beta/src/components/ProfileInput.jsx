@@ -9,7 +9,7 @@ import CustomCheckBox from './CustomCheckBox'
 
 import './css/ProfileInput.css'
 
-const ProfileInput = ({ familyName, firstName, familyNameE, firstNameE,  gender, job,  savedData, birthDay, errors, }) => {
+const ProfileInput = ({ familyName, firstName, familyNameE, firstNameE,  gender, job,  savedData, birthDay, errors, customJob }) => {
 
   const isJobChecked = (jobLabel) => {
   if (Array.isArray(savedData?.job)) {
@@ -20,7 +20,6 @@ const ProfileInput = ({ familyName, firstName, familyNameE, firstNameE,  gender,
     return false;
   }
 }
-
 
   return (
     <div className='ProfileInput'>
@@ -63,28 +62,33 @@ const ProfileInput = ({ familyName, firstName, familyNameE, firstNameE,  gender,
             <Row>
               <p style={{ marginBottom: "5px", paddingLeft: "0" }}>興味のある職種</p>
               <Col xs="auto" style={{ paddingLeft: "0", }}>
-                <CheckBox label="営業" action={job} checked={isJobChecked("営業")} />
+                <CheckBox label="営業" action={job} defaultChecked={isJobChecked("営業")} />
               </Col>
               <Col xs="auto" style={{ paddingLeft: "0" }}>
-                <CheckBox label="企画" action={job} checked={isJobChecked("企画")} />
+                <CheckBox label="企画" action={job} defaultChecked={isJobChecked("企画")} />
               </Col>
               <Col xs="auto" style={{ paddingLeft: "0" }}>
-                <CheckBox label="人事" action={job} checked={isJobChecked("人事")} />
+                <CheckBox label="人事" action={job} defaultChecked={isJobChecked("人事")} />
               </Col>
               <Col xs="auto" style={{ paddingLeft: "0" }}>
-                <CheckBox label="タレント" action={job} checked={isJobChecked("タレント")} />
+                <CheckBox label="タレント" action={job} defaultChecked={isJobChecked("タレント")} />
               </Col>
               <Col xs="auto" style={{ paddingLeft: "0" }}>
-                <CheckBox label="エンジニア" action={job} checked={isJobChecked("エンジニア")} />
+                <CheckBox label="エンジニア" action={job} defaultChecked={isJobChecked("エンジニア")} />
               </Col>
               <Col xs="auto" style={{ paddingLeft: "0" }}>
-                <CheckBox label="デザイナー" action={job} checked={isJobChecked("デザイナー")} />
+                <CheckBox label="デザイナー" action={job} defaultChecked={isJobChecked("デザイナー")} />
               </Col>
               <Col xs="auto" style={{ paddingLeft: "0" }}>
-                <CheckBox label="クリエイター" action={job} checked={isJobChecked("クリエイター")} />
+                <CheckBox label="クリエイター" action={job} defaultChecked={isJobChecked("クリエイター")} />
               </Col>
             </Row>
-            
+            <Row>
+              <Col xs="4" style={{ paddingLeft: "0" }}>
+                <TextInput placeHolder="その他の職業を入力" action={customJob} defaultValue={savedData?.customJob} />
+              </Col>
+            </Row>
+
           </Col>
         </Row>
       </Container>

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@trendmicro/react-datepicker": "^1.0.0-alpha.7",
+    "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "firebase": "^9.20.0",
     "react": "^18.2.0",

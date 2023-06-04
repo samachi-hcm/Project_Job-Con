@@ -52,6 +52,7 @@ const Form = ({ year, month, description, detail, savedData, mode, deleteForm, f
       <Row style={{marginTop:"10px"}}>
         <Col className='DescriptionInput'>
           <TextInput placeHolder="タイトルを入力" action={description} defaultValue={savedData?.description} error={errors.description}/>
+          {console.log(errors)}
         </Col>
       </Row>
 

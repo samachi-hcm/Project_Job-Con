@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormCheck, Form } from 'react-bootstrap';
 
-const CheckBox = ({ label, action, checked }) => {
+const CheckBox = ({ label, action, checked, defaultChecked, onChange }) => {
   return (
 
     <FormCheck
@@ -9,7 +9,9 @@ const CheckBox = ({ label, action, checked }) => {
       label={label}
       value={label}
       {...action}
-      defaultChecked={checked}
+      defaultChecked={defaultChecked}
+      checked={checked}
+      onChange={onChange}
     />
   )
 }
