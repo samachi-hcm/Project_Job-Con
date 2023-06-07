@@ -7,7 +7,7 @@ import Form from './Form';
 
 import './css/TextInput.css'
 
-const TextInput = ({ type, placeHolder, action, defaultValue, style, error, onChange }) => {
+const TextInput = ({ type, placeHolder, action, defaultValue, style, error, onChange,value }) => {
 
   return (
     <div className='TextInput'>
@@ -18,6 +18,7 @@ const TextInput = ({ type, placeHolder, action, defaultValue, style, error, onCh
         placeholder={placeHolder}
         style={style}
         onChange={onChange}
+        value={value}
       ></FormControl>
       {error && <p style={{color: 'red',fontSize:"12px",margin:"0"}}>{error.message}{console.log(error.message)}</p>}
       

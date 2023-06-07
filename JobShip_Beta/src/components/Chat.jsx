@@ -1,6 +1,11 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form'
-import { Container, Row, Col, Accordion, Badge } from 'react-bootstrap';
+import { Container, Row, Col, Accordion, FormSelect } from 'react-bootstrap';
+import { API_KEY } from '../../../GPT_API';
+import { collection, getFirestore, addDoc, setDoc, doc, getDoc } from 'firebase/firestore'
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../Firebase';
+import { db } from '../Firebase';
 
 import axios from 'axios';
 import RedirectButton from './RedirectButton';
@@ -9,19 +14,68 @@ import TextInput from './TextInput';
 
 const API_URL = 'https://api.openai.com/v1/';
 const MODEL = 'gpt-3.5-turbo';
-const API_KEY = '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';
 
-const Chat = ({ input }) => {
+const Chat = ({ input, checked, slot, savedData }) => {
 
-  const { register, handleSubmit, formState: { errors }, control } = useForm();
+  const { register, handleSubmit, formState: { errors }, control,setValue } = useForm();
+
+  const [user, userLoading] = useAuthState(auth)
 
   const [message, setMessage] = useState('');
-  const [formData, setFormData] = useState({ count: 400, chat: "" })
+  const [formData, setFormData] = useState({ count: 400, chat: "",mode:"" })
   const [count, setCount] = useState()
   const [answer, setAnswer] = useState('');
   const [conversation, setConversation] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [checkedMessage, setCheckedMessage] = useState()
+  const [titleValue, setTitleValue] = useState("");
+
   const prevMessageRef = useRef('');
+  const userDataRef = useRef({});
+
+  useEffect(() => {
+    if (Array.isArray(savedData)) {
+      console.log(savedData[slot])
+      setAnswer(savedData[slot].answer)
+      setValue("title", savedData[slot].title);
+      setValue("answer", savedData[slot].answer);
+    } else {
+      setValue("title", "");
+      setValue("answer", "");
+    }
+  }, [savedData, slot, setValue])
+  
+
+  const PRPrompt = `以下の「私の経験」を参照して、「自分の強み、弱み」というテーマで文章を生成してください。なお、以下の条件に必ず従ってください。
+  ${formData.chat}
+
+  条件
+  ・日本語で記述する。
+  ・${formData.count}文字以内で記述する。
+  ・ですます調で回答してください。
+  ・レコードの内容を参照した上で、なんらかの能力が自分の強みであることを明示する。
+  ・引用するレコードについて、発生した課題と、その課題を解決するために行った試作、その結果について記述してください。
+  
+  私の経験`
+  
+  const GKCKPrompt = `以下の「私の経験」を参照して、「学生時代に力を入れたこと」というテーマで文章を生成してください。なお、以下の条件に必ず従ってください。
+  ${formData.chat}
+
+  条件
+  ・日本語で記述する。
+  ・${formData.count}文字以内で記述する。
+  ・ですます調で回答してください。
+  ・レコードの内容を参照した上で、なんらかの能力が自分に身についていることを明示する。
+  ・引用するレコードについて、発生した課題と、その課題を解決するために行った試作、その結果について記述してください。
+  
+  私の経験`
+
+  useEffect(() => {
+    if (user) {
+      const { photoURL, displayName, email } = auth.currentUser;
+      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email };
+    }
+  }, [user]);
 
   useEffect(() => {
     const newConversation = [
@@ -38,7 +92,21 @@ const Chat = ({ input }) => {
     setMessage('');
   }, [answer]);
 
-  // ...
+  const [selectedOption, setSelectedOption] = useState(PRPrompt);
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+  
+  useEffect(() => {
+    if(checked){
+      setCheckedMessage("")
+    }
+    else{
+      setCheckedMessage("レコードを選択してください。")
+    }
+  }, [checked,checkedMessage])
+  
 
   useEffect(() => {
     if (!input) return;
@@ -55,28 +123,15 @@ const Chat = ({ input }) => {
       ];
     }
 
-    const commonText = `以下の「レコード一覧」を参照して、「学生時代に力を入れたこと」というテーマで文章を生成してください。なお、以下の条件に必ず従ってください。
-        ${formData.chat}
-  
-        条件
-        ・日本語で記述する。
-        ・${formData.count}文字以内で記述する。
-        ・「優先度」のパラメータが最も高いレコードについて引用する。
-        ・ですます調で回答してください。
-        ・レコードの内容を参照した上で、なんらかの能力が自分に身についていることを明示する。
-        ・引用するレコードについて、発生した課題と、その課題を解決するために行った試作、その結果について記述してください。
-        
-        レコード一覧`;
+    const commonText = selectedOption
 
     setMessage(`${commonText}${formatInput.join('\n')}`);
-  }, [input, formData]);
+  }, [input, formData,selectedOption]);
 
 
   const onSubmit = useCallback(async (data) => {
 
-    console.log(data)
     setFormData(data)
-    console.log(formData)
 
     if (loading) return;
 
@@ -112,11 +167,32 @@ const Chat = ({ input }) => {
     }
   }, [loading, message, conversation]);
 
-  const onSave = (data) => {
-    console.log(data)
-  }
+  const onSave = async (data) => {
+    userDataRef.current = { ...userDataRef.current };
+  
+    const docRef = doc(db, "UserData", userDataRef.current.email, "Data", "sheetData");
+  
+    try {
+      const docSnap = await getDoc(docRef);
+  
+      if (docSnap.exists()) {
+        const existingData = docSnap.data();
+        console.log(existingData)
+  
+        const updatedFormData = Array.from({ length: 10 }, (_, index) => existingData.formData[index] || {});
+  
+        updatedFormData[slot] = data;
+  
+        await setDoc(docRef, { formData: updatedFormData });
+      }
+  
+      console.log("Data updated successfully");
+    } catch (error) {
+      console.error("Error updating data: ", error);
+    }
+  };
 
-  const ChatContent = React.memo(({ prevMessage, answer }) => {
+  const ChatContent = React.memo(({ title,answer }) => {
     return (
       <div className="result">
         <div className="current-message">
@@ -129,6 +205,7 @@ const Chat = ({ input }) => {
               <TextInput
                 action={register("title")}
                 placeHolder={"タイトルを入力して下さい"}
+                defaultValue={title}
               />
               <TextareaInput
                 defaultValue={answer}
@@ -144,10 +221,21 @@ const Chat = ({ input }) => {
         </div>
       </div>
     );
+  }, (prevProps, nextProps) => {
+    // propsの比較を行い、変更がある場合にのみ再レンダリングする
+    return prevProps.slot === nextProps.slot;
   });
 
   return (
     <div className="container">
+      <p style={{color:"red",fontSize:"small"}}>{checkedMessage}</p>
+      <FormSelect
+        value={selectedOption} 
+        onChange={handleOptionChange}
+      >
+        <option value={PRPrompt}>自己PR</option>
+        <option value={GKCKPrompt}>ガクチカ</option>
+      </FormSelect>
       <form className="chat-form" onSubmit={handleSubmit(onSubmit)}>
         <TextInput
           placeHolder={"文字数を入力して下さい"}
@@ -161,7 +249,7 @@ const Chat = ({ input }) => {
           onChange={(e) => setFormData({ ...formData, chat: e.target.value })}
         />
 
-        <RedirectButton buttonRabel={'生成'}>質問する</RedirectButton>
+        <RedirectButton disabled={!checked} buttonRabel={'生成'}>質問する</RedirectButton>
       </form>
 
       {loading && (

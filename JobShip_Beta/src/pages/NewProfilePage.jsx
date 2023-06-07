@@ -7,6 +7,7 @@ import { auth } from '../Firebase';
 import { db } from '../Firebase';
 import { Col, Container, Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
+import { getUserData } from '../Firebase';
 
 
 //components
@@ -56,10 +57,14 @@ const NewProfilePage = () => {
 
     fetchData();
   }, [user]);
-
+  
   const navigate = useNavigate();
 
-  const toNewCareer = () => {
+  const toNewCareer = async() => {
+    const formData = [{}]
+    await setDoc(doc(db, "UserData", userDataRef.current.email, "Data", `sheetData`), {
+      formData,
+    });
     navigate('/NewCareerPage')
   }
 

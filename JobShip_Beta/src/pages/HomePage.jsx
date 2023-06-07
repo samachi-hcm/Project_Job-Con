@@ -62,12 +62,12 @@ const HomePage = () => {
   }
 
   return (
-    <div className='HomePage'>
+    <div className='HomePage' style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className='HeaderWrapper'>
         <Header1 />
       </div>
 
-      <Container fluid>
+      <Container fluid style={{ marginTop: "30px", flexGrow: 1 }}>
         <Row>
           <Col lg={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }} xs={12}>
             <Row className='ProfileW' style={{ marginTop: "50px", paddingRight: "20px" }}>
@@ -193,7 +193,7 @@ const HomePage = () => {
         </Row>
       </Container>
 
-      <div className='FooterWrapper'>
+      <div className='FooterWrapper' style={{marginTop:"100px"}}>
         <Footer />
       </div>
 

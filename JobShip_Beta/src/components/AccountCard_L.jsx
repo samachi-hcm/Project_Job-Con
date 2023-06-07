@@ -1,45 +1,51 @@
-import React from 'react'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form';
-import Button from './RedirectButton'
-import AccountPageInput from './AccountPageInput'
+import React from 'react';
+import { Container, Row, Col, Accordion, Badge } from 'react-bootstrap';
+import GoogleButton from './GoogleButton'
 
-import { db } from '../Firebase';
-import { collection, getFirestore, addDoc } from 'firebase/firestore';
+const AccountCard_L = ({ attention, }) => {
+
+  const accountCardStyle = {
+    height: '350px',
+    position: 'relative'
+  };
+
+  const contentsTitleStyle = {
+    fontFamily: '"游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif',
+    fontSize: 'x-Large',
+    fontWeight: 'bold',
+    textAlign: "center"
+  };
+
+  const attentionStyle = {
+    fontFamily: '"游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif',
+    fontSize: 'x-small',
+    textAlign: 'left',
+    position: 'absolute',
+    bottom: '0',
+  };
 
 
-import './css/AccountCard_L.css'
-import GoogleButton from './GoogleButton';
-
-const AccountCard_L = ({
-  contentsDescription1,
-  contentsDescription2,
-  attention,
-  buttonRabel,
-  nextAddress,
-  toOtherPage1,
-  toOtherPage2 }) => 
-  {
- 
-  const [userData, setUserData] = useState()
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const [test, setTest] = useState([])
-  
   return (
-    <div className='AccountCard_L'>
-      <div className='ContentsWrapper'>
-          <div className='ContentsTitle'>
+    <div className="AccountCard_L" style={accountCardStyle}>
+      <Container>
+        <Row>
+          <Col style={contentsTitleStyle} xs={{ offset: "2", span: "8" }} >
             <p>ログインまたは新規登録</p>
-          </div>
-
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={{ offset: "2", span: "10" }} style={{ marginTop: "80px" }}>
             <GoogleButton />
-          
-          <div className='Attention'>
+          </Col>
+        </Row>
+        <Row>
+          <Col style={attentionStyle} xs={{ offset: "2", span: "8" }}>
             {attention}
-          </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </div>
-  )
-}
+  );
+};
 
-export default AccountCard_L
+export default AccountCard_L;
