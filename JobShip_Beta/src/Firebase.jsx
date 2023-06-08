@@ -69,13 +69,6 @@ const getUserData = (input) => {
   return Data;
 }
 
-const getApiKey = async () => {
-  const snapshot = await firebase.database().ref('apiKeys').once('value');
-  const apiKey = snapshot.val();
-  return apiKey;
-}
-
-const API_KEY = getApiKey()
 
 
 export { 
@@ -86,6 +79,5 @@ export {
   db,
   signOut,
   googleButton,
-  getUserData,
-  API_KEY
+  getUserData
 }

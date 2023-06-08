@@ -42,7 +42,6 @@ const EditSheet = () => {
       }
       setTitles(updatedTitles);
     };
-    console.log(sheetData)
     setSavedData(sheetData)
   
     fetchData();

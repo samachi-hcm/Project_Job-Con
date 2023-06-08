@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form'
 import { Container, Row, Col, Accordion, FormSelect } from 'react-bootstrap';
-import { API_KEY } from '../Firebase';
+import { API_KEY } from '../../../GPT_API';
 import { collection, getFirestore, addDoc, setDoc, doc, getDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../Firebase';
