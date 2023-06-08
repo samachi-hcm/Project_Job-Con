@@ -80,7 +80,7 @@ const NewProfilePage = () => {
   useEffect(() => {
     console.log(isUser)
     if(isUser === true){
-      navigate('/ReProfile')
+      navigate('/')
     }
   }, [isUser])
   

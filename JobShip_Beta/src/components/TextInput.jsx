@@ -7,7 +7,7 @@ import Form from './Form';
 
 import './css/TextInput.css'
 
-const TextInput = ({ type, placeHolder, action, defaultValue, style, error, onChange,value }) => {
+const TextInput = ({ type, placeHolder, action, defaultValue, error, onChange,value }) => {
 
   return (
     <div className='TextInput'>
@@ -16,7 +16,7 @@ const TextInput = ({ type, placeHolder, action, defaultValue, style, error, onCh
         {...action}
         className='textbox'
         placeholder={placeHolder}
-        style={style}
+        style={{fontWeight:"600"}}
         onChange={onChange}
         value={value}
       ></FormControl>

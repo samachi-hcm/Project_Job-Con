@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate, redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { collection, getFirestore, addDoc, setDoc, doc, getDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -166,11 +166,11 @@ const HomePage = () => {
                 </Row>
                 <Row>
                   {recordData && recordData.map((data, index) => (
-                    <Accordion key={index}>
-                      <Accordion.Item eventKey={index.toString()} key={index}>
-                        <Accordion.Header>
-                          <Col xs={3}>{data.year}年 {data.month}月</Col>
-                          <Col xs="auto">{data.description}</Col>
+                    <Accordion key={index} >
+                      <Accordion.Item eventKey={index.toString()} key={index} >
+                        <Accordion.Header >
+                          <Col xs={3} style={{fontWeight:"600"}}>{data.year}年 {data.month}月</Col>
+                          <Col xs="auto" style={{fontWeight:"600"}}>{data.description}</Col>
                         </Accordion.Header>
                         <Accordion.Body>
                           {data.detail}

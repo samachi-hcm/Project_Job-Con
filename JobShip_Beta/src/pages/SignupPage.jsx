@@ -17,7 +17,7 @@ const SignupPage = () => {
 
   return (
     <div className="SignUpPage" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <Container fluid style={{ padding: "50px",flexGrow:"1" }} >
+      <Container fluid style={{ padding: "50px",flexGrow:"1",paddingBottom:"0" }} >
         <Row>
           <h1 style={{ fontWeight: "bold", fontFamily: "Toppan BunkyuMidashiGoStd", fontSize: "60px" }}>
             「君に何ができるの？」に<br />&nbsp;&nbsp;あなただけの解を。

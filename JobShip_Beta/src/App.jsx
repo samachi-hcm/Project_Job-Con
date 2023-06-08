@@ -15,6 +15,8 @@ import Chat from './components/Chat';
 import EditSheet from './pages/EditSheet';
 import Template from './pages/Template'
 import NoMatchPage from './pages/NoMatchPage'
+import Header1 from './components/Header1';
+import Project from './pages/Project';
 
 function App() {
   const {
@@ -24,10 +26,11 @@ function App() {
   } = useForm();
   
   return (
-    <div className='App'>
+    <div className='App' style={{fontFamily:"Yu Gothic" , fontWeight:"600"}}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="SignupPage" element={<SignupPage />} />
+        <Route path="Header1" element={<Header1 />} />
         <Route path='SigninPage' element={<SigninPage />} />
         <Route path="NewProfilePage" element={<NewProfilePage />} />
         <Route path='Template' element={<Template />} />
@@ -40,6 +43,7 @@ function App() {
         <Route path='EditSheet' element={<EditSheet />} />
         <Route path='ReRecord' element={<RePortfolioPage />} />
         <Route path='FirebaseTest' element={<FirebaseTest />} />
+        <Route path="Project" element={<Project />} />
         <Route path='*' element={<NoMatchPage />} />
       </Routes>
     </div>

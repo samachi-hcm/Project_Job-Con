@@ -18,19 +18,19 @@ const Footer = () => {
   }
 
   return (
-    <Container fluid style={{backgroundColor:"#7233B4",height:"110px"}}>
+    <Container fluid style={{backgroundColor:"#7233B4",height:"110px",marginTop:"100px"}}>
       <Row>
         <Col style={{paddingTop:"20px",paddingLeft:"10px",height:"60px"}} xs="auto">
           <img src={JobRecord_IconRE.imgAddess} style={{height:"70%"}}/>
           <img src={JobRecord_LogoRE.imgAddess} style={{height:"80%",marginLeft:"5px"}}/>
         </Col>
-        <Col xs={{offset:"4",span:"2"}} style={{paddingTop:"20px",fontSize:"small",color:"#ffffff", textAlign:'right'}}>
+        <Col xs={{offset:"7",span:"auto"}} style={{paddingTop:"25px",fontSize:"small",color:"#ffffff", textAlign:'right'}}>
         <a>プライバシーポリシー</a>
         </Col>
-        <Col xs="2" style={{paddingTop:"20px",fontSize:"small",color:"#ffffff", textAlign:'right'}}>
+        <Col xs="auto" style={{paddingTop:"25px",fontSize:"small",color:"#ffffff", textAlign:'right'}}>
         <a>利用規約</a>
         </Col>
-        <Col xs="2" style={{paddingTop:"20px",fontSize:"small",color:"#ffffff", textAlign:'right'}}>
+        <Col xs="auto" style={{paddingTop:"25px",fontSize:"small",color:"#ffffff", textAlign:'right'}}>
         <a>運営会社</a>
         </Col>
       </Row>
