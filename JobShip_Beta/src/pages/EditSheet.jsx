@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { collection, getFirestore, addDoc, setDoc, doc, getDoc } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -43,7 +43,7 @@ const EditSheet = () => {
       setTitles(updatedTitles);
     };
     setSavedData(sheetData)
-  
+
     fetchData();
   }, [sheetData]);
 
@@ -84,7 +84,7 @@ const EditSheet = () => {
                       onClick={() => handleNavItemClick(index)}
                       style={{ backgroundColor: selectedNavIndex === index ? "#7233B4" : "" }}
                     >
-                      {index+1}_&nbsp;{data.title}
+                      {index + 1}_&nbsp;{data.title}
                     </Nav.Link>
                   </Nav.Item>
                 ))}
@@ -92,6 +92,9 @@ const EditSheet = () => {
           </Col>
           <Col lg={{ span: 6, offset: 1 }} md={{ span: 8, offset: 1 }} xs={12} style={{ marginTop: "30px" }}>
             <Row>
+              <p style={{ fontSize: "x-large", fontWeight: "bold" }}>
+                レコードからESを編集する
+              </p>
               {recordData &&
                 recordData.map((data, index) => (
                   <>
@@ -107,13 +110,10 @@ const EditSheet = () => {
                           <Accordion key={index}>
                             <Accordion.Item eventKey={index.toString()} key={index}>
                               <Accordion.Header>
-                                <Col xs="auto" style={{ margin: "0" }}>
-
-                                </Col>
-                                <Col xs={3} style={{ paddingLeft: "10px" }}>
+                                <Col xs={3} style={{ paddingLeft: "10px", fontWeight: "600" }}>
                                   {data.year}年 {data.month}月
                                 </Col>
-                                <Col xs="auto">{data.description}</Col>
+                                <Col xs="auto" style={{ fontWeight: "600" }}>{data.description}</Col>
                               </Accordion.Header>
                               <Accordion.Body>{data.detail}</Accordion.Body>
                             </Accordion.Item>
@@ -124,7 +124,7 @@ const EditSheet = () => {
                   </>
                 ))}
             </Row>
-            <Chat input={message} checked={isCheckboxChecked} slot={selectedNavIndex} savedData={savedData}/>
+            <Chat input={message} checked={isCheckboxChecked} slot={selectedNavIndex} savedData={savedData} />
           </Col>
         </Row>
       </Container>
