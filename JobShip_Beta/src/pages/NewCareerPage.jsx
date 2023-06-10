@@ -43,6 +43,7 @@ const NewCareerPage = () => {
       <Container fluid style={{ marginTop: "30px", flexGrow: 1 }} >
         <Row>
           <Col lg={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }} xs={12}>
+          <p style={{marginTop:"30px", fontSize:"x-large", paddingLeft:"20px"}}>あなたの経歴（学歴・職歴）を入力してください。<br />※後からでも編集できます</p>
             <Forms mode="career" RPageAdd='/NewPortfolioPage' RPageLabel='次へ' LPageAdd='/NewProfilePage' LPageLabel='戻る'/>
           </Col>
         </Row>

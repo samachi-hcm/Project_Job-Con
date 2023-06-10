@@ -67,9 +67,9 @@ const HomePage = () => {
         <Header1 />
       </div>
 
-      <Container fluid style={{ marginTop: "30px", flexGrow: 1 }}>
+      <Container fluid style={{ marginTop: "30px", flexGrow: "1" }}>
         <Row>
-          <Col lg={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }} xs={12}>
+          <Col lg={{ span: 6, offset: 3 }} md={{ span: 10, offset: 1 }}>
             <Row className='ProfileW' style={{ marginTop: "50px", paddingRight: "20px" }}>
               {profileData && (
                 <>

@@ -23,26 +23,18 @@ const Chat = ({ input, checked, slot, savedData }) => {
 
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({ count: 400, chat: "",mode:"" })
-  const [count, setCount] = useState()
   const [answer, setAnswer] = useState('');
   const [conversation, setConversation] = useState([]);
   const [loading, setLoading] = useState(false);
   const [checkedMessage, setCheckedMessage] = useState()
-  const [titleValue, setTitleValue] = useState("");
-
   const prevMessageRef = useRef('');
   const userDataRef = useRef({});
+  const [title, setTitle] = useState('')
+  const [savedTitle, setSavedTitle] = useState("")
+  const [savedAnswer, setSavedAnswer] = useState("")
 
   useEffect(() => {
-    if (Array.isArray(savedData)) {
-      console.log(savedData[slot])
-      setAnswer(savedData[slot].answer)
-      setValue("title", savedData[slot].title);
-      setValue("answer", savedData[slot].answer);
-    } else {
-      setValue("title", "");
-      setValue("answer", "");
-    }
+    console.log(savedData)
   }, [savedData, slot, setValue])
   
 
@@ -80,12 +72,12 @@ const Chat = ({ input, checked, slot, savedData }) => {
   useEffect(() => {
     const newConversation = [
       {
-        role: 'assistant',
-        content: answer,
+        'role': 'assistant',
+        'content': answer,
       },
       {
-        role: 'user',
-        content: message,
+        'role': 'user',
+        'content': message,
       },
     ];
     setConversation([...conversation, ...newConversation]);
@@ -130,9 +122,8 @@ const Chat = ({ input, checked, slot, savedData }) => {
 
 
   const onSubmit = useCallback(async (data) => {
-
     setFormData(data)
-
+    console.log(message)
     if (loading) return;
 
     setLoading(true);
@@ -145,20 +136,21 @@ const Chat = ({ input, checked, slot, savedData }) => {
           messages: [
             ...conversation,
             {
-              role: 'user',
-              content: message,
+              'role': 'user',
+              'content': message,
             },
           ],
         },
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${API_KEY}`,
+            'Authorization': `Bearer ${API_KEY}`,
           },
         }
       );
-      console.log(message)
+      
       setAnswer(response.data.choices[0].message.content.trim());
+      console.log(response)
     } catch (error) {
       console.error(error);
     } finally {
@@ -177,7 +169,6 @@ const Chat = ({ input, checked, slot, savedData }) => {
   
       if (docSnap.exists()) {
         const existingData = docSnap.data();
-        console.log(existingData)
   
         const updatedFormData = Array.from({ length: 10 }, (_, index) => existingData.formData[index] || {});
   
@@ -195,10 +186,40 @@ const Chat = ({ input, checked, slot, savedData }) => {
   const ChatContent = React.memo(({ title,answer }) => {
     return (
       <div className="result">
-        <div className="current-message">
-        </div>
         <div className="current-answer">
           <h2>回答:</h2>
+
+          <React.Fragment >
+            <form onSubmit={handleSubmit(onSave)}>
+              <TextInput
+                action={register("title")}
+                placeHolder={"タイトルを入力して下さい"}
+                defaultValue={title}
+              />
+              <TextareaInput
+                defaultValue={answer}
+                action={register("answer")}
+              />
+              <RedirectButton
+                buttonRabel={"保存する"}
+                type={"submit"}
+              />
+            </form>
+          </React.Fragment>
+
+        </div>
+      </div>
+    );
+  }, (prevProps, nextProps) => {
+    // propsの比較を行い、変更がある場合にのみ再レンダリングする
+    return prevProps.slot === nextProps.slot;
+  });
+
+  const savedContent = React.memo(({ title,answer }) => {
+    return (
+      <div className="result">
+        <div className="current-answer">
+          <h2>保存中のデータ:</h2>
 
           <React.Fragment >
             <form onSubmit={handleSubmit(onSave)}>

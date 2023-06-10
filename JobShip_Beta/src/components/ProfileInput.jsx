@@ -25,18 +25,18 @@ const ProfileInput = ({ familyName, firstName, familyNameE, firstNameE,  gender,
     <div className='ProfileInput'>
       <Container style={{ marginTop: "30px" }}>
         <Row>
-          <Col xs="5">
+          <Col xs="11" lg="5" style={{marginBottom:"50px"}}>
             <Row>
               <p style={{ marginBottom: "5px" }}>名前/Name</p>
               <Col xs="6">
-                <TextInput placeHolder="姓" action={familyName} defaultValue={savedData?.familyName} error={errors.familyName} />
+                <TextInput placeHolder="山田" action={familyName} defaultValue={savedData?.familyName} error={errors.familyName} />
                 <div style={{ paddingTop: "3px" }}></div>
-                <TextInput placeHolder="family name" action={familyNameE} defaultValue={savedData?.familyNameE} />
+                <TextInput placeHolder="Yamada" action={familyNameE} defaultValue={savedData?.familyNameE} />
               </Col>
               <Col xs="6">
-                <TextInput placeHolder="名" action={firstName} defaultValue={savedData?.firstName} error={errors.firstName}/>
+                <TextInput placeHolder="太郎" action={firstName} defaultValue={savedData?.firstName} error={errors.firstName}/>
                 <div style={{ paddingTop: "3px" }}></div>
-                <TextInput placeHolder="first name" action={firstNameE} defaultValue={savedData?.firstNameE} />
+                <TextInput placeHolder="Taro" action={firstNameE} defaultValue={savedData?.firstNameE} />
               </Col>
             </Row>
             <Row>
@@ -58,7 +58,7 @@ const ProfileInput = ({ familyName, firstName, familyNameE, firstNameE,  gender,
               </Col>
             </Row>
           </Col>
-          <Col xs={{offset:"1", span:"6"}}>
+          <Col xs="11" lg={{offset:"1", span:"6"}}>
             <Row>
               <p style={{ marginBottom: "5px", paddingLeft: "0" }}>興味のある職種</p>
               <Col xs="auto" style={{ paddingLeft: "0", }}>
@@ -84,8 +84,8 @@ const ProfileInput = ({ familyName, firstName, familyNameE, firstNameE,  gender,
               </Col>
             </Row>
             <Row>
-              <Col xs="4" style={{ paddingLeft: "0" }}>
-                <TextInput placeHolder="その他の職業を入力" action={customJob} defaultValue={savedData?.customJob} />
+              <Col xs="6" style={{ paddingLeft: "0" }}>
+                <TextInput placeHolder="その他" action={customJob} defaultValue={savedData?.customJob} />
               </Col>
             </Row>
 

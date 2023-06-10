@@ -24,18 +24,18 @@ const Footer = () => {
           <img src={JobRecord_IconRE.imgAddess} style={{height:"70%"}}/>
           <img src={JobRecord_LogoRE.imgAddess} style={{height:"80%",marginLeft:"5px"}}/>
         </Col>
-        <Col xs={{offset:"7",span:"auto"}} style={{paddingTop:"25px",fontSize:"small",color:"#ffffff", textAlign:'right'}}>
+        <Col md={{offset:"5",span:"auto"}} lg={{offset:"7",span:"auto"}} style={{paddingTop:"25px",fontSize:"small",color:"#ffffff", textAlign:'right'}}>
         <a>プライバシーポリシー</a>
         </Col>
-        <Col xs="auto" style={{paddingTop:"25px",fontSize:"small",color:"#ffffff", textAlign:'right'}}>
+        <Col  md="auto" lg="auto" style={{paddingTop:"25px",fontSize:"small",color:"#ffffff", textAlign:'right'}}>
         <a>利用規約</a>
         </Col>
-        <Col xs="auto" style={{paddingTop:"25px",fontSize:"small",color:"#ffffff", textAlign:'right'}}>
+        <Col md="auto" lg="auto" style={{paddingTop:"25px",fontSize:"small",color:"#ffffff", textAlign:'right'}}>
         <a>運営会社</a>
         </Col>
       </Row>
       <Row>
-        <Col style={{height:"50px",textAlign:"right",paddingRight:"30px",paddingTop:"10px"}} xs={{offset:"10",span:"2"}}>
+        <Col style={{height:"50px",textAlign:"right",paddingRight:"30px",paddingTop:"10px"}} lg={{offset:"10",span:"2"}}>
         <img src={Shioh_LogoRE.imgAddess} style={{height:"60%",marginLeft:"5px"}}/>
         </Col>
       </Row>

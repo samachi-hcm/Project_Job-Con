@@ -7,7 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../Firebase';
 import { getUserData } from '../Firebase';
 import { db } from '../Firebase';
-import { Container, Row, Col, Carousel,Badge } from 'react-bootstrap';
+import { Container, Row, Col, Carousel, Badge } from 'react-bootstrap';
 
 //components
 import Header1 from '../components/Header1'
@@ -26,9 +26,44 @@ import ReCareerPage from './ReCareerPage';
 const Project = () => {
   const [index, setIndex] = useState(0);
 
+  const [user, loading] = useAuthState(auth);
+  const userDataRef = useRef({});
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    if (user) {
+      const { photoURL, displayName, email } = auth.currentUser;
+      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email };
+    }
+  }, [user]);
+
+  // 省略...
+
+useEffect(() => {
+  const fetchData = async () => {
+    const docRef = doc(db, "ProjectData", "now-e_1","Data","projectData"); // ドキュメントID "projectData" を削除
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const saveShot = docSnap.data().data; // ドキュメントのデータを取得
+      setData(saveShot);
+    }
+  };
+  fetchData();
+}, []);
+
+  useEffect(() => {
+    console.log(data)
+  }, [data])
+  
+
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className='Project' style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className='HeaderWrapper'>
@@ -36,76 +71,73 @@ const Project = () => {
       </div>
       <Container fluid style={{ marginTop: "30px", flexGrow: 1 }}>
         <Row>
-          <Col lg={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }} xs={12}>
+          <Col lg={{ span: 6, offset: 3 }} md={{ span: 10, offset: 1 }} >
             <Row>
               <Col style={{ fontSize: 'xx-large' }}>
-                プロジェクト名
+                {data.title}
               </Col>
             </Row>
             <Row>
               <Col xs="1">
-              aiko
+                aiko
               </Col>
               <Col>
-              企業名
+                {data.hostName}
               </Col>
             </Row>
             <Row>
-            <Carousel activeIndex={index} onSelect={handleSelect}>
-              <Carousel.Item>
-                <img
-                  className="d-block w-100"
-                  src="https://via.placeholder.com/800x400?text=Carousel+Image+1"
-                  alt="First slide"
-                />
-                <Carousel.Caption>
-                  <h3>First slide label</h3>
-                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                </Carousel.Caption>
-              </Carousel.Item>
-              <Carousel.Item>
-                <img
-                  className="d-block w-100"
-                  src="https://via.placeholder.com/800x400?text=Carousel+Image+2"
-                  alt="Second slide"
-                />
-                <Carousel.Caption>
-                  <h3>Second slide label</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </Carousel.Caption>
-              </Carousel.Item>
-              <Carousel.Item>
-                <img
-                  className="d-block w-100"
-                  src="https://via.placeholder.com/800x400?text=Carousel+Image+3"
-                  alt="Third slide"
-                />
-                <Carousel.Caption>
-                  <h3>Third slide label</h3>
-                  <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                </Carousel.Caption>
-              </Carousel.Item>
-            </Carousel>
+              <Carousel activeIndex={index} onSelect={handleSelect}>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src="https://via.placeholder.com/800x400?text=Carousel+Image+1"
+                    alt="First slide"
+                  />
+                  <Carousel.Caption>
+                    <h3>First slide label</h3>
+                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src="https://via.placeholder.com/800x400?text=Carousel+Image+2"
+                    alt="Second slide"
+                  />
+                  <Carousel.Caption>
+                    <h3>Second slide label</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src="https://via.placeholder.com/800x400?text=Carousel+Image+3"
+                    alt="Third slide"
+                  />
+                  <Carousel.Caption>
+                    <h3>Third slide label</h3>
+                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              </Carousel>
             </Row>
             <Row>
               <Col xs="8">
-              <Badge>
-                text
-              </Badge>
+                <Badge>
+                  text
+                </Badge>
               </Col>
               <Col xs="4">
-                <RedirectButton buttonRabel={"応募する"}/>
+                <RedirectButton buttonRabel={"応募する"} />
               </Col>
             </Row>
             <Row>
               <Col xs="8">
-                telisuto
-                eaagaewgaeg
-                <br />
-                eaagaewgae
+                {data.description}
               </Col>
-              <Col style={{backgroundColor:"Gray"}}>
-              kgpaoe
+              <Col style={{ backgroundColor: "Gray" }}>
+                kgpaoe
               </Col>
             </Row>
           </Col>
@@ -113,7 +145,7 @@ const Project = () => {
 
       </Container>
 
-      <div className='FooterWrapper' style={{marginTop:"100px"}}>
+      <div className='FooterWrapper' style={{ marginTop: "100px" }}>
         <Footer />
       </div>
     </div>

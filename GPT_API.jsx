@@ -1,4 +1,4 @@
-const API_KEY = "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"
+const API_KEY = ""
 
 
 export { API_KEY }

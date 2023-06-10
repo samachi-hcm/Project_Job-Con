@@ -22,6 +22,7 @@ import NewCarrerPage from './NewCareerPage';
 import NewProfilePage from './NewProfilePage';
 import ReCareerPage from './ReCareerPage';
 import TextareaInput from '../components/TextareaInput';
+import Chat2 from '../components/Chat2';
 
 const EditSheet = () => {
   const { register, handleSubmit, formState: { errors }, control } = useForm();
@@ -31,18 +32,19 @@ const EditSheet = () => {
   const recordData = getUserData("record");
   const sheetData = getUserData("sheet");
 
-  const [selectedNavIndex, setSelectedNavIndex] = useState(0);
-  const [savedData, setSavedData] = useState("")
+  const [selectedNavIndex, setSelectedNavIndex] = useState(1);
+  const [savedData, setSavedData] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
-      const updatedTitles = [...sheetData];
+      const sheetDataArray = sheetData ? Object.values(sheetData) : []; // オブジェクトの値を配列に変換
+      const updatedTitles = [...sheetDataArray];
       for (let i = updatedTitles.length; i < 10; i++) {
         updatedTitles[i] = { title: '' };
       }
       setTitles(updatedTitles);
     };
-    setSavedData(sheetData)
+    setSavedData(sheetData);
 
     fetchData();
   }, [sheetData]);
@@ -82,8 +84,7 @@ const EditSheet = () => {
                   <Nav.Item key={index}>
                     <Nav.Link
                       onClick={() => handleNavItemClick(index)}
-                      style={{ backgroundColor: selectedNavIndex === index ? "#7233B4" : "" }}
-                    >
+                      style={{ backgroundColor: selectedNavIndex === index ? "#7233B4" : "" }}>
                       {index + 1}_&nbsp;{data.title}
                     </Nav.Link>
                   </Nav.Item>
@@ -97,7 +98,7 @@ const EditSheet = () => {
               </p>
               {recordData &&
                 recordData.map((data, index) => (
-                  <>
+                  <React.Fragment key={index}>
                     <Container>
                       <Row>
                         <Col xs="auto" style={{ paddingTop: "12px" }}>
@@ -121,7 +122,7 @@ const EditSheet = () => {
                         </Col>
                       </Row>
                     </Container>
-                  </>
+                  </React.Fragment>
                 ))}
             </Row>
             <Chat input={message} checked={isCheckboxChecked} slot={selectedNavIndex} savedData={savedData} />

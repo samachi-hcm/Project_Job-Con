@@ -139,9 +139,7 @@ const Forms = ({ mode, RPageLabel, LPageLabel, RPageAdd, LPageAdd }) => {
           year={register(`year[${form.index}]`)}
           month={register(`month[${form.index}]`)}
           mode={mode}
-          description={register(`description[${form.index}]`, {
-            maxLength: { value: 30, message: "文字数が30を超えています" },
-          })}
+          description={register(`description[${form.index}]`)}
           detail={register(`detail[${form.index}]`)}
           deleteForm={deleteForm}
           form={form}
@@ -160,7 +158,16 @@ const Forms = ({ mode, RPageLabel, LPageLabel, RPageAdd, LPageAdd }) => {
     setCount(newCount);
   };
 
- 
+  useEffect(() => {
+    startForms();
+  }, []); // Run only once on component mount
+
+  const startForms = () => {
+    for (let i = 0; i < 3; i++) {
+      addForms();
+    }
+  };
+  
   return (
     <div className='Forms'>
       <div className='MainWrapper'>

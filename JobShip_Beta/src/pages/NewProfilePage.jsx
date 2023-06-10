@@ -101,11 +101,12 @@ const NewProfilePage = () => {
       </Container>
 
       <div className='MainWrapper' style={{ flexGrow: 1 }}>
-        <Container>
+        <Container fluid>
           <Row>
-            <Col lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} xs={12}>
+            <Col lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Row style={{marginBottom:"30px"}}>
+                  <p style={{marginTop:"30px", fontSize:"x-large", paddingLeft:"20px"}}>あなたの経験データベース『レコード』の設計を開始します。<br />あなたの情報を教えてください。</p>
                   <ProfileInput
                     testAction="test"
                     familyName={register(`familyName`, { required: '姓の入力は必須です' })}

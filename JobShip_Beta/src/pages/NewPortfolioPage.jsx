@@ -30,7 +30,7 @@ const NewPortfolioPage = () => {
   }
 
   return (
-    <div className='NewPortfolioPage'>
+    <div className='NewPortfolioPage' style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className='HeaderWrapper'>
         <Header1 />
       </div>
@@ -43,9 +43,10 @@ const NewPortfolioPage = () => {
         </Row>
       </Container>
 
-      <Container fluid style={{ marginTop: "30px" }}>
+      <Container fluid style={{ marginTop: "30px", flexGrow:"1" }}>
         <Row>
           <Col lg={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }} xs={12}>
+          <p style={{marginTop:"30px", fontSize:"x-large", paddingLeft:"20px"}}>あなたの経歴（学歴・職歴）を入力してください。<br />※後からでも編集できます</p>
             <Forms mode="record" RPageAdd='/' RPageLabel='登録を完了する' LPageAdd='/NewCareerPage' LPageLabel='戻る' />
           </Col>
         </Row>

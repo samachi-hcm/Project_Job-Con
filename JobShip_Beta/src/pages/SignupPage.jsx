@@ -19,12 +19,12 @@ const SignupPage = () => {
     <div className="SignUpPage" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Container fluid style={{ padding: "50px",flexGrow:"1",paddingBottom:"0" }} >
         <Row>
-          <h1 style={{ fontWeight: "bold", fontFamily: "Toppan BunkyuMidashiGoStd", fontSize: "60px" }}>
+          <h1 style={{ fontWeight: "bold", fontFamily: "Toppan BunkyuMidashiGoStd", fontSize: "60px",lineHeight:"100px" }}>
             「君に何ができるの？」に<br />&nbsp;&nbsp;あなただけの解を。
           </h1>
         </Row>
         <Row>
-          <Col xs="11" lg="7">
+          <Col xs="12" lg="7">
             <p style={{ marginTop: "47px", fontFamily: "Yu Gothic", fontWeight: "bold", paddingLeft: "30px", lineHeight: "30px", letterSpacing: "1px" }}>
               JobRecordは、
               <br />今までの経験をデータベースに格納し、
@@ -38,7 +38,7 @@ const SignupPage = () => {
               <br />に、変えてみませんか？
             </p>
           </Col>
-          <Col xs="11" lg="5" style={{ marginTop: "47px" }}>
+          <Col xs="12" lg="5" style={{ marginTop: "47px" }}>
             <AccountCard_L attention={attention} />
           </Col>
         </Row>
