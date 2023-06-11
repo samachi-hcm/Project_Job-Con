@@ -25,7 +25,7 @@ const Form = ({ year, month, description, detail, savedData, mode, deleteForm, f
     }
   }
 
-  const inputWrapperStyle = mode === "record" ? "375px" : "130px"
+  const inputWrapperStyle = mode === "record" ? "375px" : "150px"
 
   return (
     <Container className='Form' style={{border: "solid 1px #c7c7c7",backgroundColor: "white",borderRadius:"4px", height: inputWrapperStyle, margin:"auto", position: "relative"}}>

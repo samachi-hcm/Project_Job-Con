@@ -20,7 +20,7 @@ const TextInput = ({ type, placeHolder, action, defaultValue, error, onChange,va
         onChange={onChange}
         value={value}
       ></FormControl>
-      {error && <p style={{color: 'red',fontSize:"12px",margin:"0"}}>{error.message}{console.log(error.message)}</p>}
+      {error && <p style={{color: 'red',fontSize:"17px",margin:"0"}}>{error.message}{console.log(error.message)}</p>}
       
     </div>
   )

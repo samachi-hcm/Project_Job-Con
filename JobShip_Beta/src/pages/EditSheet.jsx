@@ -32,7 +32,7 @@ const EditSheet = () => {
   const recordData = getUserData("record");
   const sheetData = getUserData("sheet");
 
-  const [selectedNavIndex, setSelectedNavIndex] = useState(1);
+  const [selectedNavIndex, setSelectedNavIndex] = useState(0);
   const [savedData, setSavedData] = useState("");
 
   useEffect(() => {
@@ -44,7 +44,9 @@ const EditSheet = () => {
       }
       setTitles(updatedTitles);
     };
+
     setSavedData(sheetData);
+
 
     fetchData();
   }, [sheetData]);
@@ -70,31 +72,36 @@ const EditSheet = () => {
   };
 
   return (
-    <div className='EditSheet'>
+    <div className='EditSheet' style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className='HeaderWrapper'>
         <Header1 />
       </div>
 
-      <Container fluid>
+      <Container fluid style={{ flexGrow: "1" }}>
         <Row>
           <Col lg="2" md="1" style={{ margin: "0", paddingLeft: "0" }}>
-            <Nav className="flex-column" style={{ backgroundColor: "#f7f7f7", height: "100vh", margin: "0", padding: "0" }}>
+            <Nav className="flex-column" style={{ backgroundColor: "#27374D", height: "100vh", margin: "0", padding: "0", color: "white", }}>
               {titles &&
                 titles.map((data, index) => (
-                  <Nav.Item key={index}>
+                  <Nav.Item key={index} style={{ color: "white" }}>
                     <Nav.Link
                       onClick={() => handleNavItemClick(index)}
-                      style={{ backgroundColor: selectedNavIndex === index ? "#7233B4" : "" }}>
-                      {index + 1}_&nbsp;{data.title}
+                      style={{ backgroundColor: selectedNavIndex === index ? "#7233B4" : "", color: "whitesmoke" }}>
+                      {index + 1}.&nbsp;{data.title}
                     </Nav.Link>
                   </Nav.Item>
                 ))}
             </Nav>
           </Col>
           <Col lg={{ span: 6, offset: 1 }} md={{ span: 8, offset: 1 }} xs={12} style={{ marginTop: "30px" }}>
-            <Row>
+            <Row style={{ padding: "12px" }}>
               <p style={{ fontSize: "x-large", fontWeight: "bold" }}>
                 レコードからESを編集する
+              </p>
+
+              <div style={{ height: "20px" }}></div>
+              <p style={{ fontSize: "large", padding: "0" }}>
+                1.参照するレコードを選ぶ
               </p>
               {recordData &&
                 recordData.map((data, index) => (
@@ -125,10 +132,16 @@ const EditSheet = () => {
                   </React.Fragment>
                 ))}
             </Row>
+
             <Chat input={message} checked={isCheckboxChecked} slot={selectedNavIndex} savedData={savedData} />
           </Col>
         </Row>
       </Container>
+
+      <div className='FooterWrapper' >
+        <Footer />
+      </div>
+
     </div>
   );
 };

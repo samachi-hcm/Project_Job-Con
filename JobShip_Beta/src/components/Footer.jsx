@@ -18,7 +18,7 @@ const Footer = () => {
   }
 
   return (
-    <Container fluid style={{backgroundColor:"#7233B4",height:"110px",marginTop:"100px"}}>
+    <Container fluid style={{backgroundColor:"#7233B4",height:"110px"}}>
       <Row>
         <Col style={{paddingTop:"20px",paddingLeft:"10px",height:"60px"}} xs="auto">
           <img src={JobRecord_IconRE.imgAddess} style={{height:"70%"}}/>

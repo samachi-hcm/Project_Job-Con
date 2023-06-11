@@ -8,6 +8,8 @@ import { db } from '../Firebase';
 import { Col, Container, Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import { getUserData } from '../Firebase';
+import { useViewport } from 'react-viewport-hooks';
+import { v4 as uuidv4 } from 'uuid';
 
 
 //components
@@ -24,14 +26,15 @@ import Stepper from '../components/Stepper';
 const NewProfilePage = () => {
 
   const [user, loading] = useAuthState(auth)
-
   const { register, handleSubmit, formState: { errors }, control } = useForm();
-
   const [savedData, setSavedData] = useState()
-
   const userDataRef = useRef({});
-
   const [isUser, setIsUser] = useState(null)
+  const [ExplainSize, setExplainSize] = useState("12px")
+  const width = useViewport().vw
+  const height = useViewport().vh
+
+  let aspect = width / height
 
   useEffect(() => {
     if (user) {
@@ -57,11 +60,23 @@ const NewProfilePage = () => {
 
     fetchData();
   }, [user]);
+
+  useEffect(() => {
+    
+    console.log(aspect)
+    if (aspect < 1) {
+      setExplainSize('40px') ; // スマートフォン向けのフォントサイズ
+    } else if (aspect < 1.5) {
+      setExplainSize('16px') ; // タブレット向けのフォントサイズ
+    } else {
+      setExplainSize('25px') ; // デスクトップ向けのフォントサイズ
+    }
+  }, [width])
   
   const navigate = useNavigate();
 
   const toNewCareer = async() => {
-    const formData = [{}]
+    const formData = [{title:"",anser:""},{title:"",anser:""},{title:"",anser:""},{title:"",anser:""},{title:"",anser:""},{title:"",anser:""},{title:"",anser:""},{title:"",anser:""},{title:"",anser:""},{title:"",anser:""}]
     await setDoc(doc(db, "UserData", userDataRef.current.email, "Data", `sheetData`), {
       formData,
     });
@@ -70,9 +85,11 @@ const NewProfilePage = () => {
 
   const onSubmit = async (formData) => {
     console.log(formData)
+    const userId = uuidv4()
     userDataRef.current = { ...userDataRef.current, formData }
     await setDoc(doc(db, "UserData", userDataRef.current.email, "Data", `profileData`), {
       formData,
+      userId
     });
     toNewCareer()
   };
@@ -94,7 +111,7 @@ const NewProfilePage = () => {
 
       <Container style={{ marginTop: "30px" }}>
         <Row >
-          <Col xs={{ span: 4, offset: 4 }}>
+          <Col xs={{ span: 6, offset: 3 }}>
             <Stepper nowStep={1} />
           </Col>
         </Row>
@@ -103,10 +120,10 @@ const NewProfilePage = () => {
       <div className='MainWrapper' style={{ flexGrow: 1 }}>
         <Container fluid>
           <Row>
-            <Col lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }}>
+            <Col lg={{ span: 8, offset: 2 }} md={{ span: 9, offset: 1 }}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Row style={{marginBottom:"30px"}}>
-                  <p style={{marginTop:"30px", fontSize:"x-large", paddingLeft:"20px"}}>あなたの経験データベース『レコード』の設計を開始します。<br />あなたの情報を教えてください。</p>
+                  <p style={{marginTop:"30px", fontSize:ExplainSize, paddingLeft:"20px"}}>あなたの経験データベース<br />『レコード』の設計を開始します。<br />あなたの情報を教えてください。</p>
                   <ProfileInput
                     testAction="test"
                     familyName={register(`familyName`, { required: '姓の入力は必須です' })}

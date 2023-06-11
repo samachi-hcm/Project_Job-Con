@@ -112,7 +112,7 @@ const Forms = ({ mode, RPageLabel, LPageLabel, RPageAdd, LPageAdd }) => {
           <Form
             year={register(`year[${currentCount}]`)}
             month={register(`month[${currentCount}]`)}
-            description={register(`description[${currentCount}]`,{ required: '生年月日の入力は必須です' })}
+            description={register(`description[${currentCount}]`)}
             detail={register(`detail[${currentCount}]`)}
             mode={mode}
           />
@@ -156,16 +156,6 @@ const Forms = ({ mode, RPageLabel, LPageLabel, RPageAdd, LPageAdd }) => {
     const newForms = [...Forms, newForm];
     setForms(newForms);
     setCount(newCount);
-  };
-
-  useEffect(() => {
-    startForms();
-  }, []); // Run only once on component mount
-
-  const startForms = () => {
-    for (let i = 0; i < 3; i++) {
-      addForms();
-    }
   };
   
   return (

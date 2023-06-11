@@ -8,6 +8,7 @@ import { auth } from '../Firebase';
 import { getUserData } from '../Firebase';
 import { db } from '../Firebase';
 import { Container, Row, Col, Accordion, Badge } from 'react-bootstrap';
+import { useViewport } from 'react-viewport-hooks';
 
 //components
 import Header1 from '../components/Header1'
@@ -33,8 +34,14 @@ const HomePage = () => {
   const accountData = getUserData("account")
   const googleData = getUserData()
   const profileImg = googleData?.photoURL
+  const width = useViewport().vw
+  const height = useViewport().vh
 
-  const [user, loading] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth)
+  const [NameSize, setNameSize] = useState("12px")
+  const [nameESize, setNameESize] = useState("6px")
+  const [CareerSize, setCareerSize] = useState("6px")
+  const [RecordSize, setRecordSize] = useState("6px")
 
   const navigate = useNavigate();
 
@@ -49,6 +56,26 @@ const HomePage = () => {
   const toReProfile = () => {
     navigate('./ReProfile')
   }
+
+  let aspect = width / height
+
+  useEffect(() => {
+    
+    console.log(aspect)
+    if (aspect < 1) {
+      setNameSize('50px') ; // スマートフォン向けのフォントサイズ
+      setNameESize("30px")
+      setCareerSize("20px")
+      setRecordSize("20px")
+    } else if (aspect < 1.5) {
+      setNameSize('16px') ; // タブレット向けのフォントサイズ
+    } else {
+      setNameSize('25px') ; // デスクトップ向けのフォントサイズ
+      setNameESize("15px")
+      setCareerSize("15px")
+      setRecordSize("15px")
+    }
+  }, [width])
 
   useEffect(() => {
     if (!loading && user === null) {
@@ -75,44 +102,44 @@ const HomePage = () => {
                 <>
                   <Container>
                     <Row>
-                      <Col className='ImgW' xs={2}>
+                      <Col className='ImgW' xs={4} md={3}>
                         <img src={profileImg} alt="Profile" className="profile-image" style={{ width: '100%', height: 'auto' }} />
                       </Col>
-                      <Col className='NameSocialW' xs={6}>
-                        <Row className='Name' style={{ fontSize: 'xx-large' }}>
-                          <Col xs="auto" >
+                      <Col className='NameSocialW' md={6}>
+                        <Row className='Name' style={{ fontSize: NameSize }}>
+                          <Col md="auto" >
                             {profileData.familyName}
                           </Col>
-                          <Col xs="auto" style={{ padding: 0 }}>
+                          <Col md="auto" style={{ padding: 0 }} >
                             {profileData.firstName}
                           </Col>
                         </Row>
-                        <Row className='NameE'>
-                          <Col xs="auto" >
+                        <Row className='NameE' style={{ fontSize: nameESize }}>
+                          <Col md="auto" >
                             {profileData.familyNameE}
                           </Col>
-                          <Col xs="auto" style={{ padding: 0 }}>
+                          <Col md="auto" style={{ padding: 0 }}>
                             {profileData.firstNameE}
                           </Col>
                         </Row>
                         <Row className='Social'>
                           {Array.isArray(profileData.job) ?
                             profileData.job.map((job, index) => (
-                              <Col xs="auto" style={{ paddingRight: "0" }} key={index}>
+                              <Col md="auto" style={{ paddingRight: "0" }} key={index}>
                                 <Badge key={index} variant="success" >
                                   {job}
                                 </Badge>
                               </Col>
                             ))
                             :
-                            <Col xs="auto">
+                            <Col md="auto">
                               <Badge variant="success" >
                                 {profileData.job}
                               </Badge>
                             </Col>
                           }
 
-                          <Col xs="auto" style={{ paddingRight: "0" }}>
+                          <Col md="auto" style={{ paddingRight: "0" }}>
                             <Badge variant="success" >
                               {profileData.customJob}
                             </Badge>
@@ -121,10 +148,10 @@ const HomePage = () => {
                       </Col>
                     </Row>
                     <Row style={{ paddingTop: "10px" }}>
-                      <Col xs="9">
+                      <Col md="9">
                       </Col>
-                      <Col xs="3" style={{ textAlign: 'right' }}>
-                        <RedirectButton buttonRabel="編集する" onClick={() => toReProfile()} />
+                      <Col md="3" style={{ textAlign: 'right' }}>
+                        <RedirectButton buttonRabel="編集" onClick={() => toReProfile()} />
                       </Col>
                     </Row>
                   </Container>
@@ -139,19 +166,19 @@ const HomePage = () => {
                     経歴
                   </p>
                 </Row>
-                <Row>
+                <Row style={{ fontSize: CareerSize }}>
                   {careerData && careerData.map((data, index) => (
                     <Row key={index}>
-                      <Col xs={3}>{data.year}年 {data.month}月</Col>
-                      <Col xs="auto" style={{overflowWrap:"break-word"}}>{data.description}</Col>
+                      <Col md={3}>{data.year}年 {data.month}月</Col>
+                      <Col md="auto" style={{ overflowWrap: "break-word" }}>{data.description}</Col>
                     </Row>
                   ))}
                 </Row>
                 <Row style={{ paddingTop: "10px" }}>
-                  <Col xs="9">
+                  <Col md="9">
                   </Col>
-                  <Col xs="3" style={{ textAlign: 'right' }}>
-                    <RedirectButton buttonRabel="編集する" onClick={() => toReCareer()} />
+                  <Col md="3" style={{ textAlign: 'right' }}>
+                    <RedirectButton buttonRabel="編集" onClick={() => toReCareer()} />
                   </Col>
                 </Row>
               </Container>
@@ -169,10 +196,10 @@ const HomePage = () => {
                     <Accordion key={index} >
                       <Accordion.Item eventKey={index.toString()} key={index} >
                         <Accordion.Header >
-                          <Col xs={3} style={{fontWeight:"600"}}>{data.year}年 {data.month}月</Col>
-                          <Col xs="auto" style={{fontWeight:"600"}}>{data.description}</Col>
+                          <Col md={3} style={{ fontSize: RecordSize,fontWeight:"600" }} >{data.year}年 {data.month}月</Col>
+                          <Col md={8} style={{ fontSize: RecordSize,overflowWrap:"break-word",fontWeight:"600" }}>{data.description}</Col>
                         </Accordion.Header>
-                        <Accordion.Body>
+                        <Accordion.Body style={{fontWeight:"500"}}>
                           {data.detail}
                         </Accordion.Body>
                       </Accordion.Item>
@@ -180,10 +207,10 @@ const HomePage = () => {
                   ))}
                 </Row>
                 <Row style={{ paddingTop: "10px" }}>
-                  <Col xs="9">
+                  <Col md="9">
                   </Col>
-                  <Col xs="3" style={{ textAlign: 'right' }}>
-                    <RedirectButton buttonRabel="編集する" onClick={() => toReRecord()} />
+                  <Col md="3" style={{ textAlign: 'right' }}>
+                    <RedirectButton buttonRabel="編集" onClick={() => toReRecord()} />
                   </Col>
                 </Row>
               </Container>
@@ -193,7 +220,7 @@ const HomePage = () => {
         </Row>
       </Container>
 
-      <div className='FooterWrapper' style={{marginTop:"100px"}}>
+      <div className='FooterWrapper' style={{ marginTop: "100px" }}>
         <Footer />
       </div>
 
