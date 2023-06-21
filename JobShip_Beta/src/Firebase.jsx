@@ -6,6 +6,7 @@ import { getFirestore } from "firebase/firestore";
 import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth,signInWithPopup,signOut } from "firebase/auth"
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { doc, getDoc } from 'firebase/firestore'
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA3JTiS5EnFusUxnSSEUu-37lbMjNgd4g4",
@@ -36,6 +37,7 @@ const googleButton = (
 
 //firestore
 const db = getFirestore(app)
+const storage = getStorage(app)
 
 const getUserData = (input) => {
   const [user, loading] = useAuthState(auth);
@@ -79,5 +81,6 @@ export {
   db,
   signOut,
   googleButton,
-  getUserData
+  getUserData,
+  storage
 }

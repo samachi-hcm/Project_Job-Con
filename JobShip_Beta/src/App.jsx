@@ -1,5 +1,9 @@
+import React from 'react';
+import { useRef,useState,useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './Firebase';
 import HomePage from './pages/HomePage';
 import SignupPage from './pages/SignupPage' 
 import SigninPage from './pages/SigninPage'
@@ -17,6 +21,8 @@ import Template from './pages/Template'
 import NoMatchPage from './pages/NoMatchPage'
 import Header1 from './components/Header1';
 import Project from './pages/Project';
+import Projects from './pages/Projects';
+import Console from './pages/Console';
 
 function App() {
   const {
@@ -24,9 +30,13 @@ function App() {
     handleSubmit, 
     formState:{errors}
   } = useForm();
+
+  
+
+  
   
   return (
-    <div className='App' style={{fontFamily:"Yu Gothic" , fontWeight:"600"}}>
+    <div className='App' style={{fontFamily:"Yu Gothic,Noto Sans" , fontWeight:"600"}}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="SignupPage" element={<SignupPage />} />
@@ -43,7 +53,9 @@ function App() {
         <Route path='EditSheet' element={<EditSheet />} />
         <Route path='ReRecord' element={<RePortfolioPage />} />
         <Route path='FirebaseTest' element={<FirebaseTest />} />
-        <Route path="Project" element={<Project />} />
+        <Route path="project/:id" element={<Project />} />
+        <Route path="Projects" element={<Projects />} />
+        <Route path="Console" element={<Console />} />
         <Route path='*' element={<NoMatchPage />} />
       </Routes>
     </div>
