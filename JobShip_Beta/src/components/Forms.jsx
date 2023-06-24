@@ -75,7 +75,7 @@ const Forms = ({ mode, RPageLabel, LPageLabel, RPageAdd, LPageAdd }) => {
         description: data.description[index],
       };
       if (mode === 'record') {
-        formEntry.detail = data.detail[index];
+        formEntry.detail = data.detail[index].replace(/\n/g, '¥n');
       }
       return formEntry;
     });
@@ -159,7 +159,7 @@ const Forms = ({ mode, RPageLabel, LPageLabel, RPageAdd, LPageAdd }) => {
   };
   
   return (
-    <div className='Forms'>
+    <div className='Forms' style={{marginBottom:"60px"}}>
       <div className='MainWrapper'>
         <Container fluid>
           <form onSubmit={handleSubmit(onSubmit)}>

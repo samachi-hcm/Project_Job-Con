@@ -83,6 +83,22 @@ const HomePage = () => {
     }
   }, [user, loading])
 
+  const makeLine = (data) => {
+    if(data){
+      const Content =
+      data.split('¥n').map((line, index) => (
+        <React.Fragment key={index}>
+          {line}
+          <br />
+        </React.Fragment>
+      ))
+
+    return Content;
+    }
+    else{
+      return ""
+    }
+  };
 
   if (!profileData) {
     return <div>Loading...</div>
@@ -200,7 +216,7 @@ const HomePage = () => {
                           <Col md={8} style={{ fontSize: RecordSize,overflowWrap:"break-word",fontWeight:"600" }}>{data.description}</Col>
                         </Accordion.Header>
                         <Accordion.Body style={{fontWeight:"500"}}>
-                          {data.detail}
+                          {makeLine(data.detail)}
                         </Accordion.Body>
                       </Accordion.Item>
                     </Accordion>

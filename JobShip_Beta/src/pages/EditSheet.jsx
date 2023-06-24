@@ -54,6 +54,23 @@ const EditSheet = () => {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [titles, setTitles] = useState([]);
 
+  const makeLine = (data) => {
+    if(data){
+      const Content =
+      data.split('¥n').map((line, index) => (
+        <React.Fragment key={index}>
+          {line}
+          <br />
+        </React.Fragment>
+      ))
+
+    return Content;
+    }
+    else{
+      return ""
+    }
+  };
+
   const handleNavItemClick = (index) => {
     setSelectedNavIndex(index);
   };
@@ -80,7 +97,7 @@ const EditSheet = () => {
       <Container fluid style={{ flexGrow: "1" }}>
         <Row>
           <Col lg="2" md="1" style={{ margin: "0", paddingLeft: "0" }}>
-            <Nav className="flex-column" style={{ backgroundColor: "#27374D", height: "100vh", margin: "0", padding: "0", color: "white", }}>
+            <Nav className="flex-column" style={{ backgroundColor: "#27374D", height: "105%", margin: "0", padding: "0", color: "white" }}>
               {titles &&
                 titles.map((data, index) => (
                   <Nav.Item key={index} style={{ color: "white" }}>
@@ -121,9 +138,9 @@ const EditSheet = () => {
                                 <Col xs={3} style={{ paddingLeft: "10px", fontWeight: "600" }}>
                                   {data.year}年 {data.month}月
                                 </Col>
-                                <Col xs="auto" style={{ fontWeight: "600" }}>{data.description}</Col>
+                                <Col xs="auto" style={{ fontWeight: "600",overflowWrap:"break-word" }}>{data.description}</Col>
                               </Accordion.Header>
-                              <Accordion.Body>{data.detail}</Accordion.Body>
+                              <Accordion.Body>{makeLine(data.detail)}</Accordion.Body>
                             </Accordion.Item>
                           </Accordion>
                         </Col>
@@ -138,7 +155,7 @@ const EditSheet = () => {
         </Row>
       </Container>
 
-      <div className='FooterWrapper' >
+      <div className='FooterWrapper' style={{marginTop:"30px"}}>
         <Footer />
       </div>
 

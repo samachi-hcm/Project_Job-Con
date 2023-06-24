@@ -56,6 +56,10 @@ const Project = ({ receivedId, onPage }) => {
 
   const navigate = useNavigate()
 
+  const toApply = () => {
+    navigate('/ApplyPage')
+  }
+
   const apply = () =>{
     console.log("応募完了！")
     console.log(data.form)
@@ -284,7 +288,7 @@ const Project = ({ receivedId, onPage }) => {
                 </Row>
               </Col>
               <Col xs="4" style={{ padding: "0" }}>
-                <Button style={{ width: "100%" }} onClick={() => handleShowModal1()}>応募に進む</Button>
+                <Button style={{ width: "100%" }} onClick={() => toApply()}>応募に進む</Button>
               </Col>
             </Row>
             <Row>
@@ -319,13 +323,13 @@ const Project = ({ receivedId, onPage }) => {
           </Col>
         </Row>
 
-        <Modal show={showModal1} onHide={handleCloseModal1}>
+        <Modal show={showModal1} onHide={handleCloseModal1} >
         <Modal.Header closeButton>
           <Modal.Title>仮応募を確定する</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          「決定」ボタンを押すと意志確認のメールが送信されます
-        </Modal.Body>
+          
+       </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal1}>
             キャンセル

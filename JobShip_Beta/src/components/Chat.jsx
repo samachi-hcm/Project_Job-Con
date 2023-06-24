@@ -261,7 +261,7 @@ const Chat = ({ input, checked, slot, savedData }) => {
               <FormSelect
                 value={selectedOption}
                 onChange={handleOptionChange}
-                style={{ paddingBottom: "2px" }}
+                style={{ paddingBottom: "2px", height:"100%", fontWeight:"600" }}
               >
                 <option value={PRPrompt}>自己PR</option>
                 <option value={GKCKPrompt}>ガクチカ</option>

@@ -3,11 +3,18 @@ import Form from 'react-bootstrap/Form';
 
 import './css/TextareaInput.css'
 
-const TextareaInput = ({type,placeHolder,defaultValue,action,onChange,value}) => {
+const TextareaInput = ({ type, placeHolder, defaultValue, action, value }) => {
   return (
     <div className='TextareaInput'>
-      <Form.Control as="textarea"  className='textbox' placeholder={placeHolder} defaultValue={defaultValue} {...action} value={value} onChange={onChange} style={{fontWeight:"500"}}/>
-      
+      <Form.Control
+        as="textarea"
+        className='textbox'
+        placeholder={placeHolder}
+        defaultValue={defaultValue}
+        {...action}
+        value={value}
+        style={{ fontWeight: "500" }} />
+
     </div>
   )
 }

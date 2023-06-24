@@ -7,7 +7,7 @@ const AddButton = ({onClick}) => {
       <Button 
       onClick={onClick} 
       type='button' 
-      style={{backgroundColor: 'black', borderRadius: '50%', width: '40px', height: '40px', textAlign: 'center', padding: 0, fontSize:"20px", lineHeight: '40px'}}
+      style={{backgroundColor: 'black', borderRadius: '50%', width: '40px', height: '40px', textAlign: 'center', padding: 0, fontSize:"20px", lineHeight: '40px', border:"none"}}
       >
         +
       </Button>

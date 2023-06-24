@@ -12,19 +12,27 @@ import './css/Form.css'
 
 const Form = ({ year, month, description, detail, savedData, mode, deleteForm, form, errors }) => {
 
+  const makeLine = (data) => {
+    if (data) {
+      const lines = data.split("¥n");
+      return lines.join("\n");
+    } else {
+      return "";
+    }
+  };
+  
   const recordCheck = (mode) => {
-    
     if (mode === "record") {
       return (
         <div className='DetailInput'>
-          <TextareaInput action={detail} defaultValue={savedData?.detail} />
+          <TextareaInput action={detail} defaultValue={makeLine(savedData?.detail)} />
         </div>
       );
     } else {
-      return null
+      return null;
     }
-  }
-
+  };  
+  
   const inputWrapperStyle = mode === "record" ? "375px" : "150px"
 
   return (
@@ -33,13 +41,13 @@ const Form = ({ year, month, description, detail, savedData, mode, deleteForm, f
       <Row style={{marginTop:"20px"}}>
         <Col xs="8">
           <Row>
-            <Col xs="3" style={{display:"flex"}}>
+            <Col xs="4" style={{display:"flex"}}>
               <div style={{ width: "70%" }} >
                 <TextInput placeHolder="2023" action={year} defaultValue={savedData?.year} />
               </div>
               <p style={{ margin:"5px"}}>年</p>
             </Col>
-            <Col xs="3" style={{display:"flex"}}>
+            <Col xs="4" style={{display:"flex"}}>
               <div style={{ width: "70%" }} >
                 <TextInput placeHolder="4" action={month} defaultValue={savedData?.month} />
               </div>

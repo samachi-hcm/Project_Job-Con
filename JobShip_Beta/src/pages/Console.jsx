@@ -93,7 +93,11 @@ const Console = ({ allowedUser }) => {
 
  // Consoleコンポーネント内のonSubmit関数
 const onSubmit = async (data) => {
-  console.log(data.id)
+  data.description = data.description.replace(/\n/g, '¥n');
+  data.require = data.require.replace(/\n/g, '¥n');
+  data.award = data.award.replace(/\n/g, '¥n');
+  data.place = data.place.replace(/\n/g, '¥n');
+  console.log(data)
 
   try {
     const file1 = fileData1;
