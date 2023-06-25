@@ -16,6 +16,7 @@ import { getStorage, ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import Header1 from '../components/Header1';
 import Footer from '../components/Footer';
 import RedirectButton from '../components/RedirectButton';
+import CheckBox from '../components/CheckBox';
 
 //linked pages
 import NewCarrerPage from './NewCareerPage';
@@ -190,9 +191,29 @@ const onSubmit = async (data) => {
           </Row>
           <Row style={{ marginTop: "30px" }}>
             <Col xs="8">
-              <Row>
-                タグ
-              </Row>
+            <Row>
+              <Col xs="auto" style={{ paddingLeft: "0"}}>
+                <CheckBox label="営業" action={register(`tag`)} />
+              </Col>
+              <Col xs="auto" style={{ paddingLeft: "0" }}>
+                <CheckBox label="企画" action={register(`tag`)} />
+              </Col>
+              <Col xs="auto" style={{ paddingLeft: "0" }}>
+                <CheckBox label="人事" action={register(`tag`)} />
+              </Col>
+              <Col xs="auto" style={{ paddingLeft: "0" }}>
+                <CheckBox label="タレント" action={register(`tag`)} />
+              </Col>
+              <Col xs="auto" style={{ paddingLeft: "0" }}>
+                <CheckBox label="エンジニア" action={register(`tag`)} />
+              </Col>
+              <Col xs="auto" style={{ paddingLeft: "0" }}>
+                <CheckBox label="デザイナー" action={register(`tag`)} />
+              </Col>
+              <Col xs="auto" style={{ paddingLeft: "0" }}>
+                <CheckBox label="クリエイター" action={register(`tag`)} />
+              </Col>
+            </Row>
             </Col>
           </Row>
           <Row>

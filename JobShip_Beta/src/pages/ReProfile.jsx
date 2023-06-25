@@ -93,7 +93,7 @@ const ReProfile = () => {const [user, loading] = useAuthState(auth)
         <Header1 />
       </div>
 
-      <div className='MainWrapper' style={{ flexGrow: 1 }}>
+      <div className='MainWrapper' style={{ flexGrow: 1 ,marginBottom:"30px"}}>
         <Container>
           <Row>
             <Col lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} xs={12}>
