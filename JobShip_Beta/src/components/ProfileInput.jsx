@@ -54,8 +54,6 @@ const ProfileInput = ({ familyName, firstName, familyNameE, firstNameE,  gender,
     <div className='ProfileInput'>
       <Container style={{ marginTop: "30px" }}>
         <Row>
-
-
           <Col xs="11" lg="5" style={{marginBottom:"5px"}}>
             <Row>
               <p style={{ marginBottom: "5px", fontSize:TextSize}}>名前/Name</p>

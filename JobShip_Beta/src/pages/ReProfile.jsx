@@ -32,15 +32,15 @@ const ReProfile = () => {const [user, loading] = useAuthState(auth)
 
   useEffect(() => {
     if (user) {
-      const { photoURL, displayName, email } = auth.currentUser;
-      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email };
+      const { photoURL, displayName, email, uid } = auth.currentUser;
+      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email, uid };
     }
   }, [user]);
 
   useEffect(() => {
     const fetchData = async () => {
       if (user) {
-        const docRef = doc(db, "UserData", userDataRef.current.email, 'Data', `profileData`);
+        const docRef = doc(db, "UserData", userDataRef.current.uid, 'Data', `profileData`);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const saveShot = docSnap.data().formData;
@@ -68,7 +68,7 @@ const ReProfile = () => {const [user, loading] = useAuthState(auth)
   const onSubmit = async (formData) => {
     console.log(formData)
     userDataRef.current = { ...userDataRef.current, formData }
-    await setDoc(doc(db, "UserData", userDataRef.current.email, "Data", `profileData`), {
+    await setDoc(doc(db, "UserData", userDataRef.current.uid, "Data", `profileData`), {
       formData,
     });
     toHome()

@@ -38,8 +38,8 @@ const NewProfilePage = () => {
 
   useEffect(() => {
     if (user) {
-      const { photoURL, displayName, email } = auth.currentUser;
-      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email };
+      const { photoURL, displayName, email, uid } = auth.currentUser;
+      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email, uid };
     }
   }, [user]);
 
@@ -77,7 +77,7 @@ const NewProfilePage = () => {
 
   const toNewCareer = async() => {
     const formData = [{title:"",anser:""},{title:"",anser:""},{title:"",anser:""},{title:"",anser:""},{title:"",anser:""},{title:"",anser:""},{title:"",anser:""},{title:"",anser:""},{title:"",anser:""},{title:"",anser:""}]
-    await setDoc(doc(db, "UserData", userDataRef.current.email, "Data", `sheetData`), {
+    await setDoc(doc(db, "UserData", userDataRef.current.uid, "Data", `sheetData`), {
       formData,
     });
     navigate('/NewCareerPage')
@@ -87,7 +87,7 @@ const NewProfilePage = () => {
     console.log(formData)
     const userId = uuidv4()
     userDataRef.current = { ...userDataRef.current, formData }
-    await setDoc(doc(db, "UserData", userDataRef.current.email, "Data", `profileData`), {
+    await setDoc(doc(db, "UserData", userDataRef.current.uid, "Data", `profileData`), {
       formData,
       userId
     });

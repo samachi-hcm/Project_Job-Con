@@ -70,8 +70,8 @@ const Chat = ({ input, checked, slot, savedData }) => {
 
   useEffect(() => {
     if (user) {
-      const { photoURL, displayName, email } = auth.currentUser;
-      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email };
+      const { photoURL, displayName, email, uid } = auth.currentUser;
+      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email, uid };
     }
   }, [user]);
 
@@ -168,7 +168,7 @@ const Chat = ({ input, checked, slot, savedData }) => {
   const onSave = async (data) => {
     userDataRef.current = { ...userDataRef.current };
 
-    const docRef = doc(db, "UserData", userDataRef.current.email, "Data", "sheetData");
+    const docRef = doc(db, "UserData", userDataRef.current.uid, "Data", "sheetData");
 
     try {
       const docSnap = await getDoc(docRef);

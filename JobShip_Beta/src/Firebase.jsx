@@ -39,17 +39,17 @@ const googleButton = (
 const db = getFirestore(app)
 const storage = getStorage(app)
 
-const getUserData = (input) => {
+const getUserData = (input, uid) => {
   const [user, loading] = useAuthState(auth);
   const userDataRef = useRef({});
   const [Data, setData] = useState();
 
   useEffect(() => {
     if (user) {
-      const { photoURL, displayName, email } = auth.currentUser;
-      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email };
+      const { photoURL, displayName, email, uid } = auth.currentUser;
+      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email, uid };
       if (input == null) {
-        setData(userDataRef.current)
+        setData(userDataRef.current);
       }
     }
   }, [user]);
@@ -57,7 +57,8 @@ const getUserData = (input) => {
   useEffect(() => {
     if (user && input != null) {
       const fetchData = async () => {
-        const docRef = doc(db,"UserData", userDataRef.current.email, 'Data',`${input}Data`);
+        const userUid = uid || userDataRef.current.uid;
+        const docRef = doc(db, "UserData", userUid, 'Data', `${input}Data`);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const saveShot = docSnap.data().formData;
@@ -66,11 +67,10 @@ const getUserData = (input) => {
       };
       fetchData();
     }
-  }, [user, input]);
+  }, [user, input, uid]);
 
   return Data;
-}
-
+};
 
 
 export { 

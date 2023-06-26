@@ -32,10 +32,6 @@ function App() {
     handleSubmit, 
     formState:{errors}
   } = useForm();
-
-  
-
-  
   
   return (
     <div className='App' style={{fontFamily:"Yu Gothic,Noto Sans" , fontWeight:"600"}}>

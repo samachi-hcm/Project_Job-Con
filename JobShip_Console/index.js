@@ -7,21 +7,28 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-const collectionRef = db.collection('UserData').doc('info@shioh.jp').collection('Data');
+const sourceCollectionRef = db.collection('UserData').doc('yongtianshuu@gmail.com').collection('Data');
+const destinationCollectionRef = db.collection('UserData').doc('ljCrFWcUqSSoUAkkel7z14dx8Qb2').collection('Data');
 
-const newData = {};
+const collectionNames = ['careerData', 'profileData', 'recordData', 'sheetData'];
 
-collectionRef
-  .get()
-  .then(snapshot => {
-    snapshot.forEach(doc => {
-      const collectionName = doc.id;
-      const formData = doc.data().formData;
-      newData[collectionName] = { formData };
+collectionNames.forEach(collectionName => {
+  sourceCollectionRef.doc(collectionName).get()
+    .then(snapshot => {
+      if (snapshot.exists) {
+        const formData = snapshot.data().formData;
+        destinationCollectionRef.doc(collectionName).set({ formData })
+          .then(() => {
+            console.log(`Data added to ${collectionName}`);
+          })
+          .catch(err => {
+            console.error(`Error adding data to ${collectionName}:`, err);
+          });
+      } else {
+        console.log(`No document found for ${collectionName}`);
+      }
+    })
+    .catch(err => {
+      console.log(`Error getting ${collectionName} document`, err);
     });
-
-    console.log('New data:', newData);
-  })
-  .catch(err => {
-    console.log('Error getting documents', err);
-  });
+});
