@@ -22,7 +22,6 @@ import NewCarrerPage from './NewCareerPage';
 import NewProfilePage from './NewProfilePage';
 import ReCareerPage from './ReCareerPage';
 import TextareaInput from '../components/TextareaInput';
-import Chat2 from '../components/Chat2';
 
 const EditSheet = () => {
   const { register, handleSubmit, formState: { errors }, control } = useForm();
@@ -35,6 +34,8 @@ const EditSheet = () => {
   const [selectedNavIndex, setSelectedNavIndex] = useState(0);
   const [savedData, setSavedData] = useState("");
 
+  const [saveFlag, setSaveFlag] = useState(0)
+
   useEffect(() => {
     const fetchData = async () => {
       const sheetDataArray = sheetData ? Object.values(sheetData) : []; // オブジェクトの値を配列に変換
@@ -44,12 +45,9 @@ const EditSheet = () => {
       }
       setTitles(updatedTitles);
     };
-
     setSavedData(sheetData);
-
-
     fetchData();
-  }, [sheetData]);
+  }, [sheetData,saveFlag]);
 
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [titles, setTitles] = useState([]);
@@ -150,7 +148,7 @@ const EditSheet = () => {
                 ))}
             </Row>
 
-            <Chat input={message} checked={isCheckboxChecked} slot={selectedNavIndex} savedData={savedData} />
+            <Chat input={message} checked={isCheckboxChecked} slot={selectedNavIndex} savedData={savedData} setSaveFlag={()=>setSaveFlag()} />
           </Col>
         </Row>
       </Container>

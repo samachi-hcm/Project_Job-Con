@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { collection, getFirestore, addDoc, setDoc, doc, getDoc } from 'firebase/firestore'
+import { collection, getFirestore, addDoc, setDoc, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../Firebase';
 import { getUserData } from '../Firebase';
@@ -45,6 +45,8 @@ const Project = ({ receivedId, onPage }) => {
   const [managerImgUrl, setManagerImgUrl] = useState('')
 
   const [showModal1, setShowModal1] = useState(false);
+  const [showModal2, setShowModal2] = useState(false);
+  const [isApplied, setIsApplied] = useState(false)
 
   const handleShowModal1 = () => {
     setShowModal1(true);
@@ -54,17 +56,79 @@ const Project = ({ receivedId, onPage }) => {
     setShowModal1(false);
   };
 
+  const handleShowModal2 = () => {
+    setShowModal2(true);
+  };
+
+  const handleCloseModal2 = () => {
+    setShowModal2(false);
+  };
+
+  useEffect(() => {
+    const checkIfApplied = async () => {
+      if (user) {
+        const applicantId = userDataRef.current.uid;
+        const projectId = receivedId ? receivedId : id;
+
+        const projectRef = doc(db, "ProjectData", projectId, "Data", "applicantData");
+        const projectDataDoc = await getDoc(projectRef);
+
+        if (projectDataDoc.exists()) {
+          const applicants = projectDataDoc.data().applicantData || [];
+          const isAlreadyApplied = applicants.some(applicant => applicant.id === applicantId);
+
+          setIsApplied(isAlreadyApplied);
+        } else {
+          setIsApplied(false);
+        }
+      }
+    };
+
+    checkIfApplied();
+  }, [user, receivedId, id,data]);
+
   const navigate = useNavigate()
 
-  const toApply = () => {
-    navigate('/ApplyPage')
+  const toApply = (id) => {
+    navigate(`/ApplyPage/${id}`)
   }
 
-  const apply = () =>{
-    console.log("応募完了！")
-    console.log(data.form)
-    console.log(userDataRef.current.uid)
-  }
+  const apply = async () => {
+    const applicantData = {id:userDataRef.current.uid, checked:false, email:userDataRef.current.email};
+    const projectId = receivedId ? receivedId : id;
+    
+    const projectRef = doc(db, "ProjectData", projectId, "Data","applicantData");
+    const projectDataDoc = await getDoc(projectRef);
+    
+    if (projectDataDoc.exists()) {
+      const existingApplicants = projectDataDoc.data().applicantData || [];
+      const updatedApplicants = [...existingApplicants, applicantData];
+      
+      await updateDoc(projectRef, { applicantData: updatedApplicants });
+    } else {
+      await setDoc(doc(db, "ProjectData", projectId, "Data","applicantData"), {
+        applicantData: [applicantData]
+      });
+    }
+    toApply(projectId)
+  };
+
+  const cancelApply = async () => {
+    const applicantId = userDataRef.current.uid;
+    const projectId = receivedId ? receivedId : id;
+  
+    const projectRef = doc(db, "ProjectData", projectId, "Data", "applicantData");
+    const projectDataDoc = await getDoc(projectRef);
+  
+    if (projectDataDoc.exists()) {
+      const applicants = projectDataDoc.data().applicantData || [];
+      const updatedApplicants = applicants.filter(applicant => applicant.id !== applicantId);
+  
+      await updateDoc(projectRef, { applicantData: updatedApplicants });
+      setIsApplied(false);
+    }
+  };
+  
 
   useEffect(() => {
     if (user) {
@@ -81,8 +145,7 @@ const Project = ({ receivedId, onPage }) => {
       if (docSnap.exists()) {
         const saveShot = docSnap.data().data;
         setData(saveShot);
-      }
-      console.log(projectId);
+      } 
     };
     fetchData();
   }, [id, receivedId]);
@@ -93,16 +156,18 @@ const Project = ({ receivedId, onPage }) => {
   };
 
   const makeLine = (data) => {
-    const Content =
-
-      data.split('¥n').map((line, index) => (
+    if (data) {
+      const Content = data.split('¥n').map((line, index) => (
         <React.Fragment key={index}>
           {line}
           <br />
         </React.Fragment>
-      ))
+      ));
 
-    return Content;
+      return Content;
+    } else {
+      return '';
+    }
   };
 
   const shortLine = (data) => {
@@ -157,8 +222,20 @@ const Project = ({ receivedId, onPage }) => {
       });
   }, [mainImgRef, iconImgRef, managerImgRef]);
 
+  const appliedOrNot = (isApplied) => {
+    if(isApplied){
+      return (<>
+        <Button style={{ width: "100%" }} onClick={() => handleShowModal2()} >応募を取り消す</Button>
+      </>)
+    }
+    else{
+      return (<>
+        <Button style={{ width: "100%" }} onClick={() => handleShowModal1()} >応募に進む</Button>
+      </>)
+    }
+  }
+
   if (!data) {
-    console.log(data)
     return <div>Loading...</div>;
   }
 
@@ -288,7 +365,7 @@ const Project = ({ receivedId, onPage }) => {
                 </Row>
               </Col>
               <Col xs="4" style={{ padding: "0" }}>
-                <Button style={{ width: "100%" }} onClick={() => toApply()}>応募に進む</Button>
+                {appliedOrNot(isApplied)}
               </Col>
             </Row>
             <Row>
@@ -301,6 +378,8 @@ const Project = ({ receivedId, onPage }) => {
                 {makeLine(data.award)}
                 <p style={{ fontSize: "x-large", fontWeight: "bold", fontFamily: "Toppan BunkyuMidashiGoStd", marginBottom: "20px", marginTop: "20px" }}>勤務地</p>
                 {makeLine(data.place)}
+                <p style={{ fontSize: "x-large", fontWeight: "bold", fontFamily: "Toppan BunkyuMidashiGoStd", marginBottom: "20px", marginTop: "20px" }}>私たちについて</p>
+                {makeLine(data.aboutUs)}
               </Col>
               <Col style={{ border: "solid 1px #c7c7c7", backgroundColor: "white", borderRadius: "4px", marginTop: "50px", padding: "20px" }}>
                 <Row>
@@ -328,14 +407,32 @@ const Project = ({ receivedId, onPage }) => {
           <Modal.Title>仮応募を確定する</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          
+          「確定」をクリックすると仮応募が完了します
        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal1}>
             キャンセル
           </Button>
           <Button variant="primary" onClick={()=>apply()}>
-            決定
+            確定
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showModal2} onHide={handleCloseModal2} >
+        <Modal.Header closeButton>
+          <Modal.Title>応募を取り消す</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          「確定」をクリックすると仮応募を取り消します。
+          <p style={{fontSize:"x-small",marginTop:"10px"}}>*応募から時間が経過していた場合、取り消し処理が間に合わないことがございます。</p>
+       </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal2}>
+            キャンセル
+          </Button>
+          <Button variant="primary" onClick={()=>cancelApply()}>
+            確定
           </Button>
         </Modal.Footer>
       </Modal>

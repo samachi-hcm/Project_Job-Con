@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 import './css/Footer.css'
 
@@ -17,6 +18,16 @@ const Footer = () => {
     imgAddess:"/Shioh_LogoRE.png"
   }
 
+  const navigate = useNavigate()
+
+  const toPrivacyPolicy = () => {
+    navigate('/PrivacyPolicy')
+  }
+
+  const toTermsOfService = () => {
+    navigate('/TermsOfService')
+  }
+
   return (
     <Container fluid style={{backgroundColor:"#7233B4",height:"110px"}}>
       <Row>
@@ -25,10 +36,10 @@ const Footer = () => {
           <img src={JobRecord_LogoRE.imgAddess} style={{height:"80%",marginLeft:"5px"}}/>
         </Col>
         <Col md={{offset:"5",span:"auto"}} lg={{offset:"7",span:"auto"}} style={{paddingTop:"25px",fontSize:"small",color:"#ffffff", textAlign:'right'}}>
-        <a>プライバシーポリシー</a>
+        <a onClick={()=>toPrivacyPolicy()}>プライバシーポリシー</a>
         </Col>
         <Col  md="auto" lg="auto" style={{paddingTop:"25px",fontSize:"small",color:"#ffffff", textAlign:'right'}}>
-        <a>利用規約</a>
+        <a onClick={()=>toTermsOfService()}>利用規約</a>
         </Col>
         <Col md="auto" lg="auto" style={{paddingTop:"25px",fontSize:"small",color:"#ffffff", textAlign:'right'}}>
         <a>運営会社</a>

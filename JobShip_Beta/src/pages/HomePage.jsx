@@ -44,7 +44,8 @@ const HomePage = () => {
   const [nameESize, setNameESize] = useState('6px');
   const [CareerSize, setCareerSize] = useState('6px');
   const [RecordSize, setRecordSize] = useState('6px');
-  const [displayOtherPage, setDisplayOtherPage] = useState(false); // 追加: テスト表示用のステート
+
+  const [displayOtherPage, setDisplayOtherPage] = useState(false); 
 
   const otherProfile = getUserData("profile",otheruser)
   const otherCareer = getUserData("career",otheruser)
@@ -70,8 +71,7 @@ const HomePage = () => {
   let aspect = width / height;
 
   useEffect(() => {
-    console.log(aspect);
-    if (aspect < 1) {
+        if (aspect < 1) {
       setNameSize('50px'); // スマートフォン向けのフォントサイズ
       setNameESize('30px');
       setCareerSize('20px');
@@ -85,12 +85,6 @@ const HomePage = () => {
       setRecordSize('15px');
     }
   }, [width]);
-
-  useEffect(() => {
-    console.log(otherProfile)
-    console.log(otheruser)
-  }, [otheruser,otherProfile])
-  
 
   useEffect(() => {
     if (!loading && user === null) {

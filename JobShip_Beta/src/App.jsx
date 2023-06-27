@@ -23,8 +23,10 @@ import Header1 from './components/Header1';
 import Project from './pages/Project';
 import Projects from './pages/Projects';
 import Console from './pages/Console';
-import MailToId from './pages/MailToId';
 import ApplyPage from './pages/ApplyPage';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import CheckApplicants from './pages/CheckApplicants';
 
 function App() {
   const {
@@ -54,8 +56,10 @@ function App() {
         <Route path="project/:id" element={<Project />} />
         <Route path="Projects" element={<Projects />} />
         <Route path="Console" element={<Console />} />
-        <Route path="MailToId" element={<MailToId />} />
-        <Route path="ApplyPage" element={<ApplyPage />} />
+        <Route path="CheckApplicants" element={<CheckApplicants />} />
+        <Route path="ApplyPage/:id" element={<ApplyPage />} />
+        <Route path="PrivacyPolicy" element={<PrivacyPolicy />} />
+        <Route path="TermsOfService" element={<TermsOfService />} />
         <Route path='*' element={<NoMatchPage />} />
       </Routes>
     </div>
