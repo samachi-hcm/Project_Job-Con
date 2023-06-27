@@ -37,15 +37,15 @@ const Forms = ({ mode, RPageLabel, LPageLabel, RPageAdd, LPageAdd }) => {
 
   useEffect(() => {
     if (user) {
-      const { photoURL, displayName, email } = auth.currentUser;
-      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email };
+      const { photoURL, displayName, email, uid } = auth.currentUser;
+      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email, uid };
     }
   }, [user]);
 
   useEffect(() => {
     const fetchData = async () => {
       if (user) {
-        const docRef = doc(db, "UserData", userDataRef.current.email, 'Data', `${mode}Data`);
+        const docRef = doc(db, "UserData", userDataRef.current.uid, 'Data', `${mode}Data`);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const saveShot = docSnap.data().formData;
@@ -81,7 +81,7 @@ const Forms = ({ mode, RPageLabel, LPageLabel, RPageAdd, LPageAdd }) => {
     });
 
     userDataRef.current = { ...userDataRef.current, formData }
-    await setDoc(doc(db, "UserData", userDataRef.current.email, "Data", `${mode}Data`), {
+    await setDoc(doc(db, "UserData", userDataRef.current.uid, "Data", `${mode}Data`), {
       formData
     });
     navigate(RPageAdd)

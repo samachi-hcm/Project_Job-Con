@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form'
 import { Container, Row, Col, Accordion, FormSelect } from 'react-bootstrap';
-import { API_KEY } from '../../../GPT_API';
+
 import { collection, getFirestore, addDoc, setDoc, doc, getDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../Firebase';
@@ -15,7 +15,7 @@ import TextInput from './TextInput';
 const API_URL = 'https://api.openai.com/v1/';
 const MODEL = 'gpt-3.5-turbo';
 
-const Chat = ({ input, checked, slot, savedData }) => {
+const Chat = ({ input, checked, slot, savedData, setSaveFlag }) => {
 
   const { register, handleSubmit, formState: { errors }, control, setValue } = useForm();
 
@@ -32,13 +32,24 @@ const Chat = ({ input, checked, slot, savedData }) => {
   const [title, setTitle] = useState('')
   const [savedTitle, setSavedTitle] = useState("")
   const [savedAnswer, setSavedAnswer] = useState("")
+  const [API_KEY, setAPI_KEY] = useState("")
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const docRef = doc(db, "API", "GPT");
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const saveShot = docSnap.data().Key;
+        setAPI_KEY(saveShot)
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (Array.isArray(savedData)) {
       setSavedTitle(savedData[slot].title)
       setSavedAnswer(savedData[slot].answer)
-      console.log(savedTitle)
-      console.log(savedAnswer)
     }else{
       
     }
@@ -70,8 +81,8 @@ const Chat = ({ input, checked, slot, savedData }) => {
 
   useEffect(() => {
     if (user) {
-      const { photoURL, displayName, email } = auth.currentUser;
-      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email };
+      const { photoURL, displayName, email, uid } = auth.currentUser;
+      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email, uid };
     }
   }, [user]);
 
@@ -129,7 +140,6 @@ const Chat = ({ input, checked, slot, savedData }) => {
 
   const onSubmit = useCallback(async (data) => {
     setFormData(data)
-    console.log(message)
     if (loading) return;
 
     setLoading(true);
@@ -168,7 +178,7 @@ const Chat = ({ input, checked, slot, savedData }) => {
   const onSave = async (data) => {
     userDataRef.current = { ...userDataRef.current };
 
-    const docRef = doc(db, "UserData", userDataRef.current.email, "Data", "sheetData");
+    const docRef = doc(db, "UserData", userDataRef.current.uid, "Data", "sheetData");
 
     try {
       const docSnap = await getDoc(docRef);

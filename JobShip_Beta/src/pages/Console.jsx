@@ -132,8 +132,6 @@ const onSubmit = async (data) => {
   }
 };
 
-
-
   useEffect(() => {
     if (user) {
       const { photoURL, displayName, email, uid } = auth.currentUser;
@@ -226,6 +224,8 @@ const onSubmit = async (data) => {
               <TextareaInput placeHolder={"テキスト"} action={register(`award`)} />
               <p style={{ fontSize: "x-large", fontWeight: "bold", fontFamily: "Toppan BunkyuMidashiGoStd", marginBottom: "20px", marginTop: "20px" }}>勤務地</p>
               <TextareaInput placeHolder={"テキスト"} action={register(`place`)} />
+              <p style={{ fontSize: "x-large", fontWeight: "bold", fontFamily: "Toppan BunkyuMidashiGoStd", marginBottom: "20px", marginTop: "20px" }}>私たちについて</p>
+              <TextareaInput placeHolder={"テキスト"} action={register(`aboutUs`)} />
               <p style={{ fontSize: "x-large", fontWeight: "bold", fontFamily: "Toppan BunkyuMidashiGoStd", marginBottom: "20px", marginTop: "20px" }}>Googleフォームのアドレス(非表示)</p>
               <TextInput placeHolder={""} action={register(`form`)} />
             </Col>

@@ -23,7 +23,6 @@ const Projects = () => {
         ...doc.data(),
       }));
       setProjects(projectsData);
-      console.log(projects)
     };
 
     fetchProjects();
