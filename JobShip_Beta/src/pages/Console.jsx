@@ -98,7 +98,7 @@ const onSubmit = async (data) => {
   data.require = data.require.replace(/\n/g, '¥n');
   data.award = data.award.replace(/\n/g, '¥n');
   data.place = data.place.replace(/\n/g, '¥n');
-  console.log(data)
+  data.aboutUs = data.aboutUs.replace(/\n/g, '¥n');
 
   try {
     const file1 = fileData1;
@@ -211,6 +211,12 @@ const onSubmit = async (data) => {
               <Col xs="auto" style={{ paddingLeft: "0" }}>
                 <CheckBox label="クリエイター" action={register(`tag`)} />
               </Col>
+              <Col xs="auto" style={{ paddingLeft: "0" }}>
+                <CheckBox label="マーケティング" action={register(`tag`)} />
+              </Col>
+              <Col xs="auto" style={{ paddingLeft: "0" }}>
+                <CheckBox label="ライター" action={register(`tag`)} />
+              </Col>
             </Row>
             </Col>
           </Row>
@@ -266,7 +272,7 @@ const onSubmit = async (data) => {
   );
 
   return (
-    <div className='Project' style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div className='Console' style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className='HeaderWrapper'>
         <Header1 />
       </div>

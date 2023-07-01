@@ -102,17 +102,17 @@ const Header1 = () => {
     <>
       <div className="Header1">
         <Container fluid>
-          <Row style={{marginTop:"5px"}}>
+          <Row style={{marginTop:"5px" }}>
             <Col xs="auto" style={{ height: "50px" }}>
               <Button style={{width:"auto",height:"50px",border:"none",background:"none",padding:"0",margin:"0"}}>
               <img className="Icon" src={JobRecord_Icon.imgAddess} style={{ height: "80%" }} onClick={()=>toHome()}/>
               </Button>
             </Col>
             <Col xs="auto" style={{ height: "50px" }}>
-              <Button onClick={()=>toES()} style={{ marginTop: "6px", background:"none",border:"none",color:"black" }}>ESを編集</Button>
+              <Button onClick={()=>toES()} style={{ marginTop: "6px", background:"none",border:"none",color:"black" ,fontWeight:"500"}}>ESを編集</Button>
             </Col>
             <Col xs="auto" style={{ height: "50px" }}>
-              <Button onClick={()=>toProjects()} style={{ marginTop: "6px", background:"none",border:"none",color:"black" }}>プロジェクトを探す</Button>
+              <Button onClick={()=>toProjects()} style={{ marginTop: "6px", background:"none",border:"none",color:"black" ,fontWeight:"500"}}>プロジェクトを探す</Button>
             </Col>
             <Col xs="auto" style={{ height: "50px" }}>
               {checkApplicant}

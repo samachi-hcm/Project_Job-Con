@@ -145,6 +145,7 @@ const Project = ({ receivedId, onPage }) => {
       if (docSnap.exists()) {
         const saveShot = docSnap.data().data;
         setData(saveShot);
+        console.log(data)
       } 
     };
     fetchData();
@@ -176,6 +177,10 @@ const Project = ({ receivedId, onPage }) => {
     const truncatedLines = lines.slice(0, maxLines);
     const isTruncated = lines.length > maxLines;
   
+    if (lines.length === 1) {
+      return data; // ¥nが存在しない場合は元のデータをそのまま返す
+    }
+  
     const Content = truncatedLines.map((line, index) => (
       <React.Fragment key={index}>
         {line}
@@ -194,6 +199,7 @@ const Project = ({ receivedId, onPage }) => {
   
     return Content;
   };
+  
   
 
   useEffect(() => {
@@ -260,7 +266,7 @@ const Project = ({ receivedId, onPage }) => {
                   />
                 </Col>
                 <Col xs="auto">
-                  {data.hostName}
+                  {data.companyName}
                 </Col>
               </Row>
               <Row>
@@ -330,7 +336,7 @@ const Project = ({ receivedId, onPage }) => {
                 />
               </Col>
               <Col xs="auto">
-                {data.hostName}
+                {data.companyName}
               </Col>
             </Row>
             <Row>

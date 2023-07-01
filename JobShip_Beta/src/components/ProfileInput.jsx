@@ -113,6 +113,12 @@ const ProfileInput = ({ familyName, firstName, familyNameE, firstNameE,  gender,
               <Col xs="auto" style={{ paddingLeft: "0" , fontSize:JobChoiceSize}}>
                 <CheckBox label="クリエイター" action={job} defaultChecked={isJobChecked("クリエイター")} />
               </Col>
+              <Col xs="auto" style={{ paddingLeft: "0" , fontSize:JobChoiceSize}}>
+                <CheckBox label="マーケティング" action={job} defaultChecked={isJobChecked("マーケティング")} />
+              </Col>
+              <Col xs="auto" style={{ paddingLeft: "0" , fontSize:JobChoiceSize}}>
+                <CheckBox label="ライター" action={job} defaultChecked={isJobChecked("ライター")} />
+              </Col>
             </Row>
             <Row>
               <Col xs="6" style={{ paddingLeft: "10px" }}>
