@@ -39,7 +39,7 @@ const Projects = () => {
       </div>
       <Container fluid style={{ marginTop: '30px', flexGrow: 1 }}>
         <Row>
-          <Col lg={{ span: 6, offset: 3 }} md={{ span: 10, offset: 1 }}>
+          <Col lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }}>
             {projects.map((project) => (
               <Card key={project.id} style={{ marginBottom: '10px' }} onClick={() => handleProjectClick(project.id)}>
                 <Card.Body>

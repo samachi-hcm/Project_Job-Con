@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -29,12 +29,37 @@ const EditSheet = () => {
 
   const profileData = getUserData("profile");
   const recordData = getUserData("record");
-  const sheetData = getUserData("sheet");
+  const [sheetData, setSheetData] = useState(null)
 
   const [selectedNavIndex, setSelectedNavIndex] = useState(0);
   const [savedData, setSavedData] = useState("");
 
   const [saveFlag, setSaveFlag] = useState(0)
+  const [user, loading] = useAuthState(auth);
+  const userDataRef = useRef({});
+  const [userData, setUserData] = useState("")
+
+  useEffect(() => {
+    if (user) {
+      const { photoURL, displayName, email, uid } = auth.currentUser;
+      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email, uid };
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      const fetchData = async () => {
+        const userUid = userDataRef.current.uid;
+        const docRef = doc(db, "UserData", userUid, 'Data', `sheetData`);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const saveShot = docSnap.data().formData;
+          setSheetData(saveShot);
+        }
+      };
+      fetchData();
+    }
+  }, [user,saveFlag]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,7 +76,7 @@ const EditSheet = () => {
 
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [titles, setTitles] = useState([]);
-
+  
   const makeLine = (data) => {
     if(data){
       const Content =
@@ -148,7 +173,7 @@ const EditSheet = () => {
                 ))}
             </Row>
 
-            <Chat input={message} checked={isCheckboxChecked} slot={selectedNavIndex} savedData={savedData} setSaveFlag={()=>setSaveFlag()} />
+            <Chat input={message} checked={isCheckboxChecked} slot={selectedNavIndex} savedData={savedData} setSaveFlag={setSaveFlag} saveFlag={saveFlag} />
           </Col>
         </Row>
       </Container>

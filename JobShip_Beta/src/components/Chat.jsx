@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form'
-import { Container, Row, Col, Accordion, FormSelect } from 'react-bootstrap';
+import { Container, Row, Col, Accordion, FormSelect, Button } from 'react-bootstrap';
 
 import { collection, getFirestore, addDoc, setDoc, doc, getDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -11,11 +11,12 @@ import axios from 'axios';
 import RedirectButton from './RedirectButton';
 import TextareaInput from './TextareaInput';
 import TextInput from './TextInput';
+import CopyTOClipBoard from './CopyTOClipBoard';
 
 const API_URL = 'https://api.openai.com/v1/';
 const MODEL = 'gpt-3.5-turbo';
 
-const Chat = ({ input, checked, slot, savedData, setSaveFlag }) => {
+const Chat = ({ input, checked, slot, savedData, setSaveFlag, saveFlag }) => {
 
   const { register, handleSubmit, formState: { errors }, control, setValue } = useForm();
 
@@ -50,8 +51,8 @@ const Chat = ({ input, checked, slot, savedData, setSaveFlag }) => {
     if (Array.isArray(savedData)) {
       setSavedTitle(savedData[slot].title)
       setSavedAnswer(savedData[slot].answer)
-    }else{
-      
+    } else {
+
     }
   }, [savedData, slot])
 
@@ -106,6 +107,7 @@ const Chat = ({ input, checked, slot, savedData, setSaveFlag }) => {
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
+
 
   useEffect(() => {
     if (checked) {
@@ -175,37 +177,61 @@ const Chat = ({ input, checked, slot, savedData, setSaveFlag }) => {
     }
   }, [loading, message, conversation]);
 
-  const onSave = async (data) => {
-    userDataRef.current = { ...userDataRef.current };
+  const onSave = async (data, event) => {
 
-    const docRef = doc(db, "UserData", userDataRef.current.uid, "Data", "sheetData");
+    console.log(data)
 
-    try {
-      const docSnap = await getDoc(docRef);
+    event.preventDefault(); // フォームのデフォルトの送信動作をキャンセルする
 
-      if (docSnap.exists()) {
-        const existingData = docSnap.data();
+    const { name } = event.nativeEvent.submitter; // クリックされたボタンのname属性を取得
 
-        const updatedFormData = Array.from({ length: 10 }, (_, index) => existingData.formData[index] || {});
+    if (name == "save") {
+      userDataRef.current = { ...userDataRef.current };
 
-        updatedFormData[slot] = data;
+      const docRef = doc(db, "UserData", userDataRef.current.uid, "Data", "sheetData");
 
-        await setDoc(docRef, { formData: updatedFormData });
+      try {
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const existingData = docSnap.data();
+
+          const updatedFormData = Array.from({ length: 10 }, (_, index) => existingData.formData[index] || {});
+
+          updatedFormData[slot] = data;
+
+          await setDoc(docRef, { formData: updatedFormData });
+        }
+
+        console.log("Data updated successfully");
+      } catch (error) {
+        console.error("Error updating data: ", error);
       }
+      setSaveFlag(saveFlag + 1)
+    }
+    else{
+      copyToClipboard(data.answer)
+    }
 
-      console.log("Data updated successfully");
+
+  };
+
+  const copyToClipboard = async (data) => {
+    try {
+      await navigator.clipboard.writeText(data);
+      console.log('コピーが成功しました');
     } catch (error) {
-      console.error("Error updating data: ", error);
+      console.error('クリップボードへのコピー中にエラーが発生しました:', error);
     }
   };
 
+
   const ChatContent = React.memo(({ title, answer }) => {
     return (
-      <div className="result">
-        <div className="current-answer">
-
-          <React.Fragment >
-            <form onSubmit={handleSubmit(onSave)}>
+      <React.Fragment >
+        <Container>
+          <form onSubmit={handleSubmit(onSave)}>
+            <Row>
               <TextInput
                 action={register("title")}
                 placeHolder={"タイトルを入力して下さい"}
@@ -215,15 +241,20 @@ const Chat = ({ input, checked, slot, savedData, setSaveFlag }) => {
                 defaultValue={answer}
                 action={register("answer")}
               />
-              <RedirectButton
-                buttonRabel={"保存する"}
-                type={"submit"}
-              />
-            </form>
-          </React.Fragment>
-
-        </div>
-      </div>
+              <Col xs="auto">
+                <RedirectButton
+                  buttonRabel={"保存する"}
+                  type={"submit"}
+                  name={"save"}
+                />
+              </Col>
+              <Col xs="auto">
+                <CopyTOClipBoard />
+              </Col>
+            </Row>
+          </form>
+        </Container>
+      </React.Fragment>
     );
   }, (prevProps, nextProps) => {
     // propsの比較を行い、変更がある場合にのみ再レンダリングする
@@ -232,27 +263,33 @@ const Chat = ({ input, checked, slot, savedData, setSaveFlag }) => {
 
   const SavedContent = React.memo(({ savedTitle, savedAnswer }) => {
     return (
-      <div className="result">
-        <div className="current-answer">
-
-          <React.Fragment >
-            <form onSubmit={handleSubmit(onSave)}>
+      <React.Fragment >
+        <Container>
+          <form onSubmit={handleSubmit(onSave)}>
+            <Row>
               <TextInput
+                action={register("title")}
                 placeHolder={"タイトルを入力して下さい"}
                 defaultValue={savedTitle}
               />
               <TextareaInput
                 defaultValue={savedAnswer}
+                action={register("answer")}
               />
-              <RedirectButton
-                buttonRabel={"保存する"}
-                type={"submit"}
-              />
-            </form>
-          </React.Fragment>
-
-        </div>
-      </div>
+              <Col xs="auto">
+                <RedirectButton
+                  buttonRabel={"保存する"}
+                  type={"submit"}
+                  name={"save"}
+                />
+              </Col>
+              <Col xs="auto">
+                <CopyTOClipBoard />
+              </Col>
+            </Row>
+          </form>
+        </Container>
+      </React.Fragment>
     );
   }, (prevProps, nextProps) => {
     // propsの比較を行い、変更がある場合にのみ再レンダリングする
@@ -266,12 +303,12 @@ const Chat = ({ input, checked, slot, savedData, setSaveFlag }) => {
         <div style={{ height: "20px" }}></div>
         <p style={{ fontSize: "large" }}>2.生成する内容を指定する</p>
         <form className="chat-form" onSubmit={handleSubmit(onSubmit)}>
-          <Row style={{marginBottom:"5px"}}>
+          <Row style={{ marginBottom: "5px" }}>
             <Col xs="6">
               <FormSelect
                 value={selectedOption}
                 onChange={handleOptionChange}
-                style={{ paddingBottom: "2px", height:"100%", fontWeight:"600" }}
+                style={{ paddingBottom: "2px", height: "100%", fontWeight: "600" }}
               >
                 <option value={PRPrompt}>自己PR</option>
                 <option value={GKCKPrompt}>ガクチカ</option>
@@ -306,7 +343,7 @@ const Chat = ({ input, checked, slot, savedData, setSaveFlag }) => {
           <ChatContent answer={answer} />
         )}
 
-        <Accordion style={{marginTop:"30px"}} defaultActiveKey={null}>
+        <Accordion style={{ marginTop: "30px" }} defaultActiveKey={null}>
           <Accordion.Item >
             <Accordion.Header >
               <p style={{ fontWeight: "600", margin: "0" }}>アップロード中のデータ</p>

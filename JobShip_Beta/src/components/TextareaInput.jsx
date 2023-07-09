@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 import Form from 'react-bootstrap/Form';
 
-import './css/TextareaInput.css'
+import './css/TextareaInput.css';
 
-const TextareaInput = ({ type, placeHolder, defaultValue, action, value }) => {
+const TextareaInput = ({ type, placeHolder, defaultValue, action, value, onChange }) => {
   return (
     <div className='TextareaInput'>
       <Form.Control
@@ -13,10 +13,11 @@ const TextareaInput = ({ type, placeHolder, defaultValue, action, value }) => {
         defaultValue={defaultValue}
         {...action}
         value={value}
-        style={{ fontWeight: "500" }} />
-
+        onChange={onChange}
+        style={{ fontWeight: "500" }}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default TextareaInput
+export default TextareaInput;

@@ -265,17 +265,18 @@ const Project = ({ receivedId, onPage }) => {
                     style={{ width: "75%", height: "auto" }}
                   />
                 </Col>
-                <Col xs="auto">
+                <Col xs="auto" style={{marginTop:"auto",marginBottom:"auto"}}>
                   {data.companyName}
                 </Col>
               </Row>
-              <Row>
-                <Carousel activeIndex={index} onSelect={handleSelect}>
+              <Row style={{marginTop:"10px"}}>
+                <Carousel activeIndex={index} onSelect={handleSelect} style={{ width: "100%", height: "300px", overflow: "hidden"}}>
                   <Carousel.Item>
                     <img
                       className="d-block w-100"
                       src={mainImgUrl} // 取得した画像のURLを指定
                       alt="First slide"
+                      style={{height:"300px",objectFit: 'contain'}}
                     />
                   </Carousel.Item>
                 </Carousel>
@@ -340,12 +341,13 @@ const Project = ({ receivedId, onPage }) => {
               </Col>
             </Row>
             <Row>
-              <Carousel activeIndex={index} onSelect={handleSelect}>
+              <Carousel activeIndex={index} onSelect={handleSelect} style={{ width: "100%", height: "400px", overflow: "hidden"}}>
                 <Carousel.Item>
                   <img
                     className="d-block w-100"
                     src={mainImgUrl} // 取得した画像のURLを指定
                     alt="First slide"
+                    style={{height:"400px",objectFit: 'contain'}}
                   />
                 </Carousel.Item>
               </Carousel>

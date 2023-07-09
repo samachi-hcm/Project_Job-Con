@@ -28,6 +28,10 @@ const Footer = () => {
     navigate('/TermsOfService')
   }
 
+  const toCompanyWebsite = () => {
+    window.open('https://shioh.jp/', '_blank');
+  }
+
   return (
     <Container fluid style={{backgroundColor:"#7233B4",height:"110px"}}>
       <Row>
@@ -42,7 +46,7 @@ const Footer = () => {
         <a onClick={()=>toTermsOfService()}>利用規約</a>
         </Col>
         <Col md="auto" lg="auto" style={{paddingTop:"25px",fontSize:"small",color:"#ffffff", textAlign:'right'}}>
-        <a>運営会社</a>
+        <a onClick={()=>toCompanyWebsite()}>運営会社</a>
         </Col>
       </Row>
       <Row>
