@@ -47,12 +47,35 @@ const HomePage = () => {
 
   const [displayOtherPage, setDisplayOtherPage] = useState(false); 
 
-  const otherProfile = getUserData("profile",otheruser)
-  const otherCareer = getUserData("career",otheruser)
-  const otherRecord = getUserData("record",otheruser)
+  const [otherProfile, setOtherProfile] = useState(null)
+  const [otherCareer, setOtherCareer] = useState(null)
+  const [otherRecord, setOtherRecord] = useState(null)
   const otherGoogle = getUserData(null,otheruser)
   const otherImg = otherGoogle?.photoURL
-  
+
+  useEffect(() => {
+    if(otheruser){
+      const fetchData = async () => {
+        const profileDocRef = doc(db, "UserData", otheruser, 'Data', `profileData`);
+        const profileDocSnap = await getDoc(profileDocRef);
+        const careerDocRef = doc(db, "UserData", otheruser, 'Data', `careerData`);
+        const careerDocSnap = await getDoc(careerDocRef);
+        const recordDocRef = doc(db, "UserData", otheruser, 'Data', `recordData`);
+        const recordDocSnap = await getDoc(recordDocRef);
+        if (profileDocSnap.exists()) {
+          const profileSaveShot = profileDocSnap.data().formData;
+          setOtherProfile(profileSaveShot);
+          const careerSaveShot = careerDocSnap.data().formData;
+          setOtherCareer(careerSaveShot);
+          const recordSaveShot = recordDocSnap.data().formData;
+          setOtherRecord(recordSaveShot);
+        }
+      };
+      fetchData();
+    }
+      console.log(otherProfile)
+      
+  }, [otheruser]);
 
   const navigate = useNavigate();
 
@@ -71,6 +94,12 @@ const HomePage = () => {
   let aspect = width / height;
 
   useEffect(() => {
+    console.log(otherProfile)
+  }, [otherProfile])
+  
+
+  useEffect(() => {
+    console.log(aspect)
         if (aspect < 1) {
       setNameSize('50px'); // スマートフォン向けのフォントサイズ
       setNameESize('30px');
@@ -84,13 +113,23 @@ const HomePage = () => {
       setCareerSize('15px');
       setRecordSize('15px');
     }
-  }, [width]);
+  }, [aspect]);
 
   useEffect(() => {
     if (!loading && user === null) {
-      navigate('/SignupPage');
+      const urlSearchParams = new URLSearchParams(location.search);
+      const uidParam = urlSearchParams.get('uid');
+  
+      if (uidParam) {
+        // URLのuidパラメータが存在する場合、該当するユーザーのデータを表示
+        setOtheruser(uidParam);
+      } else {
+        // URLのuidパラメータが存在しない場合、未ログインユーザーにリダイレクト
+        navigate('/SignupPage');
+      }
     }
-  }, [user, loading]);
+  }, [user, loading, location]);
+  
 
   const makeLine = (data) => {
     if (data) {
@@ -138,9 +177,10 @@ const HomePage = () => {
   
   
 
-  if (!profileData) {
+  if (!profileData && !otherProfile) {
     return <div>Loading...</div>;
   }
+  
 
   return (
     <div className="HomePage" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -247,10 +287,10 @@ const HomePage = () => {
                         <Accordion key={index}>
                           <Accordion.Item eventKey={index.toString()} key={index}>
                             <Accordion.Header>
-                              <Col md={3} style={{ fontSize: RecordSize, fontWeight: '600' }}>
+                              <Col md={3} style={{ fontSize: RecordSize, fontWeight: '500' }}>
                                 {data.year}年 {data.month}月
                               </Col>
-                              <Col md={8} style={{ fontSize: RecordSize, overflowWrap: 'break-word', fontWeight: '600' }}>
+                              <Col md={8} style={{ fontSize: RecordSize, overflowWrap: 'break-word', fontWeight: '500' }}>
                                 {data.description}
                               </Col>
                             </Accordion.Header>
@@ -363,10 +403,10 @@ const HomePage = () => {
                           <Accordion key={index}>
                             <Accordion.Item eventKey={index.toString()} key={index}>
                               <Accordion.Header>
-                                <Col md={3} style={{ fontSize: RecordSize, fontWeight: '600' }}>
+                                <Col md={3} style={{ fontSize: RecordSize, fontWeight: '500' }}>
                                   {data.year}年 {data.month}月
                                 </Col>
-                                <Col md={8} style={{ fontSize: RecordSize, overflowWrap: 'break-word', fontWeight: '600' }}>
+                                <Col md={8} style={{ fontSize: RecordSize, overflowWrap: 'break-word', fontWeight: '500' }}>
                                   {data.description}
                                 </Col>
                               </Accordion.Header>

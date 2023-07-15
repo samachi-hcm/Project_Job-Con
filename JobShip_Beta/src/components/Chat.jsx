@@ -268,24 +268,13 @@ const Chat = ({ input, checked, slot, savedData, setSaveFlag, saveFlag }) => {
           <form onSubmit={handleSubmit(onSave)}>
             <Row>
               <TextInput
-                action={register("title")}
                 placeHolder={"タイトルを入力して下さい"}
                 defaultValue={savedTitle}
               />
               <TextareaInput
                 defaultValue={savedAnswer}
-                action={register("answer")}
               />
-              <Col xs="auto">
-                <RedirectButton
-                  buttonRabel={"保存する"}
-                  type={"submit"}
-                  name={"save"}
-                />
-              </Col>
-              <Col xs="auto">
-                <CopyTOClipBoard />
-              </Col>
+              
             </Row>
           </form>
         </Container>

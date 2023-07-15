@@ -49,7 +49,7 @@ const SignupPage = () => {
         </Row>
         <Row>
           <Col xs="12" lg="7">
-            <p style={{ marginTop: "47px", fontFamily: "Yu Gothic", fontWeight: "bold", paddingLeft: "30px", lineHeight: MarginSize, letterSpacing: "1px" , fontSize:TextSize}}>
+            <p style={{ marginTop: "47px",  fontWeight: "bold", paddingLeft: "30px", lineHeight: MarginSize, letterSpacing: "1px" , fontSize:TextSize}}>
               JobRecordは、
               <br />今までの経験をデータベースに格納し、
               <br />GPTで非生産的な作業時間を短縮することによって

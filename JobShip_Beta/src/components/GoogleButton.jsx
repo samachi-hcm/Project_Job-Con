@@ -47,11 +47,9 @@ const GoogleButton = () => {
         const docSnap = await getDoc(docRef);
         const saveShot = docSnap.data();
         if (saveShot) {
-          console.log(saveShot);
           setIsUser(true)
           
         } else {
-          console.log("No Data")
           setIsUser(false)
         }
       }

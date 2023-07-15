@@ -61,6 +61,14 @@ const EditSheet = () => {
     }
   }, [user,saveFlag]);
 
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!loading && user === null) {
+      navigate('/SignupPage');
+    }
+  }, [user, loading]);
+
   useEffect(() => {
     const fetchData = async () => {
       const sheetDataArray = sheetData ? Object.values(sheetData) : []; // オブジェクトの値を配列に変換
@@ -148,20 +156,22 @@ const EditSheet = () => {
                   <React.Fragment key={index}>
                     <Container>
                       <Row>
-                        <Col xs="auto" style={{ paddingTop: "12px" }}>
+                        <Col xs="1" style={{ paddingTop: "12px" }}>
                           <CheckBox
                             checked={message.includes(data)}
                             onChange={() => handleCheckboxChange(index)}
                           />
                         </Col>
-                        <Col>
+                        <Col xs="11">
                           <Accordion key={index}>
                             <Accordion.Item eventKey={index.toString()} key={index}>
-                              <Accordion.Header>
+                              <Accordion.Header style={{overflowWrap:"break-word"}}>
                                 <Col xs={3} style={{ paddingLeft: "10px", fontWeight: "600" }}>
                                   {data.year}年 {data.month}月
                                 </Col>
-                                <Col xs="auto" style={{ fontWeight: "600",overflowWrap:"break-word" }}>{data.description}</Col>
+                                <Col xs="8" style={{ fontWeight: "600",overflowWrap:"break-word" }}>
+                                  {data.description}
+                                </Col>
                               </Accordion.Header>
                               <Accordion.Body>{makeLine(data.detail)}</Accordion.Body>
                             </Accordion.Item>

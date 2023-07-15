@@ -65,6 +65,12 @@ const Project = ({ receivedId, onPage }) => {
   };
 
   useEffect(() => {
+    if (!loading && user === null) {
+      navigate('/SignupPage');
+    }
+  }, [user, loading]);
+
+  useEffect(() => {
     const checkIfApplied = async () => {
       if (user) {
         const applicantId = userDataRef.current.uid;
