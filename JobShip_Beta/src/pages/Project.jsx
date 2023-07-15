@@ -19,6 +19,7 @@ import SuggestButton from '../components/SuggestButton'
 import Contest from '../components/Contest'
 import Footer from '../components/Footer'
 import RedirectButton from '../components/RedirectButton';
+import Loading from '../components/Loading';
 
 //linked pages
 import NewCarrerPage from './NewCareerPage'
@@ -91,7 +92,7 @@ const Project = ({ receivedId, onPage }) => {
     };
 
     checkIfApplied();
-  }, [user, receivedId, id,data]);
+  }, [user, receivedId, id, data]);
 
   const navigate = useNavigate()
 
@@ -100,19 +101,19 @@ const Project = ({ receivedId, onPage }) => {
   }
 
   const apply = async () => {
-    const applicantData = {id:userDataRef.current.uid, checked:false, email:userDataRef.current.email};
+    const applicantData = { id: userDataRef.current.uid, checked: false, email: userDataRef.current.email };
     const projectId = receivedId ? receivedId : id;
-    
-    const projectRef = doc(db, "ProjectData", projectId, "Data","applicantData");
+
+    const projectRef = doc(db, "ProjectData", projectId, "Data", "applicantData");
     const projectDataDoc = await getDoc(projectRef);
-    
+
     if (projectDataDoc.exists()) {
       const existingApplicants = projectDataDoc.data().applicantData || [];
       const updatedApplicants = [...existingApplicants, applicantData];
-      
+
       await updateDoc(projectRef, { applicantData: updatedApplicants });
     } else {
-      await setDoc(doc(db, "ProjectData", projectId, "Data","applicantData"), {
+      await setDoc(doc(db, "ProjectData", projectId, "Data", "applicantData"), {
         applicantData: [applicantData]
       });
     }
@@ -122,19 +123,19 @@ const Project = ({ receivedId, onPage }) => {
   const cancelApply = async () => {
     const applicantId = userDataRef.current.uid;
     const projectId = receivedId ? receivedId : id;
-  
+
     const projectRef = doc(db, "ProjectData", projectId, "Data", "applicantData");
     const projectDataDoc = await getDoc(projectRef);
-  
+
     if (projectDataDoc.exists()) {
       const applicants = projectDataDoc.data().applicantData || [];
       const updatedApplicants = applicants.filter(applicant => applicant.id !== applicantId);
-  
+
       await updateDoc(projectRef, { applicantData: updatedApplicants });
       setIsApplied(false);
     }
   };
-  
+
 
   useEffect(() => {
     if (user) {
@@ -152,7 +153,7 @@ const Project = ({ receivedId, onPage }) => {
         const saveShot = docSnap.data().data;
         setData(saveShot);
         console.log(data)
-      } 
+      }
     };
     fetchData();
   }, [id, receivedId]);
@@ -182,18 +183,18 @@ const Project = ({ receivedId, onPage }) => {
     const maxLines = 1; // 表示する最大行数
     const truncatedLines = lines.slice(0, maxLines);
     const isTruncated = lines.length > maxLines;
-  
+
     if (lines.length === 1) {
       return data; // ¥nが存在しない場合は元のデータをそのまま返す
     }
-  
+
     const Content = truncatedLines.map((line, index) => (
       <React.Fragment key={index}>
         {line}
         <br />
       </React.Fragment>
     ));
-  
+
     if (isTruncated) {
       Content.push(
         <React.Fragment key="ellipsis">
@@ -202,11 +203,11 @@ const Project = ({ receivedId, onPage }) => {
         </React.Fragment>
       );
     }
-  
+
     return Content;
   };
-  
-  
+
+
 
   useEffect(() => {
     getDownloadURL(mainImgRef)
@@ -235,12 +236,12 @@ const Project = ({ receivedId, onPage }) => {
   }, [mainImgRef, iconImgRef, managerImgRef]);
 
   const appliedOrNot = (isApplied) => {
-    if(isApplied){
+    if (isApplied) {
       return (<>
         <Button style={{ width: "100%" }} onClick={() => handleShowModal2()} >応募を取り消す</Button>
       </>)
     }
-    else{
+    else {
       return (<>
         <Button style={{ width: "100%" }} onClick={() => handleShowModal1()} >応募に進む</Button>
       </>)
@@ -248,7 +249,25 @@ const Project = ({ receivedId, onPage }) => {
   }
 
   if (!data) {
-    return <div>Loading...</div>;
+    if (onPage) {
+      return <Container>
+        <Row>
+          <Col xs={{ offset: "4", span: "4" }} style={{ textAlign: "center", marginTop: "10vh" }}>
+            <Loading />
+          </Col>
+        </Row>
+      </Container>;
+
+    }
+    if (!onPage) {
+      return <Container>
+        <Row>
+          <Col xs={{ offset: "4", span: "4" }} style={{ textAlign: "center", marginTop: "40vh" }}>
+            <Loading />
+          </Col>
+        </Row>
+      </Container>;
+    }
   }
 
   if (onPage) {
@@ -271,18 +290,18 @@ const Project = ({ receivedId, onPage }) => {
                     style={{ width: "75%", height: "auto" }}
                   />
                 </Col>
-                <Col xs="auto" style={{marginTop:"auto",marginBottom:"auto"}}>
+                <Col xs="auto" style={{ marginTop: "auto", marginBottom: "auto" }}>
                   {data.companyName}
                 </Col>
               </Row>
-              <Row style={{marginTop:"10px"}}>
-                <Carousel activeIndex={index} onSelect={handleSelect} style={{ width: "100%", height: "300px", overflow: "hidden"}}>
+              <Row style={{ marginTop: "10px" }}>
+                <Carousel activeIndex={index} onSelect={handleSelect} style={{ width: "100%", height: "300px", overflow: "hidden" }}>
                   <Carousel.Item>
                     <img
                       className="d-block w-100"
                       src={mainImgUrl} // 取得した画像のURLを指定
                       alt="First slide"
-                      style={{height:"300px",objectFit: 'contain'}}
+                      style={{ height: "300px", objectFit: 'contain' }}
                     />
                   </Carousel.Item>
                 </Carousel>
@@ -347,13 +366,13 @@ const Project = ({ receivedId, onPage }) => {
               </Col>
             </Row>
             <Row>
-              <Carousel activeIndex={index} onSelect={handleSelect} style={{ width: "100%", height: "400px", overflow: "hidden"}}>
+              <Carousel activeIndex={index} onSelect={handleSelect} style={{ width: "100%", height: "400px", overflow: "hidden" }}>
                 <Carousel.Item>
                   <img
                     className="d-block w-100"
                     src={mainImgUrl} // 取得した画像のURLを指定
                     alt="First slide"
-                    style={{height:"400px",objectFit: 'contain'}}
+                    style={{ height: "400px", objectFit: 'contain' }}
                   />
                 </Carousel.Item>
               </Carousel>
@@ -417,39 +436,39 @@ const Project = ({ receivedId, onPage }) => {
         </Row>
 
         <Modal show={showModal1} onHide={handleCloseModal1} >
-        <Modal.Header closeButton>
-          <Modal.Title>仮応募を確定する</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          「確定」をクリックすると仮応募が完了します
-       </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal1}>
-            キャンセル
-          </Button>
-          <Button variant="primary" onClick={()=>apply()}>
-            確定
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          <Modal.Header closeButton>
+            <Modal.Title>仮応募を確定する</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            「確定」をクリックすると仮応募が完了します
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal1}>
+              キャンセル
+            </Button>
+            <Button variant="primary" onClick={() => apply()}>
+              確定
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
-      <Modal show={showModal2} onHide={handleCloseModal2} >
-        <Modal.Header closeButton>
-          <Modal.Title>応募を取り消す</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          「確定」をクリックすると仮応募を取り消します。
-          <p style={{fontSize:"x-small",marginTop:"10px"}}>*応募から時間が経過していた場合、取り消し処理が間に合わないことがございます。</p>
-       </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal2}>
-            キャンセル
-          </Button>
-          <Button variant="primary" onClick={()=>cancelApply()}>
-            確定
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        <Modal show={showModal2} onHide={handleCloseModal2} >
+          <Modal.Header closeButton>
+            <Modal.Title>応募を取り消す</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            「確定」をクリックすると仮応募を取り消します。
+            <p style={{ fontSize: "x-small", marginTop: "10px" }}>*応募から時間が経過していた場合、取り消し処理が間に合わないことがございます。</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal2}>
+              キャンセル
+            </Button>
+            <Button variant="primary" onClick={() => cancelApply()}>
+              確定
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
       </Container>
 

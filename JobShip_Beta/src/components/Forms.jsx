@@ -158,6 +158,7 @@ const Forms = ({ mode, RPageLabel, LPageLabel, RPageAdd, LPageAdd }) => {
     setCount(newCount);
   };
   
+  
   return (
     <div className='Forms' style={{marginBottom:"60px"}}>
       <div className='MainWrapper'>

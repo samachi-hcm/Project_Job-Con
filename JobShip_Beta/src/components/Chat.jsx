@@ -12,6 +12,7 @@ import RedirectButton from './RedirectButton';
 import TextareaInput from './TextareaInput';
 import TextInput from './TextInput';
 import CopyTOClipBoard from './CopyTOClipBoard';
+import Loading from './Loading';
 
 const API_URL = 'https://api.openai.com/v1/';
 const MODEL = 'gpt-3.5-turbo';
@@ -325,7 +326,7 @@ const Chat = ({ input, checked, slot, savedData, setSaveFlag, saveFlag }) => {
         <p style={{ fontSize: "large" }}>3.データを編集して保存する</p>
         {loading && (
           <div className="loading">
-            <p>回答中...</p>
+            <Loading />
           </div>
         )}
         {answer && !loading && (

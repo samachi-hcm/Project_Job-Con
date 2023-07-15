@@ -16,6 +16,7 @@ import Footer from '../components/Footer'
 import ProfileInput from '../components/ProfileInput'
 import RedirectButton from '../components/RedirectButton';
 import Stepper from '../components/Stepper';
+import Loading from '../components/Loading';
 //linked page
 
 //styles
@@ -83,7 +84,13 @@ const ReProfile = () => {const [user, loading] = useAuthState(auth)
   
   if(!savedData){
     return(
-      <div>Loading...</div>
+      <Container>
+      <Row>
+        <Col xs={{ offset: "4", span: "4" }} style={{ textAlign: "center", marginTop: "40vh" }}>
+          <Loading />
+        </Col>
+      </Row>
+    </Container>
     )
   }
 

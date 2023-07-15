@@ -27,6 +27,7 @@ import ApplyPage from './pages/ApplyPage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import CheckApplicants from './pages/CheckApplicants';
+import "./App.css"
 
 
 function App() {
