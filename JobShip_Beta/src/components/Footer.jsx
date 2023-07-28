@@ -1,8 +1,6 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-
 
 import './css/Footer.css'
 
@@ -37,12 +35,10 @@ const Footer = () => {
   return (
     <Container fluid style={{backgroundColor:"#7233B4",height:"110px"}}>
       <Row>
-      <Link to="/">
         <Col style={{paddingTop:"20px",paddingLeft:"10px",height:"60px"}} xs="auto">
           <img src={JobRecord_IconRE.imgAddess} style={{height:"70%"}}/>
           <img src={JobRecord_LogoRE.imgAddess} style={{height:"80%",marginLeft:"5px"}}/>
         </Col>
-      </Link>
         <Col md={{offset:"5",span:"auto"}} lg={{offset:"7",span:"auto"}} style={{paddingTop:"25px",fontSize:"small",color:"#ffffff", textAlign:'right'}}>
         <a onClick={()=>toPrivacyPolicy()}>プライバシーポリシー</a>
         </Col>
@@ -54,11 +50,9 @@ const Footer = () => {
         </Col>
       </Row>
       <Row>
-       <Link to="/">
         <Col style={{height:"50px",textAlign:"right",paddingRight:"30px",paddingTop:"10px"}} lg={{offset:"10",span:"2"}}>
         <img src={Shioh_LogoRE.imgAddess} style={{height:"60%",marginLeft:"5px"}}/>
         </Col>
-        </Link>
       </Row>
     </Container>
   )
