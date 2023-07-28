@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -29,12 +29,45 @@ const EditSheet = () => {
 
   const profileData = getUserData("profile");
   const recordData = getUserData("record");
-  const sheetData = getUserData("sheet");
+  const [sheetData, setSheetData] = useState(null)
 
   const [selectedNavIndex, setSelectedNavIndex] = useState(0);
   const [savedData, setSavedData] = useState("");
 
   const [saveFlag, setSaveFlag] = useState(0)
+  const [user, loading] = useAuthState(auth);
+  const userDataRef = useRef({});
+  const [userData, setUserData] = useState("")
+
+  useEffect(() => {
+    if (user) {
+      const { photoURL, displayName, email, uid } = auth.currentUser;
+      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email, uid };
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      const fetchData = async () => {
+        const userUid = userDataRef.current.uid;
+        const docRef = doc(db, "UserData", userUid, 'Data', `sheetData`);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const saveShot = docSnap.data().formData;
+          setSheetData(saveShot);
+        }
+      };
+      fetchData();
+    }
+  }, [user,saveFlag]);
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!loading && user === null) {
+      navigate('/SignupPage');
+    }
+  }, [user, loading]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,7 +84,7 @@ const EditSheet = () => {
 
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [titles, setTitles] = useState([]);
-
+  
   const makeLine = (data) => {
     if(data){
       const Content =
@@ -123,20 +156,22 @@ const EditSheet = () => {
                   <React.Fragment key={index}>
                     <Container>
                       <Row>
-                        <Col xs="auto" style={{ paddingTop: "12px" }}>
+                        <Col xs="1" style={{ paddingTop: "12px" }}>
                           <CheckBox
                             checked={message.includes(data)}
                             onChange={() => handleCheckboxChange(index)}
                           />
                         </Col>
-                        <Col>
+                        <Col xs="11">
                           <Accordion key={index}>
                             <Accordion.Item eventKey={index.toString()} key={index}>
-                              <Accordion.Header>
+                              <Accordion.Header style={{overflowWrap:"break-word"}}>
                                 <Col xs={3} style={{ paddingLeft: "10px", fontWeight: "600" }}>
                                   {data.year}年 {data.month}月
                                 </Col>
-                                <Col xs="auto" style={{ fontWeight: "600",overflowWrap:"break-word" }}>{data.description}</Col>
+                                <Col xs="8" style={{ fontWeight: "600",overflowWrap:"break-word" }}>
+                                  {data.description}
+                                </Col>
                               </Accordion.Header>
                               <Accordion.Body>{makeLine(data.detail)}</Accordion.Body>
                             </Accordion.Item>
@@ -148,7 +183,7 @@ const EditSheet = () => {
                 ))}
             </Row>
 
-            <Chat input={message} checked={isCheckboxChecked} slot={selectedNavIndex} savedData={savedData} setSaveFlag={()=>setSaveFlag()} />
+            <Chat input={message} checked={isCheckboxChecked} slot={selectedNavIndex} savedData={savedData} setSaveFlag={setSaveFlag} saveFlag={saveFlag} />
           </Col>
         </Row>
       </Container>

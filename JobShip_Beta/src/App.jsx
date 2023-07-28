@@ -27,6 +27,8 @@ import ApplyPage from './pages/ApplyPage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import CheckApplicants from './pages/CheckApplicants';
+import "./App.css"
+
 
 function App() {
   const {
@@ -36,7 +38,7 @@ function App() {
   } = useForm();
   
   return (
-    <div className='App' style={{fontFamily:"Yu Gothic,Noto Sans" , fontWeight:"600"}}>
+    <div className='App' style={{fontFamily:"Noto Sans JP" , fontWeight:"500"}}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="SignupPage" element={<SignupPage />} />

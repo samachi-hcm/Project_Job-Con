@@ -1,0 +1,10 @@
+.CopyTOClipBoard {
+  background-color: #7233B4;
+  border-color: #7233B4;
+  color: white;
+}
+
+.CopyTOClipBoard:hover {
+  background-color: #602aa5;
+  border-color: #602aa5;
+}
