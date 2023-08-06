@@ -8,7 +8,7 @@ import TextareaInput from './TextareaInput'
 import DeleteButton from './DeleteButton'
 import NewCareerPage from './Forms'
 
-import './css/Form.css'
+
 
 const Form = ({ year, month, description, detail, savedData, mode, deleteForm, form, errors }) => {
 

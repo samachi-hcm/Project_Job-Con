@@ -2,10 +2,8 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
 // components
-import Header1 from '../components/Header1';
 import Footer from '../components/Footer';
 import AccountCard_L from '../components/AccountCard_L';
-import AccountCard_R from '../components/AccountCard_R';
 import './css/SignupPage.css';
 
 import { useViewport } from 'react-viewport-hooks';

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import './css/Footer.css'
 
 const Footer = () => {
 

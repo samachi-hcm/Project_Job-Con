@@ -10,18 +10,13 @@ import { db } from '../Firebase';
 import { Container, Row, Col, Accordion, Nav } from 'react-bootstrap';
 
 // components
-import Header1 from '../components/Header1';
-import Contest from '../components/Contest';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RedirectButton from '../components/RedirectButton';
 import Chat from '../components/Chat';
 import CheckBox from '../components/CheckBox';
 
 // linked pages
-import NewCarrerPage from './NewCareerPage';
-import NewProfilePage from './NewProfilePage';
-import ReCareerPage from './ReCareerPage';
-import TextareaInput from '../components/TextareaInput';
 
 const EditSheet = () => {
   const { register, handleSubmit, formState: { errors }, control } = useForm();
@@ -122,7 +117,7 @@ const EditSheet = () => {
   return (
     <div className='EditSheet' style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className='HeaderWrapper'>
-        <Header1 />
+        <Header />
       </div>
 
       <Container fluid style={{ flexGrow: "1" }}>

@@ -5,7 +5,7 @@ import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 // components
-import Header1 from '../components/Header1';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Project from './Project';
 import RedirectButton from '../components/RedirectButton';
@@ -14,7 +14,7 @@ const ApplyPage = ({receivedId}) => {
   return (
     <div className='ApplyPage' style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className='HeaderWrapper'>
-        <Header1 />
+        <Header />
       </div>
       <Container fluid style={{ marginTop: '30px', flexGrow: 1 }}>
         <Row>

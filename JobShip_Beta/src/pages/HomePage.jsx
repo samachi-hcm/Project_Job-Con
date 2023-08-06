@@ -11,11 +11,7 @@ import { Container, Row, Col, Accordion, Badge } from 'react-bootstrap';
 import { useViewport } from 'react-viewport-hooks';
 
 //components
-import Header1 from '../components/Header1';
-import News from '../components/News';
-import PortfolioButton from '../components/PortfolioButton';
-import SuggestButton from '../components/SuggestButton';
-import Contest from '../components/Contest';
+import Header1 from '../components/Header';
 import Footer from '../components/Footer';
 import RedirectButton from '../components/RedirectButton';
 import Loading from '../components/Loading';

@@ -12,19 +12,12 @@ import { useParams } from 'react-router-dom';
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 
 //components
-import Header1 from '../components/Header1'
-import News from '../components/News'
-import PortfolioButton from '../components/PortfolioButton'
-import SuggestButton from '../components/SuggestButton'
-import Contest from '../components/Contest'
+import Header from '../components/Header'
 import Footer from '../components/Footer'
 import RedirectButton from '../components/RedirectButton';
 import Loading from '../components/Loading';
 
 //linked pages
-import NewCarrerPage from './NewCareerPage'
-import NewProfilePage from './NewProfilePage'
-import ReCareerPage from './ReCareerPage';
 
 const Project = ({ receivedId, onPage }) => {
   const [index, setIndex] = useState(0);
@@ -343,7 +336,7 @@ const Project = ({ receivedId, onPage }) => {
   return (
     <div className='Project' style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className='HeaderWrapper'>
-        <Header1 />
+        <Header />
       </div>
       <Container fluid style={{ marginTop: "30px", flexGrow: 1 }}>
         <Row>

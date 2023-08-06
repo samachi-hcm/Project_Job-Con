@@ -9,17 +9,12 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'
 
 //components
-import Header1 from './Header1'
-import Header2 from './Header2'
-import Footer from './Footer'
 import Form from './Form'
 import RedirectButton from './RedirectButton';
 import AddButton from './AddButton'
 import DeleteButton from './DeleteButton'
 //linked page
 
-//styles
-import './css/Forms.css'
 
 const Forms = ({ mode, RPageLabel, LPageLabel, RPageAdd, LPageAdd }) => {
 

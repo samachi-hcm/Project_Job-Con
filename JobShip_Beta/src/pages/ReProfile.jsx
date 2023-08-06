@@ -10,12 +10,10 @@ import { useNavigate } from 'react-router-dom';
 
 
 //components
-import Header1 from '../components/Header1'
-import Header2 from '../components/Header2'
+import Header from '../components/Header'
 import Footer from '../components/Footer'
 import ProfileInput from '../components/ProfileInput'
 import RedirectButton from '../components/RedirectButton';
-import Stepper from '../components/Stepper';
 import Loading from '../components/Loading';
 //linked page
 
@@ -97,7 +95,7 @@ const ReProfile = () => {const [user, loading] = useAuthState(auth)
   return (
     <div className='NewProfilePage' style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className='HeaderWrapper' >
-        <Header1 />
+        <Header />
       </div>
 
       <div className='MainWrapper' style={{ flexGrow: 1 ,marginBottom:"30px"}}>

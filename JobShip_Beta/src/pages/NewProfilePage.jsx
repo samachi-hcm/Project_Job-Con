@@ -13,8 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 //components
-import Header1 from '../components/Header1'
-import Header2 from '../components/Header2'
+import Header from '../components/Header'
 import Footer from '../components/Footer'
 import ProfileInput from '../components/ProfileInput'
 import RedirectButton from '../components/RedirectButton';
@@ -106,7 +105,7 @@ const NewProfilePage = () => {
   return (
     <div className='NewProfilePage' style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className='HeaderWrapper' >
-        <Header1 />
+        <Header />
       </div>
 
       <Container style={{ marginTop: "30px" }}>

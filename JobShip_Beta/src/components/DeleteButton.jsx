@@ -3,7 +3,6 @@ import { useState } from 'react'
 import CareerInput from './Form'
 import { Button } from 'react-bootstrap'
 
-import './css/DeleteButton.css'
 
 const DeleteButton = ({ onClick, placeHolder }) => {
 

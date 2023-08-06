@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
-import './css/Header1.css'
 import { Button } from 'react-bootstrap'
 import { signOut } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'

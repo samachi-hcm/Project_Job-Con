@@ -2,12 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 //components
-import Header1 from '../components/Header1'
-import Header2 from '../components/Header2'
+import Header from '../components/Header'
 import Footer from '../components/Footer'
-import PortfolioInput from '../components/PortfolioInput'
-import Button from '../components/RedirectButton'
-import AddButton from '../components/AddButton'
 import Forms from '../components/Forms'
 import Stepper from '../components/Stepper'
 import RedirectButton from '../components/RedirectButton'
@@ -19,20 +15,10 @@ import { Col, Container, Row } from 'react-bootstrap'
 
 const NewPortfolioPage = () => {
 
-  const navigate = useNavigate();
-
-  const toHome = () => {
-    navigate('/')
-  }
-
-  const toNewCareer = () => {
-    navigate('/NewCareerPage')   
-  }
-
   return (
     <div className='NewPortfolioPage' style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className='HeaderWrapper'>
-        <Header1 />
+        <Header />
       </div>
 
       <Container style={{ marginTop: "30px" }}>

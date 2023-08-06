@@ -13,7 +13,7 @@ import { getStorage, ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 
 
 //components
-import Header1 from '../components/Header1';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RedirectButton from '../components/RedirectButton';
 import CheckBox from '../components/CheckBox';
@@ -153,7 +153,7 @@ const CheckApplicants = () => {
   return (
     <div className='Check' style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className='HeaderWrapper'>
-        <Header1 />
+        <Header />
       </div>
       <Container fluid style={{ marginTop: "30px", flexGrow: 1 }}>
         <Row>

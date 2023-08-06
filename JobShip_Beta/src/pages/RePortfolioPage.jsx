@@ -2,13 +2,9 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 //components
-import Header1 from '../components/Header1'
+import Header from '../components/Header'
 import Footer from '../components/Footer'
-import Button from '../components/RedirectButton'
-import AddButton from '../components/AddButton'
 import Forms from '../components/Forms'
-import Stepper from '../components/Stepper'
-import RedirectButton from '../components/RedirectButton'
 //linked page
 
 //styles
@@ -25,7 +21,7 @@ const RePortfolioPage = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className='HeaderWrapper'>
-        <Header1 />
+        <Header />
       </div>
 
       <Container fluid style={{ marginTop: "30px", flexGrow: 1 }} >

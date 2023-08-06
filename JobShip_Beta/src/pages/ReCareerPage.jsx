@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 //components
-import Header1 from '../components/Header1'
+import Header1 from '../components/Header'
 import Footer from '../components/Footer'
 import Forms from '../components/Forms'
 import RedirectButton from '../components/RedirectButton'

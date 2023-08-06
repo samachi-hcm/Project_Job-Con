@@ -10,11 +10,7 @@ import { collection, getFirestore, addDoc, setDoc, doc, getDoc } from 'firebase/
 import { db } from '../Firebase';
 
 //components
-import Header1 from '../components/Header1';
-import News from '../components/News';
-import PortfolioButton from '../components/PortfolioButton';
-import SuggestButton from '../components/SuggestButton';
-import Contest from '../components/Contest';
+import Header1 from '../components/Header';
 import Footer from '../components/Footer';
 import RedirectButton from '../components/RedirectButton';
 

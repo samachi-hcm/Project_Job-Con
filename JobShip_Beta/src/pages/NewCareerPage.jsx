@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 //components
-import Header1 from '../components/Header1'
+import Header1 from '../components/Header'
 import Footer from '../components/Footer'
 import Button from '../components/RedirectButton'
 import AddButton from '../components/AddButton'
