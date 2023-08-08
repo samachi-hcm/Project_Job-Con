@@ -1,3 +1,4 @@
+// 必要なReactコンポーネントとライブラリをインポート
 import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -7,96 +8,64 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../Firebase';
 import { getUserData } from '../Firebase';
 import { db } from '../Firebase';
-import { Container, Row, Col, Accordion, Badge } from 'react-bootstrap';
+import { Container, Row, Col, Accordion, Badge } from 'react-bootstrap'; // react-bootstrapコンポーネントをインポート
 import { useViewport } from 'react-viewport-hooks';
 
-//components
+// コンポーネントをインポート
 import Header1 from '../components/Header';
 import Footer from '../components/Footer';
 import RedirectButton from '../components/RedirectButton';
 import Loading from '../components/Loading';
 
-//linked pages
+// 関連ページをインポート
 import NewCarrerPage from './NewCareerPage';
 import NewProfilePage from './NewProfilePage';
 import ReCareerPage from './ReCareerPage';
 
-//styles
+// スタイルをインポート
 
+// ホームページコンポーネントの定義
 const HomePage = () => {
+  // ユーザーデータを取得
   const profileData = getUserData('profile');
   const careerData = getUserData('career');
   const recordData = getUserData('record');
   const accountData = getUserData('account');
   const googleData = getUserData();
   const profileImg = googleData?.photoURL;
+
+  // ビューポートの幅と高さを取得
   const width = useViewport().vw;
   const height = useViewport().vh;
 
+  // ロケーションを取得
   const location = useLocation();
 
+  // 認証情報を取得
   const [user, loading] = useAuthState(auth);
-  const [otheruser, setOtheruser] = useState("")
+  const [otheruser, setOtheruser] = useState("");
+
+  // フォントサイズを管理するステート
   const [NameSize, setNameSize] = useState('12px');
   const [nameESize, setNameESize] = useState('6px');
   const [CareerSize, setCareerSize] = useState('6px');
   const [RecordSize, setRecordSize] = useState('6px');
 
+  // 他ユーザーページを表示するかどうかを管理するステート
   const [displayOtherPage, setDisplayOtherPage] = useState(false);
 
-  const [otherProfile, setOtherProfile] = useState(null)
-  const [otherCareer, setOtherCareer] = useState(null)
-  const [otherRecord, setOtherRecord] = useState(null)
-  const otherGoogle = getUserData(null, otheruser)
-  const otherImg = otherGoogle?.photoURL
+  // 他ユーザーのプロフィール、経歴、レコードデータを管理するステート
+  const [otherProfile, setOtherProfile] = useState(null);
+  const [otherCareer, setOtherCareer] = useState(null);
+  const [otherRecord, setOtherRecord] = useState(null);
+  const otherGoogle = getUserData(null, otheruser);
+  const otherImg = otherGoogle?.photoURL;
 
-  useEffect(() => {
-    if (otheruser) {
-      const fetchData = async () => {
-        const profileDocRef = doc(db, "UserData", otheruser, 'Data', `profileData`);
-        const profileDocSnap = await getDoc(profileDocRef);
-        const careerDocRef = doc(db, "UserData", otheruser, 'Data', `careerData`);
-        const careerDocSnap = await getDoc(careerDocRef);
-        const recordDocRef = doc(db, "UserData", otheruser, 'Data', `recordData`);
-        const recordDocSnap = await getDoc(recordDocRef);
-        if (profileDocSnap.exists()) {
-          const profileSaveShot = profileDocSnap.data().formData;
-          setOtherProfile(profileSaveShot);
-          const careerSaveShot = careerDocSnap.data().formData;
-          setOtherCareer(careerSaveShot);
-          const recordSaveShot = recordDocSnap.data().formData;
-          setOtherRecord(recordSaveShot);
-        }
-      };
-      fetchData();
-    }
-    console.log(otherProfile)
-
-  }, [otheruser]);
-
-  const navigate = useNavigate();
-
-  const toReCareer = () => {
-    navigate('/ReCareer');
-  };
-
-  const toReRecord = () => {
-    navigate('./ReRecord');
-  };
-
-  const toReProfile = () => {
-    navigate('./ReProfile');
-  };
-
+  // アスペクト比を計算
   let aspect = width / height;
 
+  // ウィンドウの幅に応じてフォントサイズを設定
   useEffect(() => {
-    console.log(otherProfile)
-  }, [otherProfile])
-
-
-  useEffect(() => {
-    console.log(aspect)
     if (aspect < 1) {
       setNameSize('50px'); // スマートフォン向けのフォントサイズ
       setNameESize('30px');
@@ -112,6 +81,7 @@ const HomePage = () => {
     }
   }, [aspect]);
 
+  // ページがロードされた際の処理
   useEffect(() => {
     if (!loading && user === null) {
       const urlSearchParams = new URLSearchParams(location.search);
@@ -127,6 +97,49 @@ const HomePage = () => {
     }
   }, [user, loading, location]);
 
+  // プロフィール画像を作成するユーティリティ関数
+  const createProfileImage = (data) => {
+    if (data) {
+      return (
+        <Col className="ImgW" xs={4} md={3}>
+          <img src={data} alt="Profile" className="profile-image" style={{ width: '100%', height: 'auto' }} />
+        </Col>
+      );
+    } else {
+      return null;
+    }
+  };
+
+  // ユーザーデータを更新
+  const userDataRef = useRef({});
+
+  useEffect(() => {
+    if (user) {
+      const { photoURL, displayName, email, uid } = auth.currentUser;
+      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email, uid };
+      const url = new URL(window.location.href);
+      url.searchParams.set('uid', uid);
+      window.history.replaceState(null, '', url.toString());
+    }
+  }, [user]);
+
+  // URLパラメータに基づいて他ユーザーページを表示するか判定
+  useEffect(() => {
+    const urlSearchParams = new URLSearchParams(location.search);
+    const uidParam = urlSearchParams.get('uid');
+    if (uidParam && uidParam !== userDataRef.current.uid) {
+      setDisplayOtherPage(true);
+      setOtheruser(uidParam);
+    } else {
+      setDisplayOtherPage(false);
+    }
+
+    if (uidParam && uidParam !== userDataRef.current.uid && !loading) {
+      const newUrl = new URL(window.location.href);
+      newUrl.searchParams.set('uid', uidParam);
+      window.history.replaceState(null, '', newUrl.toString());
+    }
+  }, [location, userDataRef.current.uid, loading]);
 
   const makeLine = (data) => {
     if (data) {
@@ -143,45 +156,30 @@ const HomePage = () => {
     }
   };
 
-  const userDataRef = useRef({});
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    if (user) {
-      const { photoURL, displayName, email, uid } = auth.currentUser;
-      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email, uid };
-      const url = new URL(window.location.href);
-      url.searchParams.set('uid', uid);
-      window.history.replaceState(null, '', url.toString());
-    }
-  }, [user]);
-
-  useEffect(() => {
-    const urlSearchParams = new URLSearchParams(location.search);
-    const uidParam = urlSearchParams.get('uid');
-    if (uidParam && uidParam !== userDataRef.current.uid) {
-      setDisplayOtherPage(true);
-      setOtheruser(uidParam)
-    } else {
-      setDisplayOtherPage(false);
-    }
-
-    if (uidParam && uidParam !== userDataRef.current.uid && !loading) {
-      const newUrl = new URL(window.location.href);
-      newUrl.searchParams.set('uid', uidParam);
-      window.history.replaceState(null, '', newUrl.toString());
-    }
-  }, [location, userDataRef.current.uid, loading]);
-
-  if (!profileData && !otherProfile) {
-    return <Container>
-      <Row>
-        <Col xs={{ offset: "4", span: "4" }} style={{ textAlign: "center", marginTop: "40vh" }}>
-          <Loading />
-        </Col>
-      </Row>
-    </Container>;
+  const toReCareer = () => {
+    navigate('/ReProfile')
   }
 
+  const toReRecord = () => {
+    navigate('/ReRecord')
+  }
+
+  // プロフィール、経歴、レコードのデータがロードされていない場合はローディングを表示
+  if (!profileData && !otherProfile) {
+    return (
+      <Container>
+        <Row>
+          <Col xs={{ offset: "4", span: "4" }} style={{ textAlign: "center", marginTop: "40vh" }}>
+            <Loading />
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
+
+  // ホームページの表示
   return (
     <div className="HomePage" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className="HeaderWrapper">
@@ -193,29 +191,30 @@ const HomePage = () => {
           <Col lg={{ span: 6, offset: 3 }} md={{ span: 10, offset: 1 }}>
             {displayOtherPage ? (
               <>
+                {/* 他ユーザーページの表示 */}
+                {/* プロフィール */}
                 <Row className="ProfileW" style={{ marginTop: '50px', paddingRight: '20px' }}>
                   {otherProfile && (
                     <>
                       <Container>
                         <Row>
-                          {/*
-                        <Col className="ImgW" xs={4} md={3}>
-                          <img src={otherImg} alt="Profile" className="profile-image" style={{ width: '100%', height: 'auto' }} /> 
-                        </Col>
-                        */}
+                          {createProfileImage(otherImg)}
+                          {/* 名前と職業 */}
                           <Col className="NameSocialW" md={6}>
-                            <Row className="Name" style={{ fontSize: NameSize, fontWeight:"700" }}>
+                            <Row className="Name" style={{ fontSize: NameSize, fontWeight: "700" }}>
                               <Col md="auto">{otherProfile.familyName}</Col>
                               <Col md="auto" style={{ padding: 0 }}>
                                 {otherProfile.firstName}
                               </Col>
                             </Row>
+                            {/* 英語名 */}
                             <Row className="NameE" style={{ fontSize: nameESize }}>
                               <Col md="auto">{otherProfile.familyNameE}</Col>
                               <Col md="auto" style={{ padding: 0 }}>
                                 {otherProfile.firstNameE}
                               </Col>
                             </Row>
+                            {/* 職業 */}
                             <Row className="Social">
                               {Array.isArray(otherProfile.job) ? (
                                 otherProfile.job.map((job, index) => (
@@ -247,6 +246,7 @@ const HomePage = () => {
                   )}
                 </Row>
 
+                {/* 経歴 */}
                 <Row className="CareerW" style={{ border: 'solid 1px #c7c7c7', backgroundColor: 'white', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
                   <Container>
                     <Row>
@@ -273,10 +273,8 @@ const HomePage = () => {
                   </Container>
                 </Row>
 
-                <Row
-                  className="RecordW"
-                  style={{ border: 'solid 1px #c7c7c7', backgroundColor: 'white', borderRadius: '4px', marginTop: '50px', padding: '20px' }}
-                >
+                {/* レコード */}
+                <Row className="RecordW" style={{ border: 'solid 1px #c7c7c7', backgroundColor: 'white', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
                   <Container>
                     <Row>
                       <p style={{ fontSize: 'x-large', fontWeight: 'bold' }}>レコード</p>
@@ -309,27 +307,30 @@ const HomePage = () => {
               </>
             ) : (
               <>
+                {/* ユーザーページの表示 */}
+                {/* プロフィール */}
                 <Row className="ProfileW" style={{ marginTop: '50px', paddingRight: '20px' }}>
                   {profileData && (
                     <>
                       <Container>
                         <Row>
-                          <Col className="ImgW" xs={4} md={3}>
-                            <img src={profileImg} alt="Profile" className="profile-image" style={{ width: '100%', height: 'auto' }} />
-                          </Col>
+                          {createProfileImage(profileImg)}
+                          {/* 名前と職業 */}
                           <Col className="NameSocialW" md={6}>
-                            <Row className="Name" style={{ fontSize: NameSize, fontWeight:"700" }}>
+                            <Row className="Name" style={{ fontSize: NameSize, fontWeight: "700" }}>
                               <Col md="auto">{profileData.familyName}</Col>
                               <Col md="auto" style={{ padding: 0 }}>
                                 {profileData.firstName}
                               </Col>
                             </Row>
+                            {/* 英語名 */}
                             <Row className="NameE" style={{ fontSize: nameESize }}>
                               <Col md="auto">{profileData.familyNameE}</Col>
                               <Col md="auto" style={{ padding: 0 }}>
                                 {profileData.firstNameE}
                               </Col>
                             </Row>
+                            {/* 職業 */}
                             <Row className="Social">
                               {Array.isArray(profileData.job) ? (
                                 profileData.job.map((job, index) => (
@@ -362,6 +363,7 @@ const HomePage = () => {
                   )}
                 </Row>
 
+                {/* 経歴 */}
                 <Row className="CareerW" style={{ border: 'solid 1px #c7c7c7', backgroundColor: 'white', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
                   <Container>
                     <Row>
@@ -389,10 +391,8 @@ const HomePage = () => {
                   </Container>
                 </Row>
 
-                <Row
-                  className="RecordW"
-                  style={{ border: 'solid 1px #c7c7c7', backgroundColor: 'white', borderRadius: '4px', marginTop: '50px', padding: '20px' }}
-                >
+                {/* レコード */}
+                <Row className="RecordW" style={{ border: 'solid 1px #c7c7c7', backgroundColor: 'white', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
                   <Container>
                     <Row>
                       <p style={{ fontSize: 'x-large', fontWeight: 'bold' }}>レコード</p>
@@ -429,7 +429,7 @@ const HomePage = () => {
         </Row>
       </Container>
 
-      <div className="FooterWrapper" style={{ marginTop: '100px' }}>
+      <div className="FooterWrapper" style={{marginTop:"50px"}}>
         <Footer />
       </div>
     </div>
