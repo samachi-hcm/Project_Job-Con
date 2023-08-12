@@ -10,10 +10,12 @@ import { getUserData } from '../Firebase';
 import { db } from '../Firebase';
 import { Container, Row, Col, Accordion, Badge } from 'react-bootstrap'; // react-bootstrapコンポーネントをインポート
 import { useViewport } from 'react-viewport-hooks';
+import { css } from '@emotion/react'
+
+/** @jsxImportSource @emotion/react */
 
 // コンポーネントをインポート
-import Header1 from '../components/Header';
-import Footer from '../components/Footer';
+import SideBar from '../components/SideBar';
 import RedirectButton from '../components/RedirectButton';
 import Loading from '../components/Loading';
 
@@ -66,7 +68,7 @@ const HomePage = () => {
   // ウィンドウの幅に応じてフォントサイズを設定
   useEffect(() => {
     setAspect(width/height)
-    console.log(aspect)
+    console.log(width)
   }, [width]);
 
   // ページがロードされた際の処理
@@ -154,6 +156,11 @@ const HomePage = () => {
     navigate('/ReRecord')
   }
 
+  const sideBarColStyle = css`
+    background-color: #5D339D;
+    padding: 0;
+  `
+
   // プロフィール、経歴、レコードのデータがロードされていない場合はローディングを表示
   if (!profileData && !otherProfile) {
     return (
@@ -172,8 +179,8 @@ const HomePage = () => {
     return (
       <Container fluid style={{ flexGrow: '1' }}>
       <Row>
-        <Col lg = {{ span:2 }} style={{backgroundColor:'blue'}}>
-          <p style={{position:'fixed'}}>test</p>
+        <Col xs = {{ span:2 }} css = {sideBarColStyle}>
+          <SideBar />
         </Col>
         <Col lg={{ span: 6, offset: 1}} md={{ span: 10, offset: 1 }}>
           {displayOtherPage ? (
@@ -237,7 +244,7 @@ const HomePage = () => {
               <Row className="CareerW" style={{ border: 'solid 1px #c7c7c7', backgroundColor: 'white', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
                 <Container>
                   <Row>
-                    <p style={{ fontSize: 'x-large', fontWeight: 'bold' }}>経歴</p>
+                    <p  css={css`font-size:x-large; font-weight:bold`} style={{ fontSize: 'x-large', fontWeight: 'bold' }}>経歴</p>
                   </Row>
                   <Row style={{ fontSize: CareerSize }}>
                     {otherCareer &&
