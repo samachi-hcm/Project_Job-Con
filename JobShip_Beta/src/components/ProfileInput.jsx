@@ -8,10 +8,11 @@ import CustomCheckBox from './CustomCheckBox'
 import { useViewport } from 'react-viewport-hooks';
 
 import { useState, useEffect, useRef } from 'react';
+import TextareaInput from './TextareaInput'
 
 
 
-const ProfileInput = ({ familyName, firstName, familyNameE, firstNameE,  gender, job,  savedData, birthDay, errors, customJob }) => {
+const ProfileInput = ({ familyName, firstName, familyNameE, firstNameE,  gender, job,  savedData, birthDay, comment, errors, customJob }) => {
 
   const isJobChecked = (jobLabel) => {
   if (Array.isArray(savedData?.job)) {
@@ -83,6 +84,13 @@ const ProfileInput = ({ familyName, firstName, familyNameE, firstNameE,  gender,
               <p style={{ marginBottom: "5px", marginTop: MarginSize , fontSize:TextSize}}>誕生日</p>
               <Col xs="8">
                 <TextInput placeHolder="2023/04/19" action={birthDay} defaultValue={savedData?.birthDay} error={errors.birthDay}/>
+              </Col>
+            </Row>
+
+            <Row>
+              <p style={{ marginBottom: "5px", marginTop: MarginSize , fontSize:TextSize}}>コメント</p>
+              <Col xs="8">
+                <TextareaInput placeHolder="よろしくお願いします。" action={comment} defaultValue={savedData?.comment} error={errors.comment}/>
               </Col>
             </Row>
           </Col>

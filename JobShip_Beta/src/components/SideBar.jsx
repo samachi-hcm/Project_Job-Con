@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { Container, Row, Col } from 'react-bootstrap'
 import { useViewport } from 'react-viewport-hooks'
 import { useState, useEffect } from 'react'
+import { House } from 'react-bootstrap-icons'
+import { Pen } from 'react-bootstrap-icons'
 
 
 /** @jsxImportSource @emotion/react */
@@ -15,15 +17,17 @@ const SideBar = () => {
   const height = useViewport().vh;
   const [aspect, setAspect] = useState("")
 
-  const [iconWidth, setIconWidth] = useState("")
-  const [logoHeight, setLogoHeight] = useState("")
-  const [containerWidth, setContainerWidth] = useState("")
+  const [JRIconWidth, setJRIconWidth] = useState(25)
+  const [JRLogoHeight, setJRLogoHeight] = useState(25)
+  const [iconSize, setIconSize] = useState(20)
+  const [containerWidth, setContainerWidth] = useState(200)
 
   useEffect(() => {
-    setIconWidth(width / 40)
-    setLogoHeight(width / 40)
+    setJRIconWidth(width / 50)
+    setJRLogoHeight(width / 50)
     setContainerWidth(width / 6)
-  }, [width])
+    setIconSize(width / 60)
+  }, [width,height])
 
   const containerStyle = css`
     width: ${containerWidth}px;
@@ -37,27 +41,41 @@ const SideBar = () => {
     padding: 0;
     height: 100%;
     width: 100%;
+    margin-top: 5px;
+    margin-left: 5px;
+    text-align: left;
   `
 
   const JRIconStyle = css`
     padding: 0;
-    width: ${iconWidth}px;
+    width: ${JRIconWidth}px;
     margin-right: 5px;
   `
 
   const JRLogoStyle = css`
-    height: ${logoHeight}px;
+    height: ${JRLogoHeight}px;
   `
 
-  const iconStyle = css`
-    fill: #fdfdfd;
-    height: 30px;
-    width: 30px;
+  const borderStyle = css`
+    border-bottom: 2px solid #B497B5;
+    margin-top: 20px;
+    margin-left: ${iconSize/5}px;
+    margin-right: ${iconSize/5}px;
+    margin-bottom: 20px;
+    border-radius: 1px;
+  `
+
+  const buttonStyle = css`
+    background: none;
+    border: none;
+    color: #FDFDFD;
+    margin-bottom: ${iconSize}px;
   `
 
   const textStyle = css`
-    line-height: 40px;
     margin: 0;
+    display: inline-block;
+    font-size: 16px;
   `
 
   const JobRecord_Icon = {
@@ -68,10 +86,7 @@ const SideBar = () => {
     imgAddress: "/JobRecord_LogoRE.png"
   };
 
-  const houseSVG = "M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"
-
-
-
+ 
   return (
     <div css={css`
       position: fixed;
@@ -79,6 +94,7 @@ const SideBar = () => {
       padding: 0;
       padding-top: 10px;
       width: ${containerWidth}px;
+      height: ${height}px;
     `}>
       <Container css={containerStyle}>
         <Row>
@@ -89,14 +105,29 @@ const SideBar = () => {
             </button>
           </Col>
         </Row>
+
+        <Row  css = {borderStyle}>  
+        </Row>
+
         <Row>
-          <Col>
-            <button css={JRButtonStyle}>
+          <Col xs = {{ span:"11", offset:"1" }}>
+            <button css={buttonStyle}>
               <Row>
-                <Col xs="2">
+                <Col xs = "auto">
+                  <House size={iconSize} />
                 </Col>
-                <Col>
-                  <p css = {textStyle}>ホーム</p>
+                <Col xs = "auto">
+                <p css = {textStyle}>ホーム</p>
+                </Col>
+              </Row>
+            </button>
+            <button css={buttonStyle}>
+              <Row>
+                <Col xs = "auto">
+                  <Pen size={iconSize} />
+                </Col>
+                <Col xs = "auto">
+                <p css = {textStyle}>マイページ</p>
                 </Col>
               </Row>
             </button>

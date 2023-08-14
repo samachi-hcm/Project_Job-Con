@@ -148,6 +148,10 @@ const HomePage = () => {
 
   const navigate = useNavigate()
 
+  const toReProfile = () => {
+    navigate('/ReProfile')
+  }
+
   const toReCareer = () => {
     navigate('/ReProfile')
   }
@@ -159,6 +163,8 @@ const HomePage = () => {
   const sideBarColStyle = css`
     background-color: #5D339D;
     padding: 0;
+    display: flex;
+    height: ${height*1.2}px;
   `
 
   // プロフィール、経歴、レコードのデータがロードされていない場合はローディングを表示

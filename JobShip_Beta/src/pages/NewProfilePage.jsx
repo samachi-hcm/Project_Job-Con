@@ -131,6 +131,7 @@ const NewProfilePage = () => {
                     firstNameE={register(`firstNameE`)}
                     gender={register(`gender`)}
                     birthDay={register(`birthDay`, { required: '生年月日の入力は必須です' })}
+                    comment={register(`comment`)}
                     customJob={register(`customJob`)}
                     job={register(`job`)} 
                     savedData={savedData}
