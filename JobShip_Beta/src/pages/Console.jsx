@@ -92,45 +92,45 @@ const Console = ({ allowedUser }) => {
     setShowModal3(false);
   };
 
- // Consoleコンポーネント内のonSubmit関数
-const onSubmit = async (data) => {
-  data.description = data.description.replace(/\n/g, '¥n');
-  data.require = data.require.replace(/\n/g, '¥n');
-  data.award = data.award.replace(/\n/g, '¥n');
-  data.place = data.place.replace(/\n/g, '¥n');
-  data.aboutUs = data.aboutUs.replace(/\n/g, '¥n');
+  // Consoleコンポーネント内のonSubmit関数
+  const onSubmit = async (data) => {
+    data.description = data.description.replace(/\n/g, '¥n');
+    data.require = data.require.replace(/\n/g, '¥n');
+    data.award = data.award.replace(/\n/g, '¥n');
+    data.place = data.place.replace(/\n/g, '¥n');
+    data.aboutUs = data.aboutUs.replace(/\n/g, '¥n');
 
-  try {
-    const file1 = fileData1;
-    const file2 = fileData2;
-    const file3 = fileData3;
+    try {
+      const file1 = fileData1;
+      const file2 = fileData2;
+      const file3 = fileData3;
 
-    // ファイルが選択されているか確認
-    if (file1) {
-      const storageRef = ref(storage, `/Project/${data.id}/icon/img0.png`);
-      await uploadBytes(storageRef, file1);
-      console.log('ファイル1がアップロードされました');
+      // ファイルが選択されているか確認
+      if (file1) {
+        const storageRef = ref(storage, `/Project/${data.id}/icon/img0.png`);
+        await uploadBytes(storageRef, file1);
+        console.log('ファイル1がアップロードされました');
+      }
+
+      if (file2) {
+        const storageRef = ref(storage, `/Project/${data.id}/main/img0.png`);
+        await uploadBytes(storageRef, file2);
+        console.log('ファイル2がアップロードされました');
+      }
+
+      if (file3) {
+        const storageRef = ref(storage, `/Project/${data.id}/manager/img0.png`);
+        await uploadBytes(storageRef, file3);
+        console.log('ファイル3がアップロードされました');
+      }
+
+      await setDoc(doc(db, `/ProjectData/${data.id}/Data/projectData`), {
+        data
+      });
+    } catch (error) {
+      console.error('データの送信中にエラーが発生しました', error);
     }
-
-    if (file2) {
-      const storageRef = ref(storage, `/Project/${data.id}/main/img0.png`);
-      await uploadBytes(storageRef, file2);
-      console.log('ファイル2がアップロードされました');
-    }
-
-    if (file3) {
-      const storageRef = ref(storage, `/Project/${data.id}/manager/img0.png`);
-      await uploadBytes(storageRef, file3);
-      console.log('ファイル3がアップロードされました');
-    }
-
-    await setDoc(doc(db, `/ProjectData/${data.id}/Data/projectData`), {
-      data
-    });
-  } catch (error) {
-    console.error('データの送信中にエラーが発生しました', error);
-  }
-};
+  };
 
   useEffect(() => {
     if (user) {
@@ -189,35 +189,35 @@ const onSubmit = async (data) => {
           </Row>
           <Row style={{ marginTop: "30px" }}>
             <Col xs="8">
-            <Row>
-              <Col xs="auto" style={{ paddingLeft: "0"}}>
-                <CheckBox label="営業" action={register(`tag`)} />
-              </Col>
-              <Col xs="auto" style={{ paddingLeft: "0" }}>
-                <CheckBox label="企画" action={register(`tag`)} />
-              </Col>
-              <Col xs="auto" style={{ paddingLeft: "0" }}>
-                <CheckBox label="人事" action={register(`tag`)} />
-              </Col>
-              <Col xs="auto" style={{ paddingLeft: "0" }}>
-                <CheckBox label="タレント" action={register(`tag`)} />
-              </Col>
-              <Col xs="auto" style={{ paddingLeft: "0" }}>
-                <CheckBox label="エンジニア" action={register(`tag`)} />
-              </Col>
-              <Col xs="auto" style={{ paddingLeft: "0" }}>
-                <CheckBox label="デザイナー" action={register(`tag`)} />
-              </Col>
-              <Col xs="auto" style={{ paddingLeft: "0" }}>
-                <CheckBox label="クリエイター" action={register(`tag`)} />
-              </Col>
-              <Col xs="auto" style={{ paddingLeft: "0" }}>
-                <CheckBox label="マーケティング" action={register(`tag`)} />
-              </Col>
-              <Col xs="auto" style={{ paddingLeft: "0" }}>
-                <CheckBox label="ライター" action={register(`tag`)} />
-              </Col>
-            </Row>
+              <Row>
+                <Col xs="auto" style={{ paddingLeft: "0" }}>
+                  <CheckBox label="営業" action={register(`tag`)} />
+                </Col>
+                <Col xs="auto" style={{ paddingLeft: "0" }}>
+                  <CheckBox label="企画" action={register(`tag`)} />
+                </Col>
+                <Col xs="auto" style={{ paddingLeft: "0" }}>
+                  <CheckBox label="人事" action={register(`tag`)} />
+                </Col>
+                <Col xs="auto" style={{ paddingLeft: "0" }}>
+                  <CheckBox label="タレント" action={register(`tag`)} />
+                </Col>
+                <Col xs="auto" style={{ paddingLeft: "0" }}>
+                  <CheckBox label="エンジニア" action={register(`tag`)} />
+                </Col>
+                <Col xs="auto" style={{ paddingLeft: "0" }}>
+                  <CheckBox label="デザイナー" action={register(`tag`)} />
+                </Col>
+                <Col xs="auto" style={{ paddingLeft: "0" }}>
+                  <CheckBox label="クリエイター" action={register(`tag`)} />
+                </Col>
+                <Col xs="auto" style={{ paddingLeft: "0" }}>
+                  <CheckBox label="マーケティング" action={register(`tag`)} />
+                </Col>
+                <Col xs="auto" style={{ paddingLeft: "0" }}>
+                  <CheckBox label="ライター" action={register(`tag`)} />
+                </Col>
+              </Row>
             </Col>
           </Row>
           <Row>
@@ -255,6 +255,7 @@ const onSubmit = async (data) => {
               </Row>
             </Col>
             <RedirectButton buttonRabel={"記事を作成する"} type={"submit"} />
+            
           </Row>
         </Col>
       </Row>
@@ -312,7 +313,7 @@ const onSubmit = async (data) => {
           <Modal.Title>画像を選択</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Form>
+          <Form>
             <Form.Group controlId="fileInput">
               <Form.Control type="file" onChange={handleFile2Change} />
             </Form.Group>
@@ -333,7 +334,7 @@ const onSubmit = async (data) => {
           <Modal.Title>責任者の画像を選択</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Form>
+          <Form>
             <Form.Group controlId="fileInput">
               <Form.Control type="file" onChange={handleFile3Change} />
             </Form.Group>

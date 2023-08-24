@@ -32,9 +32,7 @@ const HomePage = () => {
   const profileData = getUserData('profile');
   const careerData = getUserData('career');
   const recordData = getUserData('record');
-  const accountData = getUserData('account');
   const googleData = getUserData();
-  const profileImg = googleData?.photoURL;
 
   // ビューポートの幅と高さを取得
   const width = useViewport().vw;
@@ -54,82 +52,14 @@ const HomePage = () => {
   const [CareerSize, setCareerSize] = useState('6px');
   const [RecordSize, setRecordSize] = useState('6px');
 
-  // 他ユーザーページを表示するかどうかを管理するステート
-  const [displayOtherPage, setDisplayOtherPage] = useState(false);
-
-  // 他ユーザーのプロフィール、経歴、レコードデータを管理するステート
-  const [otherProfile, setOtherProfile] = useState(null);
-  const [otherCareer, setOtherCareer] = useState(null);
-  const [otherRecord, setOtherRecord] = useState(null);
-  const otherGoogle = getUserData(null, otheruser);
-  const otherImg = otherGoogle?.photoURL;
 
 
   // ウィンドウの幅に応じてフォントサイズを設定
   useEffect(() => {
-    setAspect(width/height)
+    setAspect(width / height)
     console.log(width)
   }, [width]);
-
-  // ページがロードされた際の処理
-  useEffect(() => {
-    if (!loading && user === null) {
-      const urlSearchParams = new URLSearchParams(location.search);
-      const uidParam = urlSearchParams.get('uid');
-
-      if (uidParam) {
-        // URLのuidパラメータが存在する場合、該当するユーザーのデータを表示
-        setOtheruser(uidParam);
-      } else {
-        // URLのuidパラメータが存在しない場合、未ログインユーザーにリダイレクト
-        navigate('/SignupPage');
-      }
-    }
-  }, [user, loading, location]);
-
-  // プロフィール画像を作成するユーティリティ関数
-  const createProfileImage = (data) => {
-    if (data) {
-      return (
-        <Col className="ImgW" xs={4} md={3}>
-          <img src={data} alt="Profile" className="profile-image" style={{ width: '100%', height: 'auto' }} />
-        </Col>
-      );
-    } else {
-      return null;
-    }
-  };
-
-  // ユーザーデータを更新
-  const userDataRef = useRef({});
-
-  useEffect(() => {
-    if (user) {
-      const { photoURL, displayName, email, uid } = auth.currentUser;
-      userDataRef.current = { ...userDataRef.current, photoURL, displayName, email, uid };
-      const url = new URL(window.location.href);
-      url.searchParams.set('uid', uid);
-      window.history.replaceState(null, '', url.toString());
-    }
-  }, [user]);
-
-  // URLパラメータに基づいて他ユーザーページを表示するか判定
-  useEffect(() => {
-    const urlSearchParams = new URLSearchParams(location.search);
-    const uidParam = urlSearchParams.get('uid');
-    if (uidParam && uidParam !== userDataRef.current.uid) {
-      setDisplayOtherPage(true);
-      setOtheruser(uidParam);
-    } else {
-      setDisplayOtherPage(false);
-    }
-
-    if (uidParam && uidParam !== userDataRef.current.uid && !loading) {
-      const newUrl = new URL(window.location.href);
-      newUrl.searchParams.set('uid', uidParam);
-      window.history.replaceState(null, '', newUrl.toString());
-    }
-  }, [location, userDataRef.current.uid, loading]);
+  
 
   const makeLine = (data) => {
     if (data) {
@@ -161,14 +91,80 @@ const HomePage = () => {
   }
 
   const sideBarColStyle = css`
-    background-color: #5D339D;
+    background-color: #093143;
     padding: 0;
     display: flex;
-    height: ${height*1.2}px;
+    height: ${height * 1.2}px;
+    position: fixed;
   `
 
+  const profileWidgetStyle = css`
+    margin-top: 50px;
+    margin-left: ${width * 0.07}px;
+    margin-right: ${width * 0.07}px;
+    height: ${height * 0.58}px;
+    background-color: white;
+    border-radius: 10px;
+    position: relative;
+ `
+
+  const thumbNailStyle = css`
+    height:60%;
+    z-index: -1;
+    border-radius:10px 10px 0 0 ;
+    background-image: url("https://i.ytimg.com/vi/Gtku_jsNgAA/maxresdefault.jpg");
+    background-repeat: no-repeat;
+    background-position: 50% 0%;
+    background-size: auto;
+  `
+
+  const profileImgWrapperStyle = css`
+    height: 30%;
+    aspect-ratio: 1 / 1;
+    background-color: white;
+    position: absolute;
+    top:45%;
+    left:5%;
+    border-radius: 10px;
+    padding: 5px;
+  `
+
+  const profileImageStyle = css`
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #f0f0f0;
+  `
+
+  const nameTextStyle = css`
+    font-size: 36px;
+    padding-left: 10px;
+    font-weight: 200;
+    color: #5D526E;
+  `
+
+  const nameETextStyle = css`
+    font-size: 18px;
+    padding-left: 10px;
+    color: #5D526E;
+  `
+
+  const badgeStyle = css`
+    padding-right: 0;
+    padding-top: 10px;
+  `
+
+  const widgetStyle = css`
+  margin-top: 50px;
+  margin-left: ${width * 0.07}px;
+  margin-right: ${width * 0.07}px;
+  background-color: white;
+  border-radius: 10px;
+  position: relative;
+  padding: 20px;
+`
+
   // プロフィール、経歴、レコードのデータがロードされていない場合はローディングを表示
-  if (!profileData && !otherProfile) {
+  if (!profileData) {
     return (
       <Container>
         <Row>
@@ -181,253 +177,149 @@ const HomePage = () => {
   }
 
   // ホームページの表示
-  if (aspect>1.4){
+  if (aspect > 1.2) {
     return (
-      <Container fluid style={{ flexGrow: '1' }}>
-      <Row>
-        <Col xs = {{ span:2 }} css = {sideBarColStyle}>
-          <SideBar />
-        </Col>
-        <Col lg={{ span: 6, offset: 1}} md={{ span: 10, offset: 1 }}>
-          {displayOtherPage ? (
-            <>
-              {/* 他ユーザーページの表示 */}
-              {/* プロフィール */}
-              <Row className="ProfileW" style={{ marginTop: '50px', paddingRight: '20px' }}>
-                {otherProfile && (
-                  <>
-                    <Container>
-                      <Row>
-                        {createProfileImage(otherImg)}
+      <Container fluid >
+        <Row>
+          <Col xs={{ span: 2 }} css={sideBarColStyle}>
+            <SideBar />
+          </Col>
+          <Col xs={{ span: 8, offset: 2 }} style={{ backgroundColor: "#F0F0F0" }}>
+            
+              <>
+                {/* ユーザーページの表示 */}
+                {/* プロフィール */}
+                <Row className="ProfileW" css={profileWidgetStyle}>
+                  {profileData && (
+                    <>
+                      <Container >
+
+                        {/* サムネイル画像 */}
+                        <Row css={thumbNailStyle}>
+                        </Row>
+
+                        {/* プロフィール画像 */}
+                        <Row css={profileImgWrapperStyle}>
+                          <img src='https://pbs.twimg.com/profile_images/848343638790684672/f4Q-3H3S_400x400.jpg' css={profileImageStyle}></img>
+                        </Row>
+
                         {/* 名前と職業 */}
-                        <Col className="NameSocialW" md={6}>
-                          <Row className="Name" style={{ fontSize: NameSize, fontWeight: "700" }}>
-                            <Col md="auto">{otherProfile.familyName}</Col>
-                            <Col md="auto" style={{ padding: 0 }}>
-                              {otherProfile.firstName}
-                            </Col>
-                          </Row>
-                          {/* 英語名 */}
-                          <Row className="NameE" style={{ fontSize: nameESize }}>
-                            <Col md="auto">{otherProfile.familyNameE}</Col>
-                            <Col md="auto" style={{ padding: 0 }}>
-                              {otherProfile.firstNameE}
-                            </Col>
-                          </Row>
-                          {/* 職業 */}
-                          <Row className="Social">
-                            {Array.isArray(otherProfile.job) ? (
-                              otherProfile.job.map((job, index) => (
-                                <Col md="auto" style={{ paddingRight: '0' }} key={index}>
-                                  <Badge key={index} variant="success">
-                                    {job}
-                                  </Badge>
-                                </Col>
-                              ))
-                            ) : (
-                              <Col md="auto">
-                                <Badge variant="success">{otherProfile.job}</Badge>
-                              </Col>
-                            )}
-
-                            <Col md="auto" style={{ paddingRight: '0' }}>
-                              <Badge variant="success">{otherProfile.customJob}</Badge>
-                            </Col>
-                          </Row>
-                        </Col>
-                      </Row>
-                      <Row style={{ paddingTop: '10px' }}>
-                        <Col md="9"></Col>
-                        <Col md="3" style={{ textAlign: 'right' }}>
-                        </Col>
-                      </Row>
-                    </Container>
-                  </>
-                )}
-              </Row>
-
-              {/* 経歴 */}
-              <Row className="CareerW" style={{ border: 'solid 1px #c7c7c7', backgroundColor: 'white', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
-                <Container>
-                  <Row>
-                    <p  css={css`font-size:x-large; font-weight:bold`} style={{ fontSize: 'x-large', fontWeight: 'bold' }}>経歴</p>
-                  </Row>
-                  <Row style={{ fontSize: CareerSize }}>
-                    {otherCareer &&
-                      otherCareer.map((data, index) => (
-                        <Row key={index}>
-                          <Col md={3}>
-                            {data.year}年 {data.month}月
+                        <Row className="Name" >
+                          <Col xs={{ offset: "3", span: "auto" }} css={nameTextStyle}>
+                            {profileData.familyName}
                           </Col>
-                          <Col md="auto" style={{ overflowWrap: 'break-word' }}>
-                            {data.description}
+                          <Col xs="auto" css={nameTextStyle}>
+                            {profileData.firstName}
+                          </Col>
+
+                          {/*{Array.isArray(profileData.job) ? (
+                            profileData.job.map((job, index) => (
+                              <Col xs="auto" css={badgeStyle} key={index}>
+                                <Badge key={index} variant="success">
+                                  {job}
+                                </Badge>
+                              </Col>
+                            ))
+                          ) : (
+                            <Col md="auto">
+                              <Badge variant="success">{profileData.job}</Badge>
+                            </Col>
+                          )}
+
+                          <Col md="auto" css={badgeStyle}>
+                            <Badge variant="success">{profileData.customJob}</Badge>
+                          </Col>*/}
+                        </Row> 
+
+                        {/* 英語名 */}
+                        <Row className="NameE" >
+                          <Col xs={{ offset: "3", span: "auto" }} css={nameETextStyle}>
+                            {profileData.familyNameE}
+                          </Col>
+                          <Col xs="auto" css={nameETextStyle}>
+                            {profileData.firstNameE}
                           </Col>
                         </Row>
-                      ))}
-                  </Row>
-                  <Row style={{ paddingTop: '10px' }}>
-                    <Col md="9"></Col>
-                    <Col md="3" style={{ textAlign: 'right' }}>
-                    </Col>
-                  </Row>
-                </Container>
-              </Row>
 
-              {/* レコード */}
-              <Row className="RecordW" style={{ border: 'solid 1px #c7c7c7', backgroundColor: 'white', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
-                <Container>
-                  <Row>
-                    <p style={{ fontSize: 'x-large', fontWeight: 'bold' }}>レコード</p>
-                  </Row>
-                  <Row>
-                    {otherRecord &&
-                      otherRecord.map((data, index) => (
-                        <Accordion key={index}>
-                          <Accordion.Item eventKey={index.toString()} key={index}>
-                            <Accordion.Header>
-                              <Col md={3} style={{ fontSize: RecordSize, fontWeight: '500' }}>
-                                {data.year}年 {data.month}月
-                              </Col>
-                              <Col md={8} style={{ fontSize: RecordSize, overflowWrap: 'break-word', fontWeight: '500' }}>
-                                {data.description}
-                              </Col>
-                            </Accordion.Header>
-                            <Accordion.Body style={{ fontWeight: '500' }}>{makeLine(data.detail)}</Accordion.Body>
-                          </Accordion.Item>
-                        </Accordion>
-                      ))}
-                  </Row>
-                  <Row style={{ paddingTop: '10px' }}>
-                    <Col md="9"></Col>
-                    <Col md="3" style={{ textAlign: 'right' }}>
-                    </Col>
-                  </Row>
-                </Container>
-              </Row>
-            </>
-          ) : (
-            <>
-              {/* ユーザーページの表示 */}
-              {/* プロフィール */}
-              <Row className="ProfileW" style={{ marginTop: '50px', paddingRight: '20px' }}>
-                {profileData && (
-                  <>
-                    <Container>
-                      <Row>
-                        {createProfileImage(profileImg)}
-                        {/* 名前と職業 */}
-                        <Col className="NameSocialW" md={6}>
-                          <Row className="Name" style={{ fontSize: NameSize, fontWeight: "700" }}>
-                            <Col md="auto">{profileData.familyName}</Col>
-                            <Col md="auto" style={{ padding: 0 }}>
-                              {profileData.firstName}
-                            </Col>
-                          </Row>
-                          {/* 英語名 */}
-                          <Row className="NameE" style={{ fontSize: nameESize }}>
-                            <Col md="auto">{profileData.familyNameE}</Col>
-                            <Col md="auto" style={{ padding: 0 }}>
-                              {profileData.firstNameE}
-                            </Col>
-                          </Row>
-                          {/* 職業 */}
-                          <Row className="Social">
-                            {Array.isArray(profileData.job) ? (
-                              profileData.job.map((job, index) => (
-                                <Col md="auto" style={{ paddingRight: '0' }} key={index}>
-                                  <Badge key={index} variant="success">
-                                    {job}
-                                  </Badge>
-                                </Col>
-                              ))
-                            ) : (
-                              <Col md="auto">
-                                <Badge variant="success">{profileData.job}</Badge>
-                              </Col>
-                            )}
-
-                            <Col md="auto" style={{ paddingRight: '0' }}>
-                              <Badge variant="success">{profileData.customJob}</Badge>
-                            </Col>
-                          </Row>
-                        </Col>
-                      </Row>
-                      <Row style={{ paddingTop: '10px' }}>
-                        <Col md="9"></Col>
-                        <Col md="3" style={{ textAlign: 'right' }}>
-                          <RedirectButton buttonRabel="編集" onClick={() => toReProfile()} />
-                        </Col>
-                      </Row>
-                    </Container>
-                  </>
-                )}
-              </Row>
-
-              {/* 経歴 */}
-              <Row className="CareerW" style={{ border: 'solid 1px #c7c7c7', backgroundColor: 'white', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
-                <Container>
-                  <Row>
-                    <p style={{ fontSize: 'x-large', fontWeight: 'bold' }}>経歴</p>
-                  </Row>
-                  <Row style={{ fontSize: CareerSize }}>
-                    {careerData &&
-                      careerData.map((data, index) => (
-                        <Row key={index}>
-                          <Col md={3}>
-                            {data.year}年 {data.month}月
-                          </Col>
-                          <Col md="auto" style={{ overflowWrap: 'break-word' }}>
-                            {data.description}
+                        <Row style={{ paddingTop: '10px' }}>
+                          <Col md="9"></Col>
+                          <Col md="3" style={{ textAlign: 'right' }}>
+                            <RedirectButton buttonRabel="編集" onClick={() => toReProfile()} />
                           </Col>
                         </Row>
-                      ))}
-                  </Row>
-                  <Row style={{ paddingTop: '10px' }}>
-                    <Col md="9"></Col>
-                    <Col md="3" style={{ textAlign: 'right' }}>
-                      <RedirectButton buttonRabel="編集" onClick={() => toReCareer()} />
-                    </Col>
-                  </Row>
-                </Container>
-              </Row>
+                      </Container>
+                    </>
+                  )}
+                </Row>
 
-              {/* レコード */}
-              <Row className="RecordW" style={{ border: 'solid 1px #c7c7c7', backgroundColor: 'white', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
-                <Container>
-                  <Row>
-                    <p style={{ fontSize: 'x-large', fontWeight: 'bold' }}>レコード</p>
-                  </Row>
-                  <Row>
-                    {recordData &&
-                      recordData.map((data, index) => (
-                        <Accordion key={index}>
-                          <Accordion.Item eventKey={index.toString()} key={index}>
-                            <Accordion.Header>
-                              <Col md={3} style={{ fontSize: RecordSize, fontWeight: '500' }}>
-                                {data.year}年 {data.month}月
-                              </Col>
-                              <Col md={8} style={{ fontSize: RecordSize, overflowWrap: 'break-word', fontWeight: '500' }}>
-                                {data.description}
-                              </Col>
-                            </Accordion.Header>
-                            <Accordion.Body style={{ fontWeight: '500' }}>{makeLine(data.detail)}</Accordion.Body>
-                          </Accordion.Item>
-                        </Accordion>
-                      ))}
-                  </Row>
-                  <Row style={{ paddingTop: '10px' }}>
-                    <Col md="9"></Col>
-                    <Col md="3" style={{ textAlign: 'right' }}>
-                      <RedirectButton buttonRabel="編集" onClick={() => toReRecord()} />
-                    </Col>
-                  </Row>
-                </Container>
-              </Row>
-            </>
-          )}
-        </Col>
-      </Row>
-    </Container>
+                {/* 資格 */}
+                <Row className="CareerW" css = {widgetStyle}>
+                  <Container>
+                    <Row>
+                      <p style={{ fontSize: 'x-large', fontWeight: 'bold' }}>資格</p>
+                    </Row>
+                    <Row style={{ fontSize: CareerSize }}>
+                      {careerData &&
+                        careerData.map((data, index) => (
+                          <Row key={index}>
+                            <Col md={3}>
+                              {data.year}年 {data.month}月
+                            </Col>
+                            <Col md="auto" style={{ overflowWrap: 'break-word' }}>
+                              {data.description}
+                            </Col>
+                          </Row>
+                        ))}
+                    </Row>
+                    <Row style={{ paddingTop: '10px' }}>
+                      <Col md="9"></Col>
+                      <Col md="3" style={{ textAlign: 'right' }}>
+                        <RedirectButton buttonRabel="編集" onClick={() => toReCareer()} />
+                      </Col>
+                    </Row>
+                  </Container>
+                </Row>
+                
+                {/* レコード */}
+                <Row className="RecordW" css = {widgetStyle}>
+                  <Container>
+                    <Row>
+                      <p style={{ fontSize: 'x-large', fontWeight: 'bold' }}>レコード</p>
+                    </Row>
+                    <Row>
+                      {recordData &&
+                        recordData.map((data, index) => (
+                          <Accordion key={index}>
+                            <Accordion.Item eventKey={index.toString()} key={index}>
+                              <Accordion.Header>
+                                <Col md={3} style={{ fontSize: RecordSize, fontWeight: '500' }}>
+                                  {data.year}年 {data.month}月
+                                </Col>
+                                <Col md={8} style={{ fontSize: RecordSize, overflowWrap: 'break-word', fontWeight: '500' }}>
+                                  {data.description}
+                                </Col>
+                              </Accordion.Header>
+                              <Accordion.Body style={{ fontWeight: '500' }}>{makeLine(data.detail)}</Accordion.Body>
+                            </Accordion.Item>
+                          </Accordion>
+                        ))}
+                    </Row>
+                    <Row style={{ paddingTop: '10px' }}>
+                      <Col md="9"></Col>
+                      <Col md="3" style={{ textAlign: 'right' }}>
+                        <RedirectButton buttonRabel="編集" onClick={() => toReRecord()} />
+                      </Col>
+                    </Row>
+                  </Container>
+                </Row>
+              </>
+            )}
+          </Col>
+          <Col xs={{ span: '2' }} style={{ backgroundColor: '#e0e0e0' }}>
+
+          </Col>
+        </Row>
+      </Container>
     )
   }
 };

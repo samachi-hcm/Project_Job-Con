@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom'
 import { Container, Row, Col } from 'react-bootstrap'
 import { useViewport } from 'react-viewport-hooks'
 import { useState, useEffect } from 'react'
-import { House } from 'react-bootstrap-icons'
-import { Pen } from 'react-bootstrap-icons'
+import { House, Pen, Clock  } from 'react-bootstrap-icons'
 
+import WriteButton from './WriteButton'
 
 /** @jsxImportSource @emotion/react */
 
-const SideBar = () => {
+const SideBar = ({}) => {
 
   // ビューポートの幅と高さを取得
   const width = useViewport().vw;
@@ -28,6 +28,7 @@ const SideBar = () => {
     setContainerWidth(width / 6)
     setIconSize(width / 60)
   }, [width,height])
+  
 
   const containerStyle = css`
     width: ${containerWidth}px;
@@ -70,6 +71,7 @@ const SideBar = () => {
     border: none;
     color: #FDFDFD;
     margin-bottom: ${iconSize}px;
+    display: block;
   `
 
   const textStyle = css`
@@ -111,6 +113,7 @@ const SideBar = () => {
 
         <Row>
           <Col xs = {{ span:"11", offset:"1" }}>
+
             <button css={buttonStyle}>
               <Row>
                 <Col xs = "auto">
@@ -121,6 +124,18 @@ const SideBar = () => {
                 </Col>
               </Row>
             </button>
+
+            <button css={buttonStyle}>
+              <Row>
+                <Col xs = "auto">
+                  <Clock size={iconSize} />
+                </Col>
+                <Col xs = "auto">
+                <p css = {textStyle}>タイムライン</p>
+                </Col>
+              </Row>
+            </button>
+
             <button css={buttonStyle}>
               <Row>
                 <Col xs = "auto">
@@ -132,6 +147,8 @@ const SideBar = () => {
               </Row>
             </button>
           </Col>
+          
+          <WriteButton />
         </Row>
       </Container>
     </div>

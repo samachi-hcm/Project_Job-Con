@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './Firebase';
 import HomePage from './pages/HomePage';
+import UserPage from './pages/UserPage';
 import SignupPage from './pages/SignupPage' 
 import NewProfilePage from './pages/NewProfilePage'
 import NewCareerPage from './pages/NewCareerPage';
@@ -23,6 +24,7 @@ import ApplyPage from './pages/ApplyPage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import CheckApplicants from './pages/CheckApplicants';
+import ImageCropper from './components/ImageCropper'
 import "./App.css"
 
 
@@ -37,6 +39,7 @@ function App() {
     <div className='App' style={{fontFamily:"Noto Sans JP" , fontWeight:"500"}}>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="User" element={<UserPage />} />
         <Route path="SignupPage" element={<SignupPage />} />
         <Route path="NewProfilePage" element={<NewProfilePage />} />
         <Route path='NewCareerPage' element={<NewCareerPage />} />
@@ -54,6 +57,7 @@ function App() {
         <Route path="ApplyPage/:id" element={<ApplyPage />} />
         <Route path="PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="TermsOfService" element={<TermsOfService />} />
+        <Route path="ImageCropper" element={<ImageCropper />} />
         <Route path='*' element={<NoMatchPage />} />
       </Routes>
     </div>
