@@ -2,9 +2,10 @@ import React from 'react'
 import { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form'
 import { collection, getFirestore, addDoc, setDoc, doc, getDoc } from 'firebase/firestore'
+import { getStorage, ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../Firebase';
-import { db } from '../Firebase';
+import { db,storage } from '../Firebase';
 import { Col, Container, Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 
@@ -28,6 +29,8 @@ const ReProfile = () => {const [user, loading] = useAuthState(auth)
   const userDataRef = useRef({});
 
   const [isUser, setIsUser] = useState(null)
+
+  const [profileImg, setProfileImg] = useState(null)
 
   useEffect(() => {
     if (user) {
@@ -66,11 +69,17 @@ const ReProfile = () => {const [user, loading] = useAuthState(auth)
 
   const onSubmit = async (formData) => {
     console.log(formData)
+    if (profileImg) {
+      const storageRef = ref(storage, `/user/${userDataRef.current.uid}/profileImg/profile.jpeg`);
+      console.log(profileImg)
+      await uploadBytes(storageRef, profileImg);
+      console.log('ファイル1がアップロードされました');
+    }
     userDataRef.current = { ...userDataRef.current, formData }
     await setDoc(doc(db, "UserData", userDataRef.current.uid, "Data", `profileData`), {
       formData,
     });
-    toHome()
+    //toHome()
   };
 
   useEffect(() => {
@@ -118,6 +127,7 @@ const ReProfile = () => {const [user, loading] = useAuthState(auth)
                     control={control}
                     isUser={isUser}
                     errors={errors}
+                    setProfileImage={setProfileImg}
                   />
                 </Row>
                 <Row>

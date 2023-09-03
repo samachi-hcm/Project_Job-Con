@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Container, Row, Col } from 'react-bootstrap'
 import { useViewport } from 'react-viewport-hooks'
 import { useState, useEffect } from 'react'
-import { House, Pen, Clock  } from 'react-bootstrap-icons'
+import { House, Pen, Clock } from 'react-bootstrap-icons'
 
 import WriteButton from './WriteButton'
 

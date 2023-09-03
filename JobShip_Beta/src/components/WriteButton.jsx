@@ -4,7 +4,7 @@ import { Modal, Row, Col, Container } from 'react-bootstrap'
 import { css } from '@emotion/react'
 import { Pen } from 'react-bootstrap-icons'
 import { useForm } from 'react-hook-form'
-import { collection, getFirestore, addDoc, setDoc, doc, getDoc } from 'firebase/firestore';
+import { collection, getFirestore, addDoc, setDoc, doc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { DateTime } from 'luxon'
 
@@ -22,6 +22,7 @@ import ImageCropper from './ImageCropper'
 
 const WriteButton = () => {
 
+  const [timeLineData, setTimeLineData] = useState([{}])
   const [showModal, setShowModal] = useState(false)
   const [image, setImage] = useState(null)
   const [imgSrc, setImgSrc] = useState(null)
@@ -38,7 +39,7 @@ const WriteButton = () => {
     }
   }, [user]);
 
-  const timeLineData = getUserData('timeLine')
+  const savedTimeLineData = getUserData('timeLine')
   
 
   //タイムライン作成が初めてか否かのフラグ
@@ -47,8 +48,7 @@ const WriteButton = () => {
   
   //タイムライン作成が初めてか否かを判定し、sideBarのpropsに送信
   useEffect(() => {
-    console.log(timeLineData)
-    if(!timeLineData){
+    if(!savedTimeLineData){
       setIsTimeLineWrited(false)
       console.log("this is first timeline")
     }
@@ -56,17 +56,21 @@ const WriteButton = () => {
       setIsTimeLineWrited(true)
       console.log("this is not first timeline")
     }
-  }, [timeLineData])
+  }, [savedTimeLineData])
 
   const handleCloseModal = () => {
     setShowModal(false)
   }
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (e) => {
     const timestamp = DateTime.now(); // タイムスタンプを取得
     const formattedTimestamp = timestamp.toFormat('yyyy-MM-dd HH:mm:ss'); // カスタムフォーマットで文字情報に変換
-    console.log(formattedTimestamp)
-    const formData = data
+    const serverTimeStamp = new serverTimestamp()
+    const comment = ""
+    const favorite = 0
+    console.log(serverTimeStamp)
+    const data = {...e, serverTimeStamp,comment,favorite}
+    const formData = { [formattedTimestamp]:data }
     console.log(formData)
     if(!isTimeLineWrited){
       await setDoc(doc(db, "UserData", userDataRef.current.uid, "Data", `timeLineData`), {
@@ -76,8 +80,7 @@ const WriteButton = () => {
     else {
       await setDoc(doc(db, "UserData", userDataRef.current.uid, "Data", `timeLineData`), {
         formData
-      })
-    
+      },{merge:true})
     }
   };
 

@@ -8,7 +8,7 @@ import { FileEarmarkImage } from "react-bootstrap-icons";
 
 /** @jsxImportSource @emotion/react */
 
-const ImageCropper = ({setImage}) => {
+const ImageCropper = ({setProfileImage}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [imgSrc, setImgSrc] = useState("");
   const [zoom, setZoom] = useState(1);
@@ -23,11 +23,6 @@ const ImageCropper = ({setImage}) => {
     console.log(inputRef.current)
     inputRef.current.click()
   }
-
-  useEffect(() => {
-    console.log(croppedImgSrc)
-  }, [croppedImgSrc])
-
 
   const onFileChange = useCallback(
     async (e) => {
@@ -70,8 +65,8 @@ const ImageCropper = ({setImage}) => {
     if (!croppedAreaPixels) return;
     try {
       const croppedImage = await getCroppedImg(imgSrc, croppedAreaPixels);
-      setCroppedImgSrc(croppedImage);
-      setImage(croppedImage)
+      setCroppedImgSrc(croppedImage.address);
+      setProfileImage(croppedImage.object)
     } catch (e) {
       console.error(e);
     }
@@ -95,7 +90,7 @@ const ImageCropper = ({setImage}) => {
   return (
     <div>
       <div className="file-upload-container">
-        <button onClick={() => fileUpload()} css = {uploadButtonStyle}>
+        <button type="button" onClick={() => fileUpload()} css = {uploadButtonStyle}>
           <FileEarmarkImage size={50} opacity={0.5}/>
         </button>
         <input type="file" accept="image/*" onChange={onFileChange} ref={inputRef} css = {inputStyle}/>

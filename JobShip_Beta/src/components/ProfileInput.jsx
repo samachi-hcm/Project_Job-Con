@@ -5,6 +5,7 @@ import RadioButton from './RadioButton'
 import TextInput from './TextInput'
 import CheckBox from './CheckBox'
 import CustomCheckBox from './CustomCheckBox'
+import ImageCropper from './ImageCropper'
 import { useViewport } from 'react-viewport-hooks';
 
 import { useState, useEffect, useRef } from 'react';
@@ -12,7 +13,8 @@ import TextareaInput from './TextareaInput'
 
 
 
-const ProfileInput = ({ familyName, firstName, familyNameE, firstNameE,  gender, job,  savedData, birthDay, comment, errors, customJob }) => {
+const ProfileInput = ({ familyName, firstName, familyNameE, firstNameE,  gender, job,  savedData, birthDay, comment, errors, customJob, setProfileImage }) => {
+  
 
   const isJobChecked = (jobLabel) => {
   if (Array.isArray(savedData?.job)) {
@@ -53,6 +55,10 @@ const ProfileInput = ({ familyName, firstName, familyNameE, firstNameE,  gender,
       <Container style={{ marginTop: "30px" }}>
         <Row>
           <Col xs="11" lg="5" style={{marginBottom:"5px"}}>
+            <Row>
+              <p style={{ marginBottom: "5px", fontSize:TextSize}}>プロフィール画像</p>
+              <ImageCropper setProfileImage={setProfileImage}/>
+            </Row>
             <Row>
               <p style={{ marginBottom: "5px", fontSize:TextSize}}>名前/Name</p>
               <Col xs="6" >

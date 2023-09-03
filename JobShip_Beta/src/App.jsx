@@ -14,7 +14,7 @@ import FirebaseTest from './pages/FirebaseTest';
 import ReProfile from './pages/ReProfile';
 import ReCareerPage from './pages/ReCareerPage';
 import RePortfolioPage from './pages/RePortfolioPage'
-import Chat from './components/Chat';
+import PersonalTimeLinePage from './pages/PersonalTimeLinePage'
 import EditSheet from './pages/EditSheet';
 import NoMatchPage from './pages/NoMatchPage'
 import Project from './pages/Project';
@@ -24,7 +24,6 @@ import ApplyPage from './pages/ApplyPage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import CheckApplicants from './pages/CheckApplicants';
-import ImageCropper from './components/ImageCropper'
 import "./App.css"
 
 
@@ -40,13 +39,13 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="User" element={<UserPage />} />
+        <Route path="PersonalTimeLine" element={<PersonalTimeLinePage />} />
         <Route path="SignupPage" element={<SignupPage />} />
         <Route path="NewProfilePage" element={<NewProfilePage />} />
         <Route path='NewCareerPage' element={<NewCareerPage />} />
         <Route path='NewPortfolioPage' element={<NewPortfolioPage />} />
         <Route path='ReProfile' element={<ReProfile />} />
         <Route path='ReCareer' element={<ReCareerPage />} />
-        <Route path='Chat' element={<Chat />} />
         <Route path='EditSheet' element={<EditSheet />} />
         <Route path='ReRecord' element={<RePortfolioPage />} />
         <Route path='FirebaseTest' element={<FirebaseTest />} />
@@ -57,7 +56,6 @@ function App() {
         <Route path="ApplyPage/:id" element={<ApplyPage />} />
         <Route path="PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="TermsOfService" element={<TermsOfService />} />
-        <Route path="ImageCropper" element={<ImageCropper />} />
         <Route path='*' element={<NoMatchPage />} />
       </Routes>
     </div>
